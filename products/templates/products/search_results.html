@@ -1,11 +1,12 @@
 {% extends 'main/parent.html' %}
 {% load static %}
-
+ 
+{% block content %} 
 <!-- BEGIN #page-header -->
         <div id="page-header" class="section-container page-header-container bg-black">
             <!-- BEGIN page-header-cover -->
             <div class="page-header-cover">
-                <img src="assets/img/search-cover.jpg" alt="" />
+                <img src="{% static "main/assets/img/search-cover.jpg" %}" alt="" />
             </div>
             <!-- END page-header-cover -->
             <!-- BEGIN container -->
@@ -54,13 +55,13 @@
                             <div class="item-row">
                                 <!-- BEGIN item -->
                                 <div class="item item-thumbnail">
-                                    <a href="product_detail.html" class="item-image">
-                                        <img src="assets/img/iphone.png" alt="" />
+                                    <a href="{% url "product_detail" %}" class="item-image">
+                                        <img src="{% static "main/assets/img/iphone.png" %}" alt="" />
                                         <div class="discount">15% OFF</div>
                                     </a>
                                     <div class="item-info">
                                         <h4 class="item-title">
-                                            <a href="product_detail.html">iPhone 6s Plus<br />16GB</a>
+                                            <a href="{% url "product_detail" %}">iPhone 6s Plus<br />16GB</a>
                                         </h4>
                                         <p class="item-desc">3D Touch. 12MP photos. 4K video.</p>
                                         <div class="item-price">$649.00</div>
@@ -70,13 +71,13 @@
                                 <!-- END item -->
                                 <!-- BEGIN item -->
                                 <div class="item item-thumbnail">
-                                    <a href="product_detail.html" class="item-image">
-                                        <img src="assets/img/samsung-note5.png" alt="" />
+                                    <a href="{% url "product_detail" %}" class="item-image">
+                                        <img src="{% static "main/assets/img/samsung-note5.png" %}" alt="" />
                                         <div class="discount">32% OFF</div>
                                     </a>
                                     <div class="item-info">
                                         <h4 class="item-title">
-                                            <a href="product.html">Samsung Galaxy Note 5<br />Black</a>
+                                            <a href="{% url "product_list" %}">Samsung Galaxy Note 5<br />Black</a>
                                         </h4>
                                         <p class="item-desc">Super. Computer. Now in two sizes.</p>
                                         <div class="item-price">$599.00</div>
@@ -86,13 +87,13 @@
                                 <!-- END item -->
                                 <!-- BEGIN item -->
                                 <div class="item item-thumbnail">
-                                    <a href="product_detail.html" class="item-image">
-                                        <img src="assets/img/iphone-se.png" alt="" />
+                                    <a href="{% url "product_detail" %}" class="item-image">
+                                        <img src="{% static "main/assets/img/iphone-se.png" %}" alt="" />
                                         <div class="discount">20% OFF</div>
                                     </a>
                                     <div class="item-info">
                                         <h4 class="item-title">
-                                            <a href="product.html">iPhone SE<br />32/64Gb</a>
+                                            <a href="{% url "product_list" %}">iPhone SE<br />32/64Gb</a>
                                         </h4>
                                         <p class="item-desc">A big step for small.</p>
                                         <div class="item-price">$499.00</div>
@@ -106,13 +107,13 @@
                             <div class="item-row">
                                 <!-- BEGIN item -->
                                 <div class="item item-thumbnail">
-                                    <a href="product_detail.html" class="item-image">
-                                        <img src="assets/img/zenfone2.png" alt="" />
+                                    <a href="{% url "product_detail" %}" class="item-image">
+                                        <img src="{% static "main/assets/img/zenfone2.png" %}" alt="" />
                                         <div class="discount">15% OFF</div>
                                     </a>
                                     <div class="item-info">
                                         <h4 class="item-title">
-                                            <a href="product_detail.html">Assus ZenFone 2<br />‏(ZE550ML)</a>
+                                            <a href="{% url "product_detail" %}">Assus ZenFone 2<br />‏(ZE550ML)</a>
                                         </h4>
                                         <p class="item-desc">See What Others Can’t See</p>
                                         <div class="item-price">$399.00</div>
@@ -122,13 +123,13 @@
                                 <!-- END item -->
                                 <!-- BEGIN item -->
                                 <div class="item item-thumbnail">
-                                    <a href="product_detail.html" class="item-image">
-                                        <img src="assets/img/xperia-z.png" alt="" />
+                                    <a href="{% url "product_detail" %}" class="item-image">
+                                        <img src="{% static "main/assets/img/xperia-z.png" %}" alt="" />
                                         <div class="discount">32% OFF</div>
                                     </a>
                                     <div class="item-info">
                                         <h4 class="item-title">
-                                            <a href="product.html">Sony Xperia Z<br />Black Color</a>
+                                            <a href="{% url "product_list" %}">Sony Xperia Z<br />Black Color</a>
                                         </h4>
                                         <p class="item-desc">For unexpectedly beautiful moments</p>
                                         <div class="item-price">$599.00</div>
@@ -138,13 +139,13 @@
                                 <!-- END item -->
                                 <!-- BEGIN item -->
                                 <div class="item item-thumbnail">
-                                    <a href="product_detail.html" class="item-image">
-                                        <img src="assets/img/lumia-532.png" alt="" />
+                                    <a href="{% url "product_detail" %}" class="item-image">
+                                        <img src="{% static "main/assets/img/lumia-532.png" %}" alt="" />
                                         <div class="discount">20% OFF</div>
                                     </a>
                                     <div class="item-info">
                                         <h4 class="item-title">
-                                            <a href="product.html">Microsoft Lumia 531<br />Smartphone Orange</a>
+                                            <a href="{% url "product_list" %}">Microsoft Lumia 531<br />Smartphone Orange</a>
                                         </h4>
                                         <p class="item-desc">1 Year Local Manufacturer Warranty</p>
                                         <div class="item-price">$99.00</div>
@@ -158,13 +159,13 @@
                             <div class="item-row">
                                 <!-- BEGIN item -->
                                 <div class="item item-thumbnail">
-                                    <a href="product_detail.html" class="item-image">
-                                        <img src="assets/img/ipad-pro.png" alt="" />
+                                    <a href="{% url "product_detail" %}" class="item-image">
+                                        <img src="{% static "main/assets/img/ipad-pro.png" %}" alt="" />
                                         <div class="discount">15% OFF</div>
                                     </a>
                                     <div class="item-info">
                                         <h4 class="item-title">
-                                            <a href="product_detail.html">9.7-inch iPad Pro<br />32GB</a>
+                                            <a href="{% url "product_detail" %}">9.7-inch iPad Pro<br />32GB</a>
                                         </h4>
                                         <p class="item-desc">3D Touch. 12MP photos. 4K video.</p>
                                         <div class="item-price">$649.00</div>
@@ -174,13 +175,13 @@
                                 <!-- END item -->
                                 <!-- BEGIN item -->
                                 <div class="item item-thumbnail">
-                                    <a href="product_detail.html" class="item-image">
-                                        <img src="assets/img/galaxy-tab2.png" alt="" />
+                                    <a href="{% url "product_detail" %}" class="item-image">
+                                        <img src="{% static "main/assets/img/galaxy-tab2.png" %}" alt="" />
                                         <div class="discount">32% OFF</div>
                                     </a>
                                     <div class="item-info">
                                         <h4 class="item-title">
-                                            <a href="product.html">Samsung Galaxy Tab S2<br />Black</a>
+                                            <a href="{% url "product_list" %}">Samsung Galaxy Tab S2<br />Black</a>
                                         </h4>
                                         <p class="item-desc">A Brilliant Screen That Adjusts to You</p>
                                         <div class="item-price">$399.99</div>
@@ -190,13 +191,13 @@
                                 <!-- END item -->
                                 <!-- BEGIN item -->
                                 <div class="item item-thumbnail">
-                                    <a href="product_detail.html" class="item-image">
-                                        <img src="assets/img/galaxy-taba.png" alt="" />
+                                    <a href="{% url "product_detail" %}" class="item-image">
+                                        <img src="{% static "main/assets/img/galaxy-taba.png" %}" alt="" />
                                         <div class="discount">20% OFF</div>
                                     </a>
                                     <div class="item-info">
                                         <h4 class="item-title">
-                                            <a href="product.html">Samsung Galaxy Tab A<br />9.7" 16Gb(Wi-Fi)</a>
+                                            <a href="{% url "product_list" %}">Samsung Galaxy Tab A<br />9.7" 16Gb(Wi-Fi)</a>
                                         </h4>
                                         <p class="item-desc">Keep All Your Samsung Devices In Sync</p>
                                         <div class="item-price">$349.99</div>
@@ -210,13 +211,13 @@
                             <div class="item-row">
                                 <!-- BEGIN item -->
                                 <div class="item item-thumbnail">
-                                    <a href="product_detail.html" class="item-image">
-                                        <img src="assets/img/hp-spectrex2.png" alt="" />
+                                    <a href="{% url "product_detail" %}" class="item-image">
+                                        <img src="{% static "main/assets/img/hp-spectrex2.png" %}" alt="" />
                                         <div class="discount">15% OFF</div>
                                     </a>
                                     <div class="item-info">
                                         <h4 class="item-title">
-                                            <a href="product_detail.html">HP Spectre x2<br />‏12-a011nr</a>
+                                            <a href="{% url "product_detail" %}">HP Spectre x2<br />‏12-a011nr</a>
                                         </h4>
                                         <p class="item-desc">Our thinnest detachable separates from all others.</p>
                                         <div class="item-price">$799.99</div>
@@ -226,13 +227,13 @@
                                 <!-- END item -->
                                 <!-- BEGIN item -->
                                 <div class="item item-thumbnail">
-                                    <a href="product_detail.html" class="item-image">
-                                        <img src="assets/img/xperia-z2.png" alt="" />
+                                    <a href="{% url "product_detail" %}" class="item-image">
+                                        <img src="{% static "main/assets/img/xperia-z2.png" %}" alt="" />
                                         <div class="discount">32% OFF</div>
                                     </a>
                                     <div class="item-info">
                                         <h4 class="item-title">
-                                            <a href="product.html">Sony Xperia Z2 Tablet<br />Black Color</a>
+                                            <a href="{% url "product_list" %}">Sony Xperia Z2 Tablet<br />Black Color</a>
                                         </h4>
                                         <p class="item-desc">For unexpectedly beautiful moments</p>
                                         <div class="item-price">$199.00</div>
@@ -242,13 +243,13 @@
                                 <!-- END item -->
                                 <!-- BEGIN item -->
                                 <div class="item item-thumbnail">
-                                    <a href="product_detail.html" class="item-image">
-                                        <img src="assets/img/ipad-air.png" alt="" />
+                                    <a href="{% url "product_detail" %}" class="item-image">
+                                        <img src="{% static "main/assets/img/ipad-air.png" %}" alt="" />
                                         <div class="discount">20% OFF</div>
                                     </a>
                                     <div class="item-info">
                                         <h4 class="item-title">
-                                            <a href="product.html">iPad Air 2<br />32/64Gb</a>
+                                            <a href="{% url "product_list" %}">iPad Air 2<br />32/64Gb</a>
                                         </h4>
                                         <p class="item-desc">Light. Heavyweight.</p>
                                         <div class="item-price">$399.00</div>
@@ -278,7 +279,7 @@
                     <!-- BEGIN search-sidebar -->
                     <div class="search-sidebar">
                         <h4 class="title">Filter By</h4>
-                        <form action="search_results.html" method="POST" name="filter_form">
+                        <form action="{% url "product_search" %}" method="POST" name="filter_form">
                             <div class="form-group">
                                 <label class="control-label">Keywords</label>
                                 <input type="text" class="form-control input-sm" name="keyword" value="Mobile Phones" placeholder="Enter Keywords" />
@@ -321,3 +322,4 @@
             <!-- END container -->
         </div>
         <!-- END search-results -->
+         {% endblock %}

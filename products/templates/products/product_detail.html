@@ -1,13 +1,15 @@
 {% extends 'main/parent.html' %}
 {% load static %}
 
+{% block content %} 
+
 <!-- BEGIN #product -->
         <div id="product" class="section-container p-t-20">
             <!-- BEGIN container -->
             <div class="container">
                 <!-- BEGIN breadcrumb -->
                 <ul class="breadcrumb m-b-10 f-s-12">
-                    <li><a href="#">Home</a></li>
+                    <li><a href="{% url "home" %}">Home</a></li>
                     <li><a href="#">Mobile Phone</a></li>
                     <li><a href="#">Apple</a></li>
                     <li class="active">iPhone 6S Plus</li>
@@ -24,7 +26,7 @@
                             <div class="product-thumbnail">
                                 <ul class="product-thumbnail-list">
                                     <li class="active"><a href="#" data-click="show-main-image" data-url="assets/img/iphone-6s-plus-2.jpg"><img src="assets/img/iphone-6s-plus-2.jpg" alt="" /></a></li>
-                                    <li><a href="#" data-click="show-main-image" data-url="assets/img/iphone-6s-plus-3.jpg"><img src="assets/img/iphone-6s-plus-3.jpg" alt="" /></a></li>
+                                    <li><a href="#" data-click="show-main-image" data-url="assets/img/iphone-6s-plus-3.jpg"><img src="mainassets/img/iphone-6s-plus-3.jpg" alt="" /></a></li>
                                     <li><a href="#" data-click="show-main-image" data-url="assets/img/iphone-6s-plus-4.jpg"><img src="assets/img/iphone-6s-plus-4.jpg" alt="" /></a></li>
                                     <li><a href="#" data-click="show-main-image" data-url="assets/img/iphone-6s-plus-5.jpg"><img src="assets/img/iphone-6s-plus-5.jpg" alt="" /></a></li>
                                     <li><a href="#" data-click="show-main-image" data-url="assets/img/iphone-6s-plus-6.jpg"><img src="assets/img/iphone-6s-plus-6.jpg" alt="" /></a></li>
@@ -34,7 +36,7 @@
                             <!-- END product-thumbnail -->
                             <!-- BEGIN product-main-image -->
                             <div class="product-main-image" data-id="main-image">
-                                <img src="assets/img/iphone-6s-plus.png" alt="" />
+                                <img src="{% static "main/assets/img/iphone-6s-plus.png" %}" alt="" />
                             </div>
                             <!-- END product-main-image -->
                         </div>
@@ -114,7 +116,7 @@
                                 <!-- BEGIN product-desc -->
                                 <div class="product-desc">
                                     <div class="image">
-                                        <img src="assets/img/product-main.jpg" alt="" />
+                                        <img src="{% static "main/assets/img/product-main.jpg" %}" alt="" />
                                     </div>
                                     <div class="desc">
                                         <h4>iPhone 6s</h4>
@@ -127,7 +129,7 @@
                                 <!-- BEGIN product-desc -->
                                 <div class="product-desc right">
                                     <div class="image">
-                                        <img src="assets/img/product-3dtouch.jpg" alt="" />
+                                        <img src="{% static "main/assets/img/product-3dtouch.jpg" %}" alt="" />
                                     </div>
                                     <div class="desc">
                                         <h4>3D Touch</h4>
@@ -140,7 +142,7 @@
                                 <!-- BEGIN product-desc -->
                                 <div class="product-desc">
                                     <div class="image">
-                                        <img src="assets/img/product-cameras.jpg" alt="" />
+                                        <img src="{% static "main/assets/img/product-cameras.jpg" %}" alt="" />
                                     </div>
                                     <div class="desc">
                                         <h4>Cameras</h4>
@@ -153,7 +155,7 @@
                                 <!-- BEGIN product-desc -->
                                 <div class="product-desc right">
                                     <div class="image">
-                                        <img src="assets/img/product-technology.jpg" alt="" />
+                                        <img src="{% static "main/assets/img/product-technology.jpg" %}" alt="" />
                                     </div>
                                     <div class="desc">
                                         <h4>Technology</h4>
@@ -166,7 +168,7 @@
                                 <!-- BEGIN product-desc -->
                                 <div class="product-desc">
                                     <div class="image">
-                                        <img src="assets/img/product-design.jpg" alt="" />
+                                        <img src="{% static "main/assets/img/product-design.jpg" %}" alt="" />
                                     </div>
                                     <div class="desc">
                                         <h4>Design</h4>
@@ -307,7 +309,7 @@
                                         <!-- BEGIN review -->
                                         <div class="review">
                                             <div class="review-info">
-                                                <div class="review-icon"><img src="assets/img/user-1.jpg" alt="" /></div>
+                                                <div class="review-icon"><img src="{% static "main/assets/img/user-1.jpg" %}" alt="" /></div>
                                                 <div class="review-rate">
                                                     <ul class="review-star">
                                                         <li class="active"><i class="fa fa-star"></i></li>
@@ -332,7 +334,7 @@
                                         <!-- BEGIN review -->
                                         <div class="review">
                                             <div class="review-info">
-                                                <div class="review-icon"><img src="assets/img/user-2.jpg" alt="" /></div>
+                                                <div class="review-icon"><img src="{% static "main/assets/img/user-2.jpg" %}" alt="" /></div>
                                                 <div class="review-rate">
                                                     <ul class="review-star">
                                                         <li class="active"><i class="fa fa-star"></i></li>
@@ -357,7 +359,7 @@
                                         <!-- BEGIN review -->
                                         <div class="review">
                                             <div class="review-info">
-                                                <div class="review-icon"><img src="assets/img/user-3.jpg" alt="" /></div>
+                                                <div class="review-icon"><img src="{% static "main/assets/img/user-3.jpg" %}" alt="" /></div>
                                                 <div class="review-rate">
                                                     <ul class="review-star">
                                                         <li class="active"><i class="fa fa-star"></i></li>
@@ -382,7 +384,7 @@
                                         <!-- BEGIN review -->
                                         <div class="review">
                                             <div class="review-info">
-                                                <div class="review-icon"><img src="assets/img/user-4.jpg" alt="" /></div>
+                                                <div class="review-icon"><img src="{% static "main/assets/img/user-4.jpg" %}" alt="" /></div>
                                                 <div class="review-rate">
                                                     <ul class="review-star">
                                                         <li class="active"><i class="fa fa-star"></i></li>
@@ -407,7 +409,7 @@
                                         <!-- BEGIN review -->
                                         <div class="review">
                                             <div class="review-info">
-                                                <div class="review-icon"><img src="assets/img/user-5.jpg" alt="" /></div>
+                                                <div class="review-icon"><img src="{% static "main/assets/img/user-5.jpg" %}" alt="" /></div>
                                                 <div class="review-rate">
                                                     <ul class="review-star">
                                                         <li class="active"><i class="fa fa-star"></i></li>
@@ -435,7 +437,7 @@
                                     <div class="col-md-5">
                                         <!-- BEGIN review-form -->
                                         <div class="review-form">
-                                            <form action="product_detail.html" name="review_form" method="POST">
+                                            <form action="{% url "product_detail" %}" name="review_form" method="POST">
                                                 <h2>Write a review</h2>
                                                 <div class="form-group">
                                                     <label for="name">Name <span class="text-danger">*</span></label>
@@ -492,13 +494,13 @@
                     <div class="col-md-2 col-sm-4">
                         <!-- BEGIN item -->
                         <div class="item item-thumbnail">
-                            <a href="product_detail.html" class="item-image">
-                                <img src="assets/img/iphone.png" alt="">
+                            <a href="{% url "product_detail" %}" class="item-image">
+                                <img src="{% static "main/assets/img/iphone.png" %}" alt="">
                                 <div class="discount">15% OFF</div>
                             </a>
                             <div class="item-info">
                                 <h4 class="item-title">
-                                    <a href="product_detail.html">iPhone 6s Plus<br>16GB</a>
+                                    <a href="{% url "product_detail" %}">iPhone 6s Plus<br>16GB</a>
                                 </h4>
                                 <p class="item-desc">3D Touch. 12MP photos. 4K video.</p>
                                 <div class="item-price">$649.00</div>
@@ -510,13 +512,13 @@
                     <div class="col-md-2 col-sm-4">
                         <!-- BEGIN item -->
                         <div class="item item-thumbnail">
-                            <a href="product_detail.html" class="item-image">
-                                <img src="assets/img/samsung-note5.png" alt="">
+                            <a href="{% url "product_detail" %}" class="item-image">
+                                <img src="{% static "main/assets/img/samsung-note5.png" %}" alt="">
                                 <div class="discount">32% OFF</div>
                             </a>
                             <div class="item-info">
                                 <h4 class="item-title">
-                                    <a href="product.html">Samsung Galaxy Note 5<br>Black</a>
+                                    <a href="{% url "product_list" %}">Samsung Galaxy Note 5<br>Black</a>
                                 </h4>
                                 <p class="item-desc">Super. Computer. Now in two sizes.</p>
                                 <div class="item-price">$599.00</div>
@@ -528,13 +530,13 @@
                     <div class="col-md-2 col-sm-4">
                         <!-- BEGIN item -->
                         <div class="item item-thumbnail">
-                            <a href="product_detail.html" class="item-image">
-                                <img src="assets/img/iphone-se.png" alt="">
+                            <a href="{% url "product_detail" %}" class="item-image">
+                                <img src="{% static "main/assets/img/iphone-se.png" %}" alt="">
                                 <div class="discount">20% OFF</div>
                             </a>
                             <div class="item-info">
                                 <h4 class="item-title">
-                                    <a href="product.html">iPhone SE<br>32/64Gb</a>
+                                    <a href="{% url "product_list" %}">iPhone SE<br>32/64Gb</a>
                                 </h4>
                                 <p class="item-desc">A big step for small.</p>
                                 <div class="item-price">$499.00</div>
@@ -546,13 +548,13 @@
                     <div class="col-md-2 col-sm-4">
                         <!-- BEGIN item -->
                         <div class="item item-thumbnail">
-                            <a href="product_detail.html" class="item-image">
-                                <img src="assets/img/zenfone2.png" alt="">
+                            <a href="{% url "product_detail" %}" class="item-image">
+                                <img src="{% static "main/assets/img/zenfone2.png" %}" alt="">
                                 <div class="discount">15% OFF</div>
                             </a>
                             <div class="item-info">
                                 <h4 class="item-title">
-                                    <a href="product_detail.html">Assus ZenFone 2<br>‏(ZE550ML)</a>
+                                    <a href="{% url "product_detail" %}">Assus ZenFone 2<br>‏(ZE550ML)</a>
                                 </h4>
                                 <p class="item-desc">See What Others Can’t See</p>
                                 <div class="item-price">$399.00</div>
@@ -564,13 +566,13 @@
                     <div class="col-md-2 col-sm-4">
                         <!-- BEGIN item -->
                         <div class="item item-thumbnail">
-                            <a href="product_detail.html" class="item-image">
-                                <img src="assets/img/xperia-z.png" alt="">
+                            <a href="{% url "product_detail" %}" class="item-image">
+                                <img src="{% static "main/assets/img/xperia-z.png" %}" alt="">
                                 <div class="discount">32% OFF</div>
                             </a>
                             <div class="item-info">
                                 <h4 class="item-title">
-                                    <a href="product.html">Sony Xperia Z<br>Black Color</a>
+                                    <a href="{% url "product_list" %}">Sony Xperia Z<br>Black Color</a>
                                 </h4>
                                 <p class="item-desc">For unexpectedly beautiful moments</p>
                                 <div class="item-price">$599.00</div>
@@ -582,13 +584,13 @@
                     <div class="col-md-2 col-sm-4">
                         <!-- BEGIN item -->
                         <div class="item item-thumbnail">
-                            <a href="product_detail.html" class="item-image">
-                                <img src="assets/img/lumia-532.png" alt="">
+                            <a href="{% url "product_detail" %}" class="item-image">
+                                <img src="{% static "main/assets/img/lumia-532.png" %}" alt="">
                                 <div class="discount">20% OFF</div>
                             </a>
                             <div class="item-info">
                                 <h4 class="item-title">
-                                    <a href="product.html">Microsoft Lumia 531<br>Smartphone Orange</a>
+                                    <a href="{% url "product_list" %}">Microsoft Lumia 531<br>Smartphone Orange</a>
                                 </h4>
                                 <p class="item-desc">1 Year Local Manufacturer Warranty</p>
                                 <div class="item-price">$99.00</div>
@@ -603,3 +605,4 @@
             <!-- END container -->
         </div>
         <!-- END #product -->
+         {% endblock %}

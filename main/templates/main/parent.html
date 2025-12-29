@@ -77,7 +77,7 @@
                             <span class="icon-bar"></span>
                         </button>
                         <div class="header-logo">
-                            <a href="{% url "main/home" %}">
+                            <a href="{% url "home" %}">
                                 <span class="brand"></span>
                                 <span>Color</span>Admin
                                 <small>e-commerce frontend theme</small>
@@ -89,7 +89,7 @@
                     <div class="header-nav">
                         <div class=" collapse navbar-collapse" id="navbar-collapse">
                             <ul class="nav">
-                                <li><a href="{% url "main/home" %}">Home</a></li>
+                                <li><a href="{% url "home" %}">Home</a></li>
                                 <li class="dropdown dropdown-full-width dropdown-hover">
                                     <a href="#" data-toggle="dropdown">
                                         Our Store 
@@ -104,13 +104,13 @@
                                             <div class="dropdown-menu-sidebar">
                                                 <h4 class="title">Shop By Categories</h4>
                                                 <ul class="dropdown-menu-list">
-                                                    <li><a href="product.html">Mobile Phone <i class="fa fa-angle-right pull-right"></i></a></li>
-                                                    <li><a href="product.html">Tablet <i class="fa fa-angle-right pull-right"></i></a></li>
-                                                    <li><a href="product.html">Laptop <i class="fa fa-angle-right pull-right"></i></a></li>
-                                                    <li><a href="product.html">Desktop <i class="fa fa-angle-right pull-right"></i></a></li>
-                                                    <li><a href="product.html">TV <i class="fa fa-angle-right pull-right"></i></a></li>
-                                                    <li><a href="product.html">Speaker <i class="fa fa-angle-right pull-right"></i></a></li>
-                                                    <li><a href="product.html">Gadget <i class="fa fa-angle-right pull-right"></i></a></li>
+                                                    <li><a href="{% url "product_list" %}">Mobile Phone <i class="fa fa-angle-right pull-right"></i></a></li>
+                                                    <li><a href="{% url "product_list" %}">Tablet <i class="fa fa-angle-right pull-right"></i></a></li>
+                                                    <li><a href="{% url "product_list" %}">Laptop <i class="fa fa-angle-right pull-right"></i></a></li>
+                                                    <li><a href="{% url "product_list" %}">Desktop <i class="fa fa-angle-right pull-right"></i></a></li>
+                                                    <li><a href="{% url "product_list" %}">TV <i class="fa fa-angle-right pull-right"></i></a></li>
+                                                    <li><a href="{% url "product_list" %}">Speaker <i class="fa fa-angle-right pull-right"></i></a></li>
+                                                    <li><a href="{% url "product_list" %}">Gadget <i class="fa fa-angle-right pull-right"></i></a></li>
                                                 </ul>
                                             </div>
                                             <!-- END dropdown-menu-sidebar -->
@@ -120,50 +120,50 @@
                                                 <div class="row">
                                                     <div class="col-md-3">
                                                         <ul class="dropdown-menu-list">
-                                                            <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> iPhone 7</a></li>
-                                                            <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> iPhone 6s</a></li>
-                                                            <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> iPhone 6</a></li>
-                                                            <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> iPhone 5s</a></li>
-                                                            <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> iPhone 5</a></li>
+                                                            <li><a href="{% url "product_detail" %}"><i class="fa fa-fw fa-angle-right text-muted"></i> iPhone 7</a></li>
+                                                            <li><a href="{% url "product_detail" %}"><i class="fa fa-fw fa-angle-right text-muted"></i> iPhone 6s</a></li>
+                                                            <li><a href="{% url "product_detail" %}"><i class="fa fa-fw fa-angle-right text-muted"></i> iPhone 6</a></li>
+                                                            <li><a href="{% url "product_detail" %}"><i class="fa fa-fw fa-angle-right text-muted"></i> iPhone 5s</a></li>
+                                                            <li><a href="{% url "product_detail" %}"><i class="fa fa-fw fa-angle-right text-muted"></i> iPhone 5</a></li>
                                                         </ul>
                                                     </div>
                                                     <div class="col-md-3">
                                                         <ul class="dropdown-menu-list">
-                                                            <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> Galaxy S7</a></li>
-                                                            <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> Galaxy A9</a></li>
-                                                            <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> Galaxy J3</a></li>
-                                                            <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> Galaxy Note 5</a></li>
-                                                            <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> Galaxy S7</a></li>
+                                                            <li><a href="{% url "product_detail" %}"><i class="fa fa-fw fa-angle-right text-muted"></i> Galaxy S7</a></li>
+                                                            <li><a href="{% url "product_detail" %}"><i class="fa fa-fw fa-angle-right text-muted"></i> Galaxy A9</a></li>
+                                                            <li><a href="{% url "product_detail" %}"><i class="fa fa-fw fa-angle-right text-muted"></i> Galaxy J3</a></li>
+                                                            <li><a href="{% url "product_detail" %}"><i class="fa fa-fw fa-angle-right text-muted"></i> Galaxy Note 5</a></li>
+                                                            <li><a href="{% url "product_detail" %}"><i class="fa fa-fw fa-angle-right text-muted"></i> Galaxy S7</a></li>
                                                         </ul>
                                                     </div>
                                                     <div class="col-md-3">
                                                         <ul class="dropdown-menu-list">
-                                                            <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> Lumia 730</a></li>
-                                                            <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> Lumia 735</a></li>
-                                                            <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> Lumia 830</a></li>
-                                                            <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> Lumia 820</a></li>
-                                                            <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> Lumia Icon</a></li>
+                                                            <li><a href="{% url "product_detail" %}"><i class="fa fa-fw fa-angle-right text-muted"></i> Lumia 730</a></li>
+                                                            <li><a href="{% url "product_detail" %}"><i class="fa fa-fw fa-angle-right text-muted"></i> Lumia 735</a></li>
+                                                            <li><a href="{% url "product_detail" %}"><i class="fa fa-fw fa-angle-right text-muted"></i> Lumia 830</a></li>
+                                                            <li><a href="{% url "product_detail" %}"><i class="fa fa-fw fa-angle-right text-muted"></i> Lumia 820</a></li>
+                                                            <li><a href="{% url "product_detail" %}"><i class="fa fa-fw fa-angle-right text-muted"></i> Lumia Icon</a></li>
                                                         </ul>
                                                     </div>
                                                     <div class="col-md-3">
                                                         <ul class="dropdown-menu-list">
-                                                            <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> Xperia X</a></li>
-                                                            <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> Xperia Z5</a></li>
-                                                            <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> Xperia M5</a></li>
-                                                            <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> Xperia C5</a></li>
-                                                            <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> Xperia C4</a></li>
+                                                            <li><a href="{% url "product_detail" %}"><i class="fa fa-fw fa-angle-right text-muted"></i> Xperia X</a></li>
+                                                            <li><a href="{% url "product_detail" %}"><i class="fa fa-fw fa-angle-right text-muted"></i> Xperia Z5</a></li>
+                                                            <li><a href="{% url "product_detail" %}"><i class="fa fa-fw fa-angle-right text-muted"></i> Xperia M5</a></li>
+                                                            <li><a href="{% url "product_detail" %}"><i class="fa fa-fw fa-angle-right text-muted"></i> Xperia C5</a></li>
+                                                            <li><a href="{% url "product_detail" %}"><i class="fa fa-fw fa-angle-right text-muted"></i> Xperia C4</a></li>
                                                         </ul>
                                                     </div>
                                                 </div>
                                                 <h4 class="title">Shop By Brand</h4>
                                                 <ul class="dropdown-brand-list m-b-0">
-                                                    <li><a href="product.html"><img src="{% static "main/assets/img/apple.png" %}" alt="" /></a></li>
-                                                    <li><a href="product.html"><img src="{% static "main/assets/img/samsung.png" %}" alt="" /></a></li>
-                                                    <li><a href="product.html"><img src="{% static "main/assets/img/htc.png" %}" alt="" /></a></li>
-                                                    <li><a href="product.html"><img src="{% static "main/assets/img/microsoft.png" %}" alt="" /></a></li>
-                                                    <li><a href="product.html"><img src="{% static "main/assets/img/nokia.png" %}" alt="" /></a></li>
-                                                    <li><a href="product.html"><img src="{% static "main/assets/img/blackberry.png" %}" alt="" /></a></li>
-                                                    <li><a href="product.html"><img src="{% static "main/assets/img/sony.png" %}" alt="" /></a></li>
+                                                    <li><a href="{% url "product_list" %}"><img src="{% static "main/assets/img/apple.png" %}" alt="" /></a></li>
+                                                    <li><a href="{% url "product_list" %}"><img src="{% static "main/assets/img/samsung.png" %}" alt="" /></a></li>
+                                                    <li><a href="{% url "product_list" %}"><img src="{% static "main/assets/img/htc.png" %}" alt="" /></a></li>
+                                                    <li><a href="{% url "product_list" %}"><img src="{% static "main/assets/img/microsoft.png" %}" alt="" /></a></li>
+                                                    <li><a href="{% url "product_list" %}"><img src="{% static "main/assets/img/nokia.png" %}" alt="" /></a></li>
+                                                    <li><a href="{% url "product_list" %}"><img src="{% static "main/assets/img/blackberry.png" %}" alt="" /></a></li>
+                                                    <li><a href="{% url "product_list" %}"><img src="{% static "main/assets/img/sony.png" %}" alt="" /></a></li>
                                                 </ul>
                                             </div>
                                             <!-- END dropdown-menu-content -->
@@ -179,16 +179,16 @@
                                         <span class="arrow top"></span>
                                     </a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="product.html">Mobile Phone</a></li>
-                                        <li><a href="product.html">Tablet</a></li>
-                                        <li><a href="product.html">TV</a></li>
-                                        <li><a href="product.html">Desktop</a></li>
-                                        <li><a href="product.html">Laptop</a></li>
-                                        <li><a href="product.html">Speaker</a></li>
-                                        <li><a href="product.html">Gadget</a></li>
+                                        <li><a href="{% url "product_list" %}">Mobile Phone</a></li>
+                                        <li><a href="{% url "product_list" %}">Tablet</a></li>
+                                        <li><a href="{% url "product_list" %}">TV</a></li>
+                                        <li><a href="{% url "product_list" %}">Desktop</a></li>
+                                        <li><a href="{% url "product_list" %}">Laptop</a></li>
+                                        <li><a href="{% url "product_list" %}">Speaker</a></li>
+                                        <li><a href="{% url "product_list" %}">Gadget</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="product.html">New Arrival</a></li>
+                                <li><a href="{% url "product_list" %}">New Arrival</a></li>
                                 <li class="dropdown dropdown-hover">
                                     <a href="#" data-toggle="dropdown">
                                         Pages
@@ -196,20 +196,20 @@
                                         <span class="arrow top"></span>
                                     </a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="{% url "main.home" %}">Home (Default)</a></li>
+                                        <li><a href="{% url "home" %}">Home (Default)</a></li>
                                         <li><a href="index_fixed_header.html">Home (Fixed Header)</a></li>
                                         <li><a href="index_inverse_header.html">Home (Inverse Header)</a></li>
-                                        <li><a href="search_results.html">Search Results</a></li>
-                                        <li><a href="product.html">Product Page</a></li>
-                                        <li><a href="product_detail.html">Product Details Page</a></li>
+                                        <li><a href="{% url "product_search" %}">Search Results</a></li>
+                                        <li><a href="{% url "product_list" %}">Product Page</a></li>
+                                        <li><a href="{% url "product_detail" %}">Product Details Page</a></li>
                                         <li><a href="checkout_cart.html">Checkout Cart</a></li>
                                         <li><a href="checkout_info.html">Checkout Shipping</a></li>
                                         <li><a href="checkout_payment.html">Checkout Payment</a></li>
                                         <li><a href="checkout_complete.html">Checkout Complete</a></li>
                                         <li><a href="my_account.html">My Account</a></li>
-                                        <li><a href="contact_us.html">Contact Us</a></li>
-                                        <li><a href="about_us.html">About Us</a></li>
-                                        <li><a href="faq.html">FAQ</a></li>
+                                        <li><a href="{% url "contact_us" %}">Contact Us</a></li>
+                                        <li><a href="{% url "about_us" %}">About Us</a></li>
+                                        <li><a href="{% url "faq" %}">FAQ</a></li>
                                     </ul>
                                 </li>
                                 <li class="dropdown dropdown-hover">
@@ -218,7 +218,7 @@
                                         <span class="arrow top"></span>
                                     </a>
                                     <div class="dropdown-menu p-15">
-                                        <form action="search_results.html" method="POST" name="search_form">
+                                        <form action="{% url "product_search" %}" method="POST" name="search_form">
                                             <div class="input-group">
                                                 <input type="text" placeholder="Search" class="form-control bg-silver-lighter" />
                                                 <span class="input-group-btn">
@@ -325,7 +325,7 @@
                             <span class="icon-bar"></span>
                         </button>
                         <div class="header-logo">
-                            <a href="{% url "main/home" %}">
+                            <a href="{% url "home" %}">
                                 <span class="brand"></span>
                                 <span>Color</span>Admin
                                 <small>e-commerce frontend theme</small>
@@ -352,13 +352,13 @@
                                             <div class="dropdown-menu-sidebar">
                                                 <h4 class="title">Shop By Categories</h4>
                                                 <ul class="dropdown-menu-list">
-                                                    <li><a href="product.html">Mobile Phone <i class="fa fa-angle-right pull-right"></i></a></li>
-                                                    <li><a href="product.html">Tablet <i class="fa fa-angle-right pull-right"></i></a></li>
-                                                    <li><a href="product.html">Laptop <i class="fa fa-angle-right pull-right"></i></a></li>
-                                                    <li><a href="product.html">Desktop <i class="fa fa-angle-right pull-right"></i></a></li>
-                                                    <li><a href="product.html">TV <i class="fa fa-angle-right pull-right"></i></a></li>
-                                                    <li><a href="product.html">Speaker <i class="fa fa-angle-right pull-right"></i></a></li>
-                                                    <li><a href="product.html">Gadget <i class="fa fa-angle-right pull-right"></i></a></li>
+                                                    <li><a href="{% url "product_list" %}">Mobile Phone <i class="fa fa-angle-right pull-right"></i></a></li>
+                                                    <li><a href="{% url "product_list" %}">Tablet <i class="fa fa-angle-right pull-right"></i></a></li>
+                                                    <li><a href="{% url "product_list" %}">Laptop <i class="fa fa-angle-right pull-right"></i></a></li>
+                                                    <li><a href="{% url "product_list" %}">Desktop <i class="fa fa-angle-right pull-right"></i></a></li>
+                                                    <li><a href="{% url "product_list" %}">TV <i class="fa fa-angle-right pull-right"></i></a></li>
+                                                    <li><a href="{% url "product_list" %}">Speaker <i class="fa fa-angle-right pull-right"></i></a></li>
+                                                    <li><a href="{% url "product_list" %}">Gadget <i class="fa fa-angle-right pull-right"></i></a></li>
                                                 </ul>
                                             </div>
                                             <!-- END dropdown-menu-sidebar -->
@@ -368,50 +368,50 @@
                                                 <div class="row">
                                                     <div class="col-md-3">
                                                         <ul class="dropdown-menu-list">
-                                                            <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> iPhone 7</a></li>
-                                                            <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> iPhone 6s</a></li>
-                                                            <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> iPhone 6</a></li>
-                                                            <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> iPhone 5s</a></li>
-                                                            <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> iPhone 5</a></li>
+                                                            <li><a href="{% url "product_detail" %}"><i class="fa fa-fw fa-angle-right text-muted"></i> iPhone 7</a></li>
+                                                            <li><a href="{% url "product_detail" %}"><i class="fa fa-fw fa-angle-right text-muted"></i> iPhone 6s</a></li>
+                                                            <li><a href="{% url "product_detail" %}"><i class="fa fa-fw fa-angle-right text-muted"></i> iPhone 6</a></li>
+                                                            <li><a href="{% url "product_detail" %}"><i class="fa fa-fw fa-angle-right text-muted"></i> iPhone 5s</a></li>
+                                                            <li><a href="{% url "product_detail" %}"><i class="fa fa-fw fa-angle-right text-muted"></i> iPhone 5</a></li>
                                                         </ul>
                                                     </div>
                                                     <div class="col-md-3">
                                                         <ul class="dropdown-menu-list">
-                                                            <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> Galaxy S7</a></li>
-                                                            <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> Galaxy A9</a></li>
-                                                            <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> Galaxy J3</a></li>
-                                                            <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> Galaxy Note 5</a></li>
-                                                            <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> Galaxy S7</a></li>
+                                                            <li><a href="{% url "product_detail" %}"><i class="fa fa-fw fa-angle-right text-muted"></i> Galaxy S7</a></li>
+                                                            <li><a href="{% url "product_detail" %}"><i class="fa fa-fw fa-angle-right text-muted"></i> Galaxy A9</a></li>
+                                                            <li><a href="{% url "product_detail" %}"><i class="fa fa-fw fa-angle-right text-muted"></i> Galaxy J3</a></li>
+                                                            <li><a href="{% url "product_detail" %}"><i class="fa fa-fw fa-angle-right text-muted"></i> Galaxy Note 5</a></li>
+                                                            <li><a href="{% url "product_detail" %}"><i class="fa fa-fw fa-angle-right text-muted"></i> Galaxy S7</a></li>
                                                         </ul>
                                                     </div>
                                                     <div class="col-md-3">
                                                         <ul class="dropdown-menu-list">
-                                                            <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> Lumia 730</a></li>
-                                                            <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> Lumia 735</a></li>
-                                                            <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> Lumia 830</a></li>
-                                                            <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> Lumia 820</a></li>
-                                                            <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> Lumia Icon</a></li>
+                                                            <li><a href="{% url "product_detail" %}"><i class="fa fa-fw fa-angle-right text-muted"></i> Lumia 730</a></li>
+                                                            <li><a href="{% url "product_detail" %}"><i class="fa fa-fw fa-angle-right text-muted"></i> Lumia 735</a></li>
+                                                            <li><a href="{% url "product_detail" %}"><i class="fa fa-fw fa-angle-right text-muted"></i> Lumia 830</a></li>
+                                                            <li><a href="{% url "product_detail" %}"><i class="fa fa-fw fa-angle-right text-muted"></i> Lumia 820</a></li>
+                                                            <li><a href="{% url "product_detail" %}"><i class="fa fa-fw fa-angle-right text-muted"></i> Lumia Icon</a></li>
                                                         </ul>
                                                     </div>
                                                     <div class="col-md-3">
                                                         <ul class="dropdown-menu-list">
-                                                            <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> Xperia X</a></li>
-                                                            <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> Xperia Z5</a></li>
-                                                            <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> Xperia M5</a></li>
-                                                            <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> Xperia C5</a></li>
-                                                            <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> Xperia C4</a></li>
+                                                            <li><a href="{% url "product_detail" %}"><i class="fa fa-fw fa-angle-right text-muted"></i> Xperia X</a></li>
+                                                            <li><a href="{% url "product_detail" %}"><i class="fa fa-fw fa-angle-right text-muted"></i> Xperia Z5</a></li>
+                                                            <li><a href="{% url "product_detail" %}"><i class="fa fa-fw fa-angle-right text-muted"></i> Xperia M5</a></li>
+                                                            <li><a href="{% url "product_detail" %}"><i class="fa fa-fw fa-angle-right text-muted"></i> Xperia C5</a></li>
+                                                            <li><a href="{% url "product_detail" %}"><i class="fa fa-fw fa-angle-right text-muted"></i> Xperia C4</a></li>
                                                         </ul>
                                                     </div>
                                                 </div>
                                                 <h4 class="title">Shop By Brand</h4>
                                                 <ul class="dropdown-brand-list m-b-0">
-                                                    <li><a href="product.html"><img src="{% static "main/assets/img/apple.png" %}" alt="" /></a></li>
-                                                    <li><a href="product.html"><img src="{% static "main/assets/img/samsung.png" %}" alt="" /></a></li>
-                                                    <li><a href="product.html"><img src="{% static "main/assets/img/htc.png" %}" alt="" /></a></li>
-                                                    <li><a href="product.html"><img src="{% static "main/assets/img/microsoft.png" %}" alt="" /></a></li>
-                                                    <li><a href="product.html"><img src="{% static "main/assets/img/nokia.png" %}" alt="" /></a></li>
-                                                    <li><a href="product.html"><img src="{% static "main/assets/img/blackberry.png" %}" alt="" /></a></li>
-                                                    <li><a href="product.html"><img src="{% static "main/assets/img/sony.png" %}" alt="" /></a></li>
+                                                    <li><a href="{% url "product_list" %}"><img src="{% static "main/assets/img/apple.png" %}" alt="" /></a></li>
+                                                    <li><a href="{% url "product_list" %}"><img src="{% static "main/assets/img/samsung.png" %}" alt="" /></a></li>
+                                                    <li><a href="{% url "product_list" %}"><img src="{% static "main/assets/img/htc.png" %}" alt="" /></a></li>
+                                                    <li><a href="{% url "product_list" %}"><img src="{% static "main/assets/img/microsoft.png" %}" alt="" /></a></li>
+                                                    <li><a href="{% url "product_list" %}"><img src="{% static "main/assets/img/nokia.png" %}" alt="" /></a></li>
+                                                    <li><a href="{% url "product_list" %}"><img src="{% static "main/assets/img/blackberry.png" %}" alt="" /></a></li>
+                                                    <li><a href="{% url "product_list" %}"><img src="{% static "main/assets/img/sony.png" %}" alt="" /></a></li>
                                                 </ul>
                                             </div>
                                             <!-- END dropdown-menu-content -->
@@ -427,16 +427,16 @@
                                         <span class="arrow top"></span>
                                     </a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="product.html">Mobile Phone</a></li>
-                                        <li><a href="product.html">Tablet</a></li>
-                                        <li><a href="product.html">TV</a></li>
-                                        <li><a href="product.html">Desktop</a></li>
-                                        <li><a href="product.html">Laptop</a></li>
-                                        <li><a href="product.html">Speaker</a></li>
-                                        <li><a href="product.html">Gadget</a></li>
+                                        <li><a href="{% url "product_list" %}">Mobile Phone</a></li>
+                                        <li><a href="{% url "product_list" %}">Tablet</a></li>
+                                        <li><a href="{% url "product_list" %}">TV</a></li>
+                                        <li><a href="{% url "product_list" %}">Desktop</a></li>
+                                        <li><a href="{% url "product_list" %}">Laptop</a></li>
+                                        <li><a href="{% url "product_list" %}">Speaker</a></li>
+                                        <li><a href="{% url "product_list" %}">Gadget</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="product.html">New Arrival</a></li>
+                                <li><a href="{% url "product_list" %}">New Arrival</a></li>
                                 <li class="dropdown dropdown-hover">
                                     <a href="#" data-toggle="dropdown">
                                         Pages
@@ -444,20 +444,20 @@
                                         <span class="arrow top"></span>
                                     </a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="{% url "main/home" %}">Home (Default)</a></li>
+                                        <li><a href="{% url "home" %}">Home (Default)</a></li>
                                         <li><a href="index_fixed_header.html">Home (Fixed Header)</a></li>
                                         <li><a href="index_inverse_header.html">Home (Inverse Header)</a></li>
-                                        <li><a href="search_results.html">Search Results</a></li>
-                                        <li><a href="product.html">Product Page</a></li>
-                                        <li><a href="product_detail.html">Product Details Page</a></li>
+                                        <li><a href="{% url "product_search" %}">Search Results</a></li>
+                                        <li><a href="{% url "product_list" %}">Product Page</a></li>
+                                        <li><a href="{% url "product_detail" %}">Product Details Page</a></li>
                                         <li><a href="checkout_cart.html">Checkout Cart</a></li>
                                         <li><a href="checkout_info.html">Checkout Shipping</a></li>
                                         <li><a href="checkout_payment.html">Checkout Payment</a></li>
                                         <li><a href="checkout_complete.html">Checkout Complete</a></li>
                                         <li><a href="my_account.html">My Account</a></li>
-                                        <li><a href="{% url "main/contact" %}">Contact Us</a></li>
-                                        <li><a href="{% url "main/about_us" %}">About Us</a></li>
-                                        <li><a href="{% url "main/faq" %}">FAQ</a></li>
+                                        <li><a href="{% url "contact_us" %}">Contact Us</a></li>
+                                        <li><a href="{% url "about_us" %}">About Us</a></li>
+                                        <li><a href="{% url "faq" %}">FAQ</a></li>
                                     </ul>
                                 </li>
                                 <li class="dropdown dropdown-hover">
@@ -466,7 +466,7 @@
                                         <span class="arrow top"></span>
                                     </a>
                                     <div class="dropdown-menu p-15">
-                                        <form action="search_results.html" method="POST" name="search_form">
+                                        <form action="{% url "product_search" %}" method="POST" name="search_form">
                                             <div class="input-group">
                                                 <input type="text" placeholder="Search" class="form-control bg-silver-lighter" />
                                                 <span class="input-group-btn">
@@ -737,13 +737,13 @@
                     <div class="col-md-2 col-sm-4">
                         <!-- BEGIN item -->
                         <div class="item item-thumbnail">
-                            <a href="product_detail.html" class="item-image">
+                            <a href="{% url "product_detail" %}" class="item-image">
                                 <img src="{% static "main/assets/img/iphone.png" %}" alt="" />
                                 <div class="discount">15% OFF</div>
                             </a>
                             <div class="item-info">
                                 <h4 class="item-title">
-                                    <a href="product_detail.html">iPhone 6s Plus<br />16GB</a>
+                                    <a href="{% url "product_detail" %}">iPhone 6s Plus<br />16GB</a>
                                 </h4>
                                 <p class="item-desc">3D Touch. 12MP photos. 4K video.</p>
                                 <div class="item-price">$649.00</div>
@@ -757,13 +757,13 @@
                     <div class="col-md-2 col-sm-4">
                         <!-- BEGIN item -->
                         <div class="item item-thumbnail">
-                            <a href="product_detail.html" class="item-image">
+                            <a href="{% url "product_detail" %}" class="item-image">
                                 <img src="{% static "main/assets/img/ipad-pro.png" %}" alt=""  />
                                 <div class="discount">32% OFF</div>
                             </a>
                             <div class="item-info">
                                 <h4 class="item-title">
-                                    <a href="product.html">9.7-inch iPad Pro<br />32GB</a>
+                                    <a href="{% url "product_list" %}">9.7-inch iPad Pro<br />32GB</a>
                                 </h4>
                                 <p class="item-desc">Super. Computer. Now in two sizes.</p>
                                 <div class="item-price">$599.00</div>
@@ -777,13 +777,13 @@
                     <div class="col-md-2 col-sm-4">
                         <!-- BEGIN item -->
                         <div class="item item-thumbnail">
-                            <a href="product_detail.html" class="item-image">
+                            <a href="{% url "product_detail" %}" class="item-image">
                                 <img src="{% static "main/assets/img/imac.png" %}" alt="" />
                                 <div class="discount">20% OFF</div>
                             </a>
                             <div class="item-info">
                                 <h4 class="item-title">
-                                    <a href="product.html">21.5-inch iMac<br />with Retina Display</a>
+                                    <a href="{% url "product_list" %}">21.5-inch iMac<br />with Retina Display</a>
                                 </h4>
                                 <p class="item-desc">Retina. Now in colossal and ginormous.</p>
                                 <div class="item-price">$1,099.00</div>
@@ -797,13 +797,13 @@
                     <div class="col-md-2 col-sm-4">
                         <!-- BEGIN item -->
                         <div class="item item-thumbnail">
-                            <a href="product_detail.html" class="item-image">
+                            <a href="{% url "product_detail" %}" class="item-image">
                                 <img src="{% static "main/assets/img/apple-watch.png" %}" alt="" />
                                 <div class="discount">13% OFF</div>
                             </a>
                             <div class="item-info">
                                 <h4 class="item-title">
-                                    <a href="product.html">Apple Watch<br />Stainless steel cases</a>
+                                    <a href="{% url "product_list" %}">Apple Watch<br />Stainless steel cases</a>
                                 </h4>
                                 <p class="item-desc">You. At a glance.</p>
                                 <div class="item-price">$599.00</div>
@@ -817,13 +817,13 @@
                     <div class="col-md-2 col-sm-4">
                         <!-- BEGIN item -->
                         <div class="item item-thumbnail">
-                            <a href="product_detail.html" class="item-image">
+                            <a href="{% url "product_detail" %}" class="item-image">
                                 <img src="{% static "main/assets/img/macbook-pro.png" %}" alt="" />
                                 <div class="discount">30% OFF</div>
                             </a>
                             <div class="item-info">
                                 <h4 class="item-title">
-                                    <a href="product.html">MacBook Pro<br />with Retina Display</a>
+                                    <a href="{% url "product_list" %}">MacBook Pro<br />with Retina Display</a>
                                 </h4>
                                 <p class="item-desc">Stunning Retina Display</p>
                                 <div class="item-price">$1299.00</div>
@@ -837,13 +837,13 @@
                     <div class="col-md-2 col-sm-4">
                         <!-- BEGIN item -->
                         <div class="item item-thumbnail">
-                            <a href="product_detail.html" class="item-image">
+                            <a href="{% url "product_detail" %}" class="item-image">
                                 <img src="{% static "main/assets/img/apple-tv.png" %}" alt="" />
                                 <div class="discount">40% OFF</div>
                             </a>
                             <div class="item-info">
                                 <h4 class="item-title">
-                                    <a href="product.html">Apple Tv<br />32GB</a>
+                                    <a href="{% url "product_list" %}">Apple Tv<br />32GB</a>
                                 </h4>
                                 <p class="item-desc">The future of television is here.</p>
                                 <div class="item-price">$149.00</div>
@@ -914,13 +914,13 @@
                             <div class="item-row">
                                 <!-- BEGIN item -->
                                 <div class="item item-thumbnail">
-                                    <a href="product_detail.html" class="item-image">
+                                    <a href="{% url "product_detail" %}" class="item-image">
                                         <img src="{% static "main/assets/img/iphone.png" %}" alt="" />
                                         <div class="discount">15% OFF</div>
                                     </a>
                                     <div class="item-info">
                                         <h4 class="item-title">
-                                            <a href="product_detail.html">iPhone 6s Plus<br />16GB</a>
+                                            <a href="{% url "product_detail" %}">iPhone 6s Plus<br />16GB</a>
                                         </h4>
                                         <p class="item-desc">3D Touch. 12MP photos. 4K video.</p>
                                         <div class="item-price">$649.00</div>
@@ -930,13 +930,13 @@
                                 <!-- END item -->
                                 <!-- BEGIN item -->
                                 <div class="item item-thumbnail">
-                                    <a href="product_detail.html" class="item-image">
+                                    <a href="{% url "product_detail" %}" class="item-image">
                                         <img src="{% static "main/assets/img/samsung-note5.png" %}" alt="" />
                                         <div class="discount">32% OFF</div>
                                     </a>
                                     <div class="item-info">
                                         <h4 class="item-title">
-                                            <a href="product.html">Samsung Galaxy Note 5<br />Black</a>
+                                            <a href="{% url "product_list" %}">Samsung Galaxy Note 5<br />Black</a>
                                         </h4>
                                         <p class="item-desc">Super. Computer. Now in two sizes.</p>
                                         <div class="item-price">$599.00</div>
@@ -952,7 +952,7 @@
                                     </a>
                                     <div class="item-info">
                                         <h4 class="item-title">
-                                            <a href="product.html">iPhone SE<br />32/64Gb</a>
+                                            <a href="{% url "product_list" %}">iPhone SE<br />32/64Gb</a>
                                         </h4>
                                         <p class="item-desc">A big step for small.</p>
                                         <div class="item-price">$499.00</div>
@@ -966,13 +966,13 @@
                             <div class="item-row">
                                 <!-- BEGIN item -->
                                 <div class="item item-thumbnail">
-                                    <a href="product_detail.html" class="item-image">
+                                    <a href="{% url "product_detail" %}" class="item-image">
                                         <img src="{% static "main/assets/img/zenfone2.png" %}" alt="" />
                                         <div class="discount">15% OFF</div>
                                     </a>
                                     <div class="item-info">
                                         <h4 class="item-title">
-                                            <a href="product_detail.html">Assus ZenFone 2<br />‏(ZE550ML)</a>
+                                            <a href="{% url "product_detail" %}">Assus ZenFone 2<br />‏(ZE550ML)</a>
                                         </h4>
                                         <p class="item-desc">See What Others Can’t See</p>
                                         <div class="item-price">$399.00</div>
@@ -988,7 +988,7 @@
                                     </a>
                                     <div class="item-info">
                                         <h4 class="item-title">
-                                            <a href="product.html">Sony Xperia Z<br />Black Color</a>
+                                            <a href="{% url "product_list" %}">Sony Xperia Z<br />Black Color</a>
                                         </h4>
                                         <p class="item-desc">For unexpectedly beautiful moments</p>
                                         <div class="item-price">$599.00</div>
@@ -998,13 +998,13 @@
                                 <!-- END item -->
                                 <!-- BEGIN item -->
                                 <div class="item item-thumbnail">
-                                    <a href="product_detail.html" class="item-image">
+                                    <a href="{% url "product_detail" %}" class="item-image">
                                         <img src="{% static "main/assets/img/lumia-532.png" %}" alt="" />
                                         <div class="discount">20% OFF</div>
                                     </a>
                                     <div class="item-info">
                                         <h4 class="item-title">
-                                            <a href="product.html">Microsoft Lumia 531<br />Smartphone Orange</a>
+                                            <a href="{% url "product_list" %}">Microsoft Lumia 531<br />Smartphone Orange</a>
                                         </h4>
                                         <p class="item-desc">1 Year Local Manufacturer Warranty</p>
                                         <div class="item-price">$99.00</div>
@@ -1073,13 +1073,13 @@
                             <div class="item-row">
                                 <!-- BEGIN item -->
                                 <div class="item item-thumbnail">
-                                    <a href="product_detail.html" class="item-image">
+                                    <a href="{% url "product_detail" %}" class="item-image">
                                         <img src="{% static "main/assets/img/ipad-pro.png" %}" alt="" />
                                         <div class="discount">15% OFF</div>
                                     </a>
                                     <div class="item-info">
                                         <h4 class="item-title">
-                                            <a href="product_detail.html">9.7-inch iPad Pro<br />32GB</a>
+                                            <a href="{% url "product_detail" %}">9.7-inch iPad Pro<br />32GB</a>
                                         </h4>
                                         <p class="item-desc">3D Touch. 12MP photos. 4K video.</p>
                                         <div class="item-price">$649.00</div>
@@ -1089,13 +1089,13 @@
                                 <!-- END item -->
                                 <!-- BEGIN item -->
                                 <div class="item item-thumbnail">
-                                    <a href="product_detail.html" class="item-image">
+                                    <a href="{% url "product_detail" %}" class="item-image">
                                         <img src="{% static "main/assets/img/galaxy-tab2.png" %}" alt="" />
                                         <div class="discount">32% OFF</div>
                                     </a>
                                     <div class="item-info">
                                         <h4 class="item-title">
-                                            <a href="product.html">Samsung Galaxy Tab S2<br />Black</a>
+                                            <a href="{% url "product_list" %}">Samsung Galaxy Tab S2<br />Black</a>
                                         </h4>
                                         <p class="item-desc">A Brilliant Screen That Adjusts to You</p>
                                         <div class="item-price">$399.99</div>
@@ -1105,13 +1105,13 @@
                                 <!-- END item -->
                                 <!-- BEGIN item -->
                                 <div class="item item-thumbnail">
-                                    <a href="product_detail.html" class="item-image">
+                                    <a href="{% url "product_detail" %}" class="item-image">
                                         <img src="{% static "main/assets/img/galaxy-taba.png" %}" alt="" />
                                         <div class="discount">20% OFF</div>
                                     </a>
                                     <div class="item-info">
                                         <h4 class="item-title">
-                                            <a href="product.html">Samsung Galaxy Tab A<br />9.7" 16Gb(Wi-Fi)</a>
+                                            <a href="{% url "product_list" %}">Samsung Galaxy Tab A<br />9.7" 16Gb(Wi-Fi)</a>
                                         </h4>
                                         <p class="item-desc">Keep All Your Samsung Devices In Sync</p>
                                         <div class="item-price">$349.99</div>
@@ -1125,13 +1125,13 @@
                             <div class="item-row">
                                 <!-- BEGIN item -->
                                 <div class="item item-thumbnail">
-                                    <a href="product_detail.html" class="item-image">
+                                    <a href="{% url "product_detail" %}" class="item-image">
                                         <img src="{% static "main/assets/img/hp-spectrex2.png" %}" alt="" />
                                         <div class="discount">15% OFF</div>
                                     </a>
                                     <div class="item-info">
                                         <h4 class="item-title">
-                                            <a href="product_detail.html">HP Spectre x2<br />‏12-a011nr</a>
+                                            <a href="{% url "product_detail" %}">HP Spectre x2<br />‏12-a011nr</a>
                                         </h4>
                                         <p class="item-desc">Our thinnest detachable separates from all others.</p>
                                         <div class="item-price">$799.99</div>
@@ -1141,13 +1141,13 @@
                                 <!-- END item -->
                                 <!-- BEGIN item -->
                                 <div class="item item-thumbnail">
-                                    <a href="product_detail.html" class="item-image">
+                                    <a href="{% url "product_detail" %}" class="item-image">
                                         <img src="{% static "main/assets/img/xperia-z2.png" %}" alt="" />
                                         <div class="discount">32% OFF</div>
                                     </a>
                                     <div class="item-info">
                                         <h4 class="item-title">
-                                            <a href="product.html">Sony Xperia Z2 Tablet<br />Black Color</a>
+                                            <a href="{% url "product_list" %}">Sony Xperia Z2 Tablet<br />Black Color</a>
                                         </h4>
                                         <p class="item-desc">For unexpectedly beautiful moments</p>
                                         <div class="item-price">$199.00</div>
@@ -1157,13 +1157,13 @@
                                 <!-- END item -->
                                 <!-- BEGIN item -->
                                 <div class="item item-thumbnail">
-                                    <a href="product_detail.html" class="item-image">
+                                    <a href="{% url "product_detail" %}" class="item-image">
                                         <img src="{% static "main/assets/img/ipad-air.png" %}" alt="" />
                                         <div class="discount">20% OFF</div>
                                     </a>
                                     <div class="item-info">
                                         <h4 class="item-title">
-                                            <a href="product.html">iPad Air 2<br />32/64Gb</a>
+                                            <a href="{% url "product_list" %}">iPad Air 2<br />32/64Gb</a>
                                         </h4>
                                         <p class="item-desc">Light. Heavyweight.</p>
                                         <div class="item-price">$399.00</div>
@@ -1208,7 +1208,7 @@
                         <ul class="fa-ul">
                             <li><i class="fa fa-li fa-angle-right"></i> <a href="#">Shopping Help</a></li>
                             <li><i class="fa fa-li fa-angle-right"></i> <a href="#">Terms of Use</a></li>
-                            <li><i class="fa fa-li fa-angle-right"></i> <a href="{% url "main/contact" %}">Contact Us</a></li>
+                            <li><i class="fa fa-li fa-angle-right"></i> <a href="{% url "contact_us" %}">Contact Us</a></li>
                             <li><i class="fa fa-li fa-angle-right"></i> <a href="#">Careers</a></li>
                             <li><i class="fa fa-li fa-angle-right"></i> <a href="#">Payment Method</a></li>
                             <li><i class="fa fa-li fa-angle-right"></i> <a href="#">Sales & Refund</a></li>
