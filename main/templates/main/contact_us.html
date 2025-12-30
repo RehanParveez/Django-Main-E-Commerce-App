@@ -40,6 +40,7 @@
                             Sed a condimentum urna. Curabitur placerat ornare venenatis. Cras iaculis venenatis imperdiet.
                         </p>
                         <form class="form-horizontal" name="contact_us_form" action="{% url "contact_us" %}" method="POST">
+                            {% csrf_token %}
                             <div class="form-group">
                                 <label class="control-label col-md-3">Name <span class="text-danger">*</span></label>
                                 <div class="col-md-7">

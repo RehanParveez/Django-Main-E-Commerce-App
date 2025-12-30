@@ -23,7 +23,7 @@ class Products(BaseModel):
         self.quantity -= amount
         self.save()
         
-
+        
 class ProductImage(BaseModel):
     product = models.ForeignKey('Products', on_delete=models.CASCADE, related_name='images')
     image = models.ImageField(upload_to='products/')
@@ -36,10 +36,9 @@ class ProductImage(BaseModel):
         super().save(*args, **kwargs)
        
        
-class Category(BaseModel):
+class Category(models.Model):
     name = models.CharField(max_length=40)
     description = models.TextField(blank=True)
-    image = models.ImageField(upload_to='categories/', blank=True, null=True)
     is_active = models.BooleanField(default=True)
     slug = models.SlugField(unique=True, blank=True)
     
@@ -51,11 +50,10 @@ class Category(BaseModel):
         return self.name
     
     
-class SubCategory(BaseModel):
+class SubCategory(models.Model):
     category = models.ForeignKey('Category', on_delete=models.CASCADE, related_name='subcategories')
     name = models.CharField(max_length=40)
     description = models.TextField(blank=True)
-    image = models.ImageField(upload_to='subcategories/', blank=True, null=True)
     is_active = models.BooleanField(default=True)
     slug = models.SlugField(unique=True)
     
