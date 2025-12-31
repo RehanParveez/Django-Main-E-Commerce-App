@@ -1,5 +1,4 @@
 from django.db import models
-from DjangoMainECommerce.models import BaseModel
 
 # Create your models here.
 class ContactUs(models.Model):
