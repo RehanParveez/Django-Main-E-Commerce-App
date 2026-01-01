@@ -109,9 +109,9 @@ class Category(models.Model):
 class SubCategory(models.Model):
     category = models.ForeignKey('Category', on_delete=models.CASCADE, related_name='subcategories')
     name = models.CharField(max_length=40)
-    description = models.TextField(blank=True)
+    description = models.TextField(blank=True, null=True)
     is_active = models.BooleanField(default=True)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, blank=True)
     
     def save(self, *args, **kwargs):
       self.slug = self.slug or slugify(self.name)
