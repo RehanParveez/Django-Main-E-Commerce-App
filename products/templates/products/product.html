@@ -52,8 +52,15 @@
                         <div class="search-item-container">
                             <!-- BEGIN item-row -->
                             <div class="item-row">
-                                <!-- BEGIN item -->
+                                {% for product in products %}
                                 <div class="item item-thumbnail">
+                                    
+
+                                </div>
+
+                                {% endfor %}
+                                <!-- BEGIN item -->
+                                 <div class="item item-thumbnail">
                                     <a href="{% url "product_detail" %}" class="item-image">
                                         <img src="{% static "main/assets/img/iphone.png" %}" alt="" />
                                         <div class="discount">15% OFF</div>
@@ -205,7 +212,7 @@
                                 </div>
                                 <!-- END item -->
                             </div>
-                            <!-- END item-row -->
+                            <!-- END item-row --> 
                         </div>
                         <!-- END search-item-container -->
                         <!-- BEGIN pagination -->

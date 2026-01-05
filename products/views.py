@@ -3,7 +3,7 @@ from django.views.generic import ListView, DetailView
 from products.models import Products, Category, SubCategory, ProductImage, ProductFeature, ProductReview
 # Create your views here.
 
-class ProductListView(ListView):  
+class ProductListView(ListView):
     model = Products
     template_name = 'products/product.html'
     context_object_name = 'products'
@@ -12,18 +12,17 @@ class ProductListView(ListView):
         return Products.objects.filter(is_active=True)
 
 
-class ProductDetailView(ListView):  # have passed listiew just htat my pages simply run because detail view requires passing of pk or slug in urls which i have not done becuase products are not added and further logic is simple.
+class ProductDetailView(DetailView):  # have passed listiew just htat my pages simply run because detail view requires passing of pk or slug in urls which i have not done becuase products are not added and further logic is simple.
     model = Products
     template_name = 'products/product_detail.html'
     context_object_name = 'product'
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        
-        product = Products.objects.first()  # temporary fix bcz of use of listview instead of detail view above
-        context['images'] = product.images.all()
-        context['features'] = product.features.all()
-        context['reviews'] = product.reviews.all()
+        # product = Products.objects.first()  # temporary fix bcz of use of listview instead of detail view above
+        context['images'] = self.object.images.all()
+        context['features'] = self.features.all()
+        context['reviews'] = self.reviews.all()
         return context
 
 
@@ -52,10 +51,10 @@ class ProductReviewView(ListView):
         return redirect('product_detail', pk=self.object.pk)
     
 
-class CategoryListView(ListView): # have passed listiew just htat my pages simply run because detail view requires passing of pk or slug in urls which i have not done becuase products are not added and further logic is simple.
+class CategoryListView(ListView):
      model = Category
-     template_name = 'products/product_detail.html'
-     context_object_name = 'product'
+     template_name = 'products/product.html'
+     context_object_name = 'products'
      
      def get_queryset(self):
         self.category = get_object_or_404(Category, slug=self.kwargs['slug'], is_active=True)
@@ -67,10 +66,10 @@ class CategoryListView(ListView): # have passed listiew just htat my pages simpl
         return context
      
      
-class SubcategoryListView(ListView):   # have passed listiew just htat my pages simply run because detail view requires passing of pk or slug in urls which i have not done becuase products are not added and further logic is simple.
+class SubcategoryListView(ListView): 
     model = SubCategory
-    template_name = 'products/product_detail.html'
-    context_object_name = 'product'
+    template_name = 'products/product.html'
+    context_object_name = 'products'
     
     def get_queryset(self):
         self.subcategory = get_object_or_404(SubCategory, slug=self.kwargs['slug'], is_active=True)
@@ -80,8 +79,6 @@ class SubcategoryListView(ListView):   # have passed listiew just htat my pages 
         context = super().get_context_data(**kwargs)
         context['subcategory'] = self.subcategory
         return context
-    
-    
-    
+        
 
     

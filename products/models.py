@@ -13,8 +13,8 @@ class Products(BaseModel):
     additional_info = models.TextField(blank=True, null=True)
     price = models.DecimalField(max_digits=8, decimal_places=2)
     is_active = models.BooleanField(default=True)
-    category = models.ForeignKey('Category', on_delete=models.CASCADE, related_name='products')
-    subcategory = models.ForeignKey('SubCategory', on_delete=models.CASCADE, blank=True, null=True)
+    category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True, blank=True, related_name='products')
+    subcategory = models.ForeignKey('SubCategory', on_delete=models.SET_NULL, blank=True, null=True, related_name='products')
     
     def __str__(self):
         return self.name
@@ -110,6 +110,7 @@ class SubCategory(models.Model):
     category = models.ForeignKey('Category', on_delete=models.CASCADE, related_name='subcategories')
     name = models.CharField(max_length=40)
     description = models.TextField(blank=True, null=True)
+    image = models.ImageField(upload_to='subcategories/', blank=True, null=True)
     is_active = models.BooleanField(default=True)
     slug = models.SlugField(unique=True, blank=True)
     

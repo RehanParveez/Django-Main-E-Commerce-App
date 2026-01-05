@@ -19,7 +19,7 @@ class CategoryAdmin(admin.ModelAdmin):
     
 @admin.register(SubCategory)
 class SubCategoryAdmin(admin.ModelAdmin):
-    list_display = ['category', 'name', 'description', 'is_active']
+    list_display = ['category', 'name', 'description', 'image', 'is_active']
     
     
 @admin.register(ProductFeature)
