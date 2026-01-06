@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import ListView, DetailView
-from products.models import Products, Category, SubCategory, ProductImage, ProductFeature, ProductReview
+from django.views.generic import ListView, DetailView, View
+from products.models import Products, Category, SubCategory, ProductReview
 # Create your views here.
 
 class ProductListView(ListView):
@@ -12,17 +12,17 @@ class ProductListView(ListView):
         return Products.objects.filter(is_active=True)
 
 
-class ProductDetailView(DetailView):  # have passed listiew just htat my pages simply run because detail view requires passing of pk or slug in urls which i have not done becuase products are not added and further logic is simple.
+class ProductDetailView(DetailView):  
     model = Products
     template_name = 'products/product_detail.html'
     context_object_name = 'product'
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # product = Products.objects.first()  # temporary fix bcz of use of listview instead of detail view above
-        context['images'] = self.object.images.all()
-        context['features'] = self.features.all()
-        context['reviews'] = self.reviews.all()
+        product = self.object
+        context['images'] = product.images.all()
+        context['features'] = product.features.all()
+        context['reviews'] = product.reviews.all()
         return context
 
 
@@ -39,17 +39,15 @@ class ProductSearchView(ListView):
         return Products.objects.filter(name__icontains=query, is_active=True)
         
     
-class ProductReviewView(ListView): 
-    template_name = 'products/product_detail.html'
-    context_object_name = 'product'
-    
+class ProductReviewView(View): 
+
     def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
+        product = get_object_or_404(Products, pk=kwargs.get('pk'))
         
-        ProductReview.objects.create(product=self.object, name = request.POST.get('name'), title = request.POST.get('title'),
-        review = request.POST.get('review'), rating = request.POST.get('rating'))
-        return redirect('product_detail', pk=self.object.pk)
-    
+        ProductReview.objects.create(product=product, name = request.POST.get('name'), title = request.POST.get('title'),
+        review = request.POST.get('review'), rating = int(request.POST.get('rating', 1)))
+        return redirect('product_detail', pk=product.pk)
+        
 
 class CategoryListView(ListView):
      model = Category

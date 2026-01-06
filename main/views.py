@@ -10,18 +10,29 @@ class HomeView(View):
         category = Category.objects.filter(is_active = True)
         subcategory = SubCategory.objects.filter(is_active = True)
         
-        popular_products = (Products.objects.filter(
-            is_active=True, quantity__gt=0).select_related('category', 'subcategory').prefetch_related('images')[:20])
+        popular_products = Products.objects.filter(
+            is_active=True, quantity__gt=0).select_related('category', 'subcategory').prefetch_related('images')[:20]
         
-        Item_per_columns = 5
-        Popular_phone_columns = []
-    
-        for i in range(0, len(popular_products), Item_per_columns):
-            column = popular_products[i:i+ Item_per_columns]
-            Popular_phone_columns.append(column)
-    
+        slider_products = Products.objects.filter(
+            is_active=True, is_featured=True).select_related('category', 'subcategory').prefetch_related('images')[:3]
+        
+        promotion_products = Products.objects.filter(
+            is_active=True, is_promotion=True).select_related('category', 'subcategory').prefetch_related('images')[:10]
+        
+        featured_products = Products.objects.filter(
+            is_active=True, is_featured=True).select_related('category', 'subcategory').prefetch_related('images')[:10]
+        
+        mobile_category = Category.objects.filter(name__iexact="Mobile Phones", is_active=True).first()
+        tablet_category = Category.objects.filter(name__iexact="Tablets", is_active=True).first()
+        
+        mobile_products = mobile_category.products.filter(is_active=True, quantity__gt=0).prefetch_related('images') if mobile_category else []
+        tablet_products = tablet_category.products.filter(is_active=True, quantity__gt=0).prefetch_related('images') if tablet_category else []
+        
         return render(request, 'main/index.html', {'category': category, 'subcategory':subcategory,
-           'popular_products':popular_products, 'popular_phone_columns':Popular_phone_columns})
+           'popular_products':popular_products, 'slider_products':slider_products, 'promotion_products':promotion_products,
+            'featured_products':featured_products, 'mobile_products':mobile_products, 'tablet_products':tablet_products})
+        
+    
     
     
 class AboutUsView(TemplateView):
@@ -35,3 +46,4 @@ class ContactUsView(CreateView):
 
 class FaqView(TemplateView):
     template_name = 'main/faq.html'
+    

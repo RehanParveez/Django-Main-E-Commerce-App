@@ -121,25 +121,52 @@
                                             <div class="dropdown-menu-content">
                                                  <h4 class="title">Shop By Popular Phone</h4>
                                                  <div class="row">
-                                                    {% for column in popular_phone_columns %}
-                                                        <div class="col-md-3">
-                                                           <ul class="dropdown-menu-list">
-                                                              {% for product in column %}
-                                                                <li><a href="{% url "product_detail" product.pk %}">
-                                                                <i class="fa fa-fw fa-angle-right text-muted"></i>
-                                                                {{ product.name}}</a></li>
-                                                                {% endfor %}
-                                                                </ul>
-                                                            </div>
-                                                      {% endfor %}
-                                                        </div>
-                                                    </div>
-                                                <h4 class="title">Shop By Brand</h4>
-                                                <ul class="dropdown-brand-list m-b-0">
-                                                    {% for s in subcategory %}
-                                                    <li><a href="{% url "product_list" %} ?subcategory={{ s.slug }}"> 
-                                                        {% if s.image %}
-                                                         <img src="{{ s.image.url }}" alt="{{s.name}}"> {% endif %} {{s.name}} </a> </li> {% endfor %} </ul>
+                                                    <div class="col-md-3">
+                                                        <ul class="dropdown-menu-list">
+                                                    {% for product in popular_products|slice:"0:5" %}
+                                                        <li><a href="{% url "product_detail" product.pk %}">
+                                                        <i class="fa fa-fw fa-angle-right text-muted"></i> {{product.name}} </a></li>
+                                                        {% endfor %}
+                                                     </ul>
+                                                 </div>
+
+                                                 <div class="col-md-3">
+                                                 <ul class="dropdown-menu-list">
+                                                    {% for product in popular_products|slice:"5:10" %}
+                                                     <li><a href="{% url "product_detail" product.pk %}">
+                                                     <i class="fa fa-fw fa-angle-right text-muted"></i> {{product.name}} </a></li>
+                                                    {% endfor %}
+                                                   </ul>
+                                                 </div>
+
+                                                 <div class="col-md-3">
+                                                 <ul class="dropdown-menu-list">
+                                                    {% for product in popular_products|slice:"10:15" %}
+                                                    <li><a href="{% url "product_detail" product.pk %}">
+                                                     <i class="fa fa-fw fa-angle-right text-muted"></i> {{product.name}} </a></li>
+                                                    {% endfor %}
+                                                    </ul>
+                                                 </div>
+
+                                                 <div class="col-md-3">
+                                                 <ul class="dropdown-menu-list">
+                                                    {% for product in popular_products|slice:"15:20" %}
+                                                    <li><a href="{% url "product_detail" product.pk %}">
+                                                    <i class="fa fa-fw fa-angle-right text-muted"></i> {{product.name}} </a></li>
+                                                    {% endfor %}
+                                                    </ul> 
+                                                </div>
+                                            </div>
+
+                                            <h4 class="title">Shop By Brand</h4>
+                                            <ul class="dropdown-brand-list m-b-0">
+                                                {% for s in subcategory %}
+                                                    {% if s.image %}
+                                                     <li><a href="{% url "product_list" %} ?subcategory={{ s.slug }}"> 
+                                                      <img src="{{ s.image.url }}" alt="{{s.name}}"></a></li>
+                                                     {% endif %}
+                                                    {% endfor %}
+                                                 </ul>
                                                          
                                                     {% comment %} <li><a href="{% url "product_list" %}"> {{ s.subcategory }} <img src="{% static "main/assets/img/samsung.png" %}" alt="" /> {{ s.s }} </a></li>
                                                     <li><a href="{% url "product_list" %}"> {{ s.subcategory }} <img src="{% static "main/assets/img/htc.png" %}" alt="" /> {{ s.subcategory }} </a></li>
@@ -184,7 +211,7 @@
                                         <li><a href="index_inverse_header.html">Home (Inverse Header)</a></li>
                                         <li><a href="{% url "product_search" %}">Search Results</a></li>
                                         <li><a href="{% url "product_list" %}">Product Page</a></li>
-                                        <li><a href="{% url "product_detail" product.pk %}">Product Details Page</a></li>
+                                        {% comment %} <li><a href="{% url "product_detail"  %}">Product Details Page</a></li> {% endcomment %}
                                         <li><a href="checkout_cart.html">Checkout Cart</a></li>
                                         <li><a href="checkout_info.html">Checkout Shipping</a></li>
                                         <li><a href="checkout_payment.html">Checkout Payment</a></li>
@@ -201,9 +228,9 @@
                                         <span class="arrow top"></span>
                                     </a>
                                     <div class="dropdown-menu p-15">
-                                        <form action="{% url "product_search" %}" method="POST" name="search_form">
+                                        <form action="{% url "product_search" %}" method="GET" name="search_form">
                                             <div class="input-group">
-                                                <input type="text" placeholder="Search" class="form-control bg-silver-lighter" />
+                                                <input type="text" name="q" placeholder="Search" class="form-control bg-silver-lighter" />
                                                 <span class="input-group-btn">
                                                     <button class="btn btn-inverse" type="submit"><i class="fa fa-search"></i></button>
                                                 </span>
@@ -292,6 +319,7 @@
         </div>
         <!-- END #header -->
 
+       
 <!-- BEGIN #footer -->
         <div id="footer" class="footer">
             <!-- BEGIN container -->
@@ -328,45 +356,24 @@
                     <div class="col-md-3">
                         <h4 class="footer-header">LATEST PRODUCT</h4>
                         <ul class="list-unstyled list-product">
+                            {% for product in latest_products %}
                             <li>
                                 <div class="image">
-                                    <img src="{% static "main/assets/img/iphone-6s.jpg" %}" alt="" />
+                                    {% if product.images.first %}
+                                      <img src="{{product.images.first.image.url}}" alt="{{product.name}}">
+                                    {% else %}
+                                       <img src="{% static "main/assets/img/default-product.png" %}" alt="{{product.name}}"/>
+                                    {% endif %}  
                                 </div>
                                 <div class="info">
-                                    <h4 class="info-title">Iphone 6s</h4>
-                                    <div class="price">$1200.00</div>
+                                    <h4 class="info-title">{{product.name}}</h4>
+                                    <div class="price">{{product.price}}</div>
                                 </div>
                             </li>
-                            <li>
-                                <div class="image">
-                                    <img src="{% static "main/assets/img/galaxy-s6.jpg" %}" alt="" />
-                                </div>
-                                <div class="info">
-                                    <h4 class="info-title">Samsung Galaxy s7</h4>
-                                    <div class="price">$850.00</div>
-                                </div>
-                            </li>
-                        
-                            <li>
-                                <div class="image">
-                                    <img src="{% static "main/assets/img/ipad-pro.jpg" %}" alt="" />
-                                </div>
-                                <div class="info">
-                                    <h4 class="info-title">Ipad Pro</h4>
-                                    <div class="price">$800.00</div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="image">
-                                    <img src="{% static "main/assets/img/galaxy-note5.jpg" %}" alt="" />
-                                </div>
-                                <div class="info">
-                                    <h4 class="info-title">Samsung Galaxy Note 5</h4>
-                                    <div class="price">$1200.00</div>
-                                </div>
-                            </li>
+                            {% endfor %}
                         </ul>
                     </div>
+                        
                     <!-- END col-3 -->
                     <!-- BEGIN col-3 -->
                     <div class="col-md-3">
