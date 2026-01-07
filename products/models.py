@@ -15,6 +15,7 @@ class Products(BaseModel):
     is_active = models.BooleanField(default=True)
     is_promotion = models.BooleanField(default=False)
     is_featured = models.BooleanField(default=False)
+    is_trending = models.BooleanField(default=False)
     category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True, blank=True, related_name='products')
     subcategory = models.ForeignKey('SubCategory', on_delete=models.SET_NULL, blank=True, null=True, related_name='products')
     
@@ -45,6 +46,12 @@ class Products(BaseModel):
         if self.sale:
             return self.price - (self.price * self.sale / 100)
         return self.price
+    
+    @property
+    def old_price(self):
+        if self.sale:
+            return round(self.price / (1 - self.sale / 100), 2) 
+        return None
     
     @property
     def average_rating(self):

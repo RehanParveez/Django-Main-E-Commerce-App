@@ -124,8 +124,10 @@
                                                     <div class="col-md-3">
                                                         <ul class="dropdown-menu-list">
                                                     {% for product in popular_products|slice:"0:5" %}
+                                                       {% if product and product.pk %}
                                                         <li><a href="{% url "product_detail" product.pk %}">
                                                         <i class="fa fa-fw fa-angle-right text-muted"></i> {{product.name}} </a></li>
+                                                        {% endif %}
                                                         {% endfor %}
                                                      </ul>
                                                  </div>
@@ -133,8 +135,10 @@
                                                  <div class="col-md-3">
                                                  <ul class="dropdown-menu-list">
                                                     {% for product in popular_products|slice:"5:10" %}
+                                                    {% if product and product.pk %}
                                                      <li><a href="{% url "product_detail" product.pk %}">
                                                      <i class="fa fa-fw fa-angle-right text-muted"></i> {{product.name}} </a></li>
+                                                     {% endif %}
                                                     {% endfor %}
                                                    </ul>
                                                  </div>
@@ -142,8 +146,10 @@
                                                  <div class="col-md-3">
                                                  <ul class="dropdown-menu-list">
                                                     {% for product in popular_products|slice:"10:15" %}
+                                                    {% if product and product.pk %} 
                                                     <li><a href="{% url "product_detail" product.pk %}">
                                                      <i class="fa fa-fw fa-angle-right text-muted"></i> {{product.name}} </a></li>
+                                                     {% endif %}
                                                     {% endfor %}
                                                     </ul>
                                                  </div>
@@ -151,8 +157,10 @@
                                                  <div class="col-md-3">
                                                  <ul class="dropdown-menu-list">
                                                     {% for product in popular_products|slice:"15:20" %}
+                                                    {% if product and product.pk %}
                                                     <li><a href="{% url "product_detail" product.pk %}">
                                                     <i class="fa fa-fw fa-angle-right text-muted"></i> {{product.name}} </a></li>
+                                                    {% endif %}
                                                     {% endfor %}
                                                     </ul> 
                                                 </div>
@@ -162,7 +170,7 @@
                                             <ul class="dropdown-brand-list m-b-0">
                                                 {% for s in subcategory %}
                                                     {% if s.image %}
-                                                     <li><a href="{% url "product_list" %} ?subcategory={{ s.slug }}"> 
+                                                     <li><a href="{% url "product_list" %}?subcategory={{ s.slug }}"> 
                                                       <img src="{{ s.image.url }}" alt="{{s.name}}"></a></li>
                                                      {% endif %}
                                                     {% endfor %}
@@ -319,6 +327,7 @@
         </div>
         <!-- END #header -->
 
+        {% block content %} {% endblock %}
        
 <!-- BEGIN #footer -->
         <div id="footer" class="footer">

@@ -2,69 +2,70 @@
 {% load static %}
 
 {% block content %}
-        <!-- BEGIN #slider -->
-        <div id="slider" class="section-container p-0 bg-black-darker">
-            <!-- BEGIN carousel -->
-            <div id="main-carousel" class="carousel slide" data-ride="carousel">
-                <!-- BEGIN carousel-inner -->
-                <div class="carousel-inner"> 
-                    <!-- BEGIN item -->
-                    <div class="item active">
-                        <img src="{% static "main/assets/img/slider-1-cover.jpg" %}" class="bg-cover-img" alt="" />
+       <!-- BEGIN #slider -->
+<div id="slider" class="section-container p-0 bg-black-darker">
+    <!-- BEGIN carousel -->
+    <div id="main-carousel" class="carousel slide" data-ride="carousel">
+        <!-- BEGIN carousel-inner -->
+        <div class="carousel-inner">
+            {% if slider_products %}
+                {% if slider_products.0.images.first %}
+                <div class="item active">
+                    <img src="{{ slider_products.0.images.first.image.url }}" class="bg-cover-img" alt="{{ slider_products.0.name }}" />
+                    <div class="container">
+                        <img src="{{ slider_products.0.images.first.image.url }}" class="product-img right bottom fadeInRight animated" alt="{{ slider_products.0.name }}" />
+                    </div>
+                    <div class="carousel-caption carousel-caption-left">
                         <div class="container">
-                            <img src="{% static "main/assets/img/slider-1-product.png" %}" class="product-img right bottom fadeInRight animated" alt="" />
-                        </div>
-                        <div class="carousel-caption carousel-caption-left">
-                            <div class="container">
-                                <h3 class="title m-b-5 fadeInLeftBig animated">iMac</h3> 
-                                <p class="m-b-15 fadeInLeftBig animated">Retina. Now in colossal and ginormous.</p>
-                                <div class="price m-b-30 fadeInLeftBig animated"><small>from</small> <span>$649.00</span></div>
-                                <a href="#" class="btn btn-outline btn-lg fadeInLeftBig animated">Buy Now</a>
+                            <h3 class="title m-b-5 fadeInLeftBig animated">{{ slider_products.0.name }}</h3>
+                            <p class="m-b-15 fadeInLeftBig animated">{{ slider_products.0.description|truncatewords:14 }}</p>
+                            <div class="price m-b-30 fadeInLeftBig animated">
+                                <small>from</small> <span>{{ slider_products.0.price }}</span>
                             </div>
+                            <a href="{% url 'product_detail' slider_products.0.pk %}" class="btn btn-outline btn-lg fadeInLeftBig animated">
+                                Buy Now
+                            </a>
                         </div>
                     </div>
-                    <!-- END item -->
-                    <!-- BEGIN item -->
-                    <div class="item">
-                        <img src="{% static "main/assets/img/slider-2-cover.jpg" %}" class="bg-cover-img" alt="" />
-                        <div class="container">
-                            <img src="{% static "main/assets/img/slider-2-product.png" %}" class="product-img left bottom fadeInLeft animated" alt="" />
-                        </div>
-                        <div class="carousel-caption carousel-caption-right">
-                            <div class="container">
-                                <h3 class="title m-b-5 fadeInRightBig animated">iPhone 6s</h3> 
-                                <p class="m-b-15 fadeInRightBig animated">The only thing that’s changed is everything</p>
-                                <div class="price m-b-30 fadeInRightBig animated"><small>from</small> <span>$1,299.00</span></div>
-                                <a href="#" class="btn btn-outline btn-lg fadeInRightBig animated">Buy Now</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- END item -->
-                    <!-- BEGIN item -->
-                    <div class="item">
-                        <img src="{% static "main/assets/img/slider-3-cover.jpg" %}" class="bg-cover-img" alt="" />
-                        <div class="carousel-caption">
-                            <div class="container">
-                                <h3 class="title m-b-5 fadeInDownBig animated">Macbook Air</h3> 
-                                <p class="m-b-15 fadeInDownBig animated">Thin.Light.Powerful.<br />And ready for anything</p>
-                                <div class="price fadeInDownBig animated"><small>from</small> <span>$999.00</span></div>
-                                <a href="#" class="btn btn-outline btn-lg fadeInUpBig animated">Buy Now</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- END item -->
                 </div>
-                <!-- END carousel-inner -->
-                <a class="left carousel-control" href="#main-carousel" data-slide="prev"> 
-                    <i class="fa fa-angle-left"></i> 
-                </a>
-                <a class="right carousel-control" href="#main-carousel" data-slide="next"> 
-                    <i class="fa fa-angle-right"></i> 
-                </a>
-            </div>
-            <!-- END carousel -->
+                {% endif %}
+
+                {% for product in slider_products|slice:"1:" %}
+                <div class="item">
+                    {% if product.images.first %}
+                    <img src="{{ product.images.first.image.url }}" class="bg-cover-img" alt="{{ product.name }}" />
+                    {% endif %}
+                    <div class="carousel-caption">
+                        <div class="container">
+                            <h3 class="title m-b-5 fadeInDownBig animated">{{ product.name }}</h3>
+                            <p class="m-b-15 fadeInDownBig animated">{{ product.description|truncatewords:14 }}</p>
+                            <div class="price fadeInDownBig animated">
+                                <small>from</small> <span>{{ product.price }}</span>
+                            </div>
+                            <a href="{% url 'product_detail' product.pk %}" class="btn btn-outline btn-lg fadeInUpBig animated">
+                                Buy Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% endif %}
         </div>
-        <!-- END #slider -->
+        <!-- END carousel-inner -->
+
+        <a class="left carousel-control" href="#main-carousel" data-slide="prev">
+            <i class="fa fa-angle-left"></i>
+        </a>
+        <a class="right carousel-control" href="#main-carousel" data-slide="next">
+            <i class="fa fa-angle-right"></i>
+        </a>
+    </div>
+    <!-- END carousel -->
+</div>
+<!-- END #slider -->
+
+
+        
     
         <!-- BEGIN #promotions -->
         <div id="promotions" class="section-container bg-white">
@@ -82,78 +83,132 @@
                     <!-- BEGIN col-6 -->
                     <div class="col-md-6">
                         <!-- BEGIN promotion -->
+                         {% if promotion_products|length > 0 %} 
                         <div class="promotion promotion-lg bg-black-darker">
                             <div class="promotion-image text-right promotion-image-overflow-bottom">
-                                <img src="{% static "main/assets/img/iphone-se.png" %}" alt="" />
+                                {% if promotion_products.0.images.first %} 
+                                <img src="{{promotion_products.0.images.first.image.url}}" alt="{{promotion_products.0.name}}"/>
+                                {% else %}
+                                <img src="{% static 'main/assets/img/default-product.png' %}" alt="{{ promotion_products.0.name }}" />
+                                {% endif %}
                             </div>
                             <div class="promotion-caption promotion-caption-inverse">
-                                <h4 class="promotion-title">iPhone SE</h4>
-                                <div class="promotion-price"><small>from</small> $299.00</div>
-                                <p class="promotion-desc">A big step for small.<br />A beloved design. Now with more to love.</p>
-                                <a href="#" class="promotion-btn">View More</a>
+                                <h4 class="promotion-title">{{promotion_products.0.name}}</h4>
+                                <div class="promotion-price"><small>from</small> {{promotion_products.0.price}}</div>
+                                <p class="promotion-desc">{{promotion_products.0.description|default:'descripttion isnt available'}}</p>
+                                {% if promotion_products.0.pk %}
+                                <a href="{% url 'product_detail' promotion_products.0.pk %}" class="promotion-btn">View More</a>
+                                {% else %}
+                                <a href="{% url 'product_list' %}" class="promotion-btn">View More</a>
+                                {% endif %}
                             </div>
                         </div>
-                        <!-- END promotion -->
+                     {% endif %}
                     </div>
+                        
                     <!-- END col-6 -->
                     <!-- BEGIN col-3 -->
                     <div class="col-md-3 col-sm-6">
                         <!-- BEGIN promotion -->
+                         {% if promotion_products|length > 1 %}
                         <div class="promotion bg-blue">
                             <div class="promotion-image promotion-image-overflow-bottom promotion-image-overflow-top">
-                                <img src="{% static "main/assets/img/apple-watch-sm.png" %}" alt="" />
+                                {% if promotion_products.1.images.first %}
+                                <img src="{{promotion_products.1.images.first.image.url}}" alt="{{promotion_products.1.name}}"/>
+                                {% else %}
+                                <img src="{% static 'main/assets/img/apple-watch-sm.png' %}" alt="{{promotion_products.1.name}}"/>
+                                {% endif %}
                             </div>
                             <div class="promotion-caption promotion-caption-inverse text-right">
-                                <h4 class="promotion-title">Apple Watch</h4>
-                                <div class="promotion-price"><small>from</small> $299.00</div>
-                                <p class="promotion-desc">You. At a glance.</p>
-                                <a href="#" class="promotion-btn">View More</a>
+                                <h4 class="promotion-title">{{promotion_products.1.name}}</h4>
+                                <div class="promotion-price"><small>from</small> {{promotion_products.1.price}}</div>
+                                <p class="promotion-desc">{{promotion_products.1.description|default:'description is not available'}}</p>
+                                {% if promotion_products.1.pk %}
+                                <a href="{% url 'product_detail' promotion_products.1.pk %}" class="promotion-btn">View More</a>
+                                {% else %}
+                                <a href="{% url 'product_list' %}" class="promotion-btn">View More</a>
+                               {% endif %}
+                            
                             </div>
                         </div>
+                        {% endif %}
+
                         <!-- END promotion -->
                         <!-- BEGIN promotion -->
+                         {% if promotion_products|length > 2 %}
                         <div class="promotion bg-silver">
                             <div class="promotion-image text-center promotion-image-overflow-bottom">
-                                <img src="{% static "main/assets/img/mac-mini.png" %}" alt="" />
+                                {% if promotion_products.2.images.first %}
+                                  <img src="{{promotion_products.2.images.first.image.url}}" alt="promotion_products.2.name"/>
+                                  {% else %}
+                                  <img src="{% static 'main/assets/img/mac-mini.png' %}" alt="{{promotion_products.2.name}}"/>
+                                  {% endif %}
                             </div>
                             <div class="promotion-caption text-center">
-                                <h4 class="promotion-title">Mac Mini</h4>
-                                <div class="promotion-price"><small>from</small> $199.00</div>
-                                <p class="promotion-desc">It’s mini in a massive way.</p>
-                                <a href="#" class="promotion-btn">View More</a>
+                                <h4 class="promotion-title">{{promotion_products.2.name}}</h4>
+                                <div class="promotion-price"><small>from</small> {{promotion_products.2.price}}</div>
+                                <p class="promotion-desc">{{promotion_products.2.description|default:"description is not available"}}</p>
+                                {% if promotion_products.2.pk %}
+                                <a href="{% url 'product_detail' promotion_products.2.pk %}" class="promotion-btn">View More</a>
+                                {% else %}
+                                <a href="{% url 'product_list' %}" class="promotion-btn">View More</a>
+                                {% endif %}
                             </div>
                         </div>
-                        <!-- END promotion -->
+                        {% endif %}
                     </div>
+                        
                     <!-- END col-3 -->
                     <!-- BEGIN col-3 -->
                     <div class="col-md-3 col-sm-6">
                         <!-- BEGIN promotion -->
+                         {% if promotion_products|length > 3 %}
                         <div class="promotion bg-silver">
                             <div class="promotion-image promotion-image-overflow-right promotion-image-overflow-bottom text-right">
-                                <img src="{% static "main/assets/img/mac-accessories.png" %}" alt="" />
+                                {% if promotion_products.3.images.first %}
+                                 <img src="{{promotion_products.3.images.first.image.url}}" alt="{{promotion_products.3.name}}"/>
+                                 {% else %}
+                                <img src="{% static 'main/assets/img/mac-accessories.png' %}" alt="{{promotion_products.3.name}}"/>
+                               {% endif %}
                             </div>
                             <div class="promotion-caption text-center">
-                                <h4 class="promotion-title">Apple Accessories</h4>
-                                <div class="promotion-price"><small>from</small> $99.00</div>
-                                <p class="promotion-desc">Redesigned. Rechargeable. Remarkable.</p>
-                                <a href="#" class="promotion-btn">View More</a>
+                                <h4 class="promotion-title">{{promotion_products.3.name}}</h4>
+                                <div class="promotion-price"><small>from</small> {{promotion_products.3.price}}</div>
+                                <p class="promotion-desc">{{promotion_products.3.description|default:'description isnt available'}}</p>
+                                {% if promotion_products.3.pk %}
+                                 <a href="{% url 'product_detail' promotion_products.3.pk %}" class="promotion-btn">View More</a>
+                                 {% else %}
+                                <a href="{% url 'product_list' %}" class="promotion-btn">View More</a>
+                               {% endif %}
                             </div>
                         </div>
+                        {% endif %}
+
                         <!-- END promotion -->
                         <!-- BEGIN promotion -->
+                         {% if promotion_products|length > 4 %}
                         <div class="promotion bg-black">
                             <div class="promotion-image text-right">
-                                <img src="{% static "main/assets/img/mac-pro.png" %}" alt="" />
+                                {% if promotion_products.4.images.first %}
+                                  <img src="{{promotion_products.4.images.first.image.url}}" alt="{{promotion_products.4.name}}"/>
+                                  {% else %}
+                                   <img src="{% static 'main/assets/img/mac-pro.png' %}" alt="{{promotion_products.4.name}}"/>
+                                   {% endif %}
                             </div>
+
                             <div class="promotion-caption promotion-caption-inverse">
-                                <h4 class="promotion-title">Mac Pro</h4>
-                                <div class="promotion-price"><small>from</small> $1,299.00</div>
-                                <p class="promotion-desc">Built for creativity on an epic scale.</p>
-                                <a href="#" class="promotion-btn">View More</a>
+                                <h4 class="promotion-title">{{promotion_products.4.name}}</h4>
+                                <div class="promotion-price"><small>from</small> {{promotion_products.4.price}}</div>
+                                <p class="promotion-desc">{{promotion_products.4.description|default:'description is not available'}}</p>
+                                {% if promotion_products.4.pk %}
+                                  <a href="{% url 'product_detail' promotion_products.4.pk %}" class="promotion-btn">View More</a>
+                                  {% else %}
+                                   <a href="{% url 'product_list' %}" class="promotion-btn">View More</a>
+                                   {% endif %}
                             </div>
                         </div>
-                        <!-- END promotion -->
+                       {% endif %}
+                       
                     </div>
                     <!-- END col-3 -->
                 </div>
@@ -177,127 +232,48 @@
                 <!-- END section-title -->
             
                 <!-- BEGIN row -->
+                 
                 <div class="row row-space-10">
+                    {% for product in trending_products %}
                     <!-- BEGIN col-2 -->
                     <div class="col-md-2 col-sm-4">
                         <!-- BEGIN item -->
                         <div class="item item-thumbnail">
-                            <a href="{% url "product_detail" product.pk %}" class="item-image">
-                                <img src="{% static "main/assets/img/iphone.png" %}" alt="" />
-                                <div class="discount">15% OFF</div>
+                            {% if product and product.pk %}
+                            <a href="{% url 'product_detail' product.pk %}" class="item-image">
+                                {% if product.images.first %}
+                                <img src="{{product.images.first.image.url}}" alt="{{product.name}}"/>
+                                {% else %}
+                                <img src="{% static 'main/assets/img/default-product.png' %}" alt="{{ product.name }}"/>
+                                {% endif %}
+                                {% if product.sale %}
+                                <div class="discount">{{product.sale}}%</div>
+                                {% endif %}
                             </a>
+                            {% else %}
+                            <a href="{% url 'product_list' %}" class="item-image">
+                                 <img src="{% static 'main/assets/img/default-product.png' %}" alt="Product" /></a>
+                            {% endif %}
+
                             <div class="item-info">
                                 <h4 class="item-title">
-                                    <a href="{% url "product_detail" product.pk %}">iPhone 6s Plus<br />16GB</a>
+                                    {% if product and product.pk %}
+                                    <a href="{% url 'product_detail' product.pk %}">{{product.name}}<br/></a>
+                                    {% else %}
+                                      <a href="{% url 'product_list' %}">Product</a>
+                                  {% endif %}
                                 </h4>
-                                <p class="item-desc">3D Touch. 12MP photos. 4K video.</p>
-                                <div class="item-price">$649.00</div>
-                                <div class="item-discount-price">$739.00</div>
+                                <p class="item-desc">{{product.description|default:"description is not available"}}</p>
+                                <div class="item-price">{{product.price}}</div>
+                                {% if product.discount %}
+                                <div class="item-discount-price">{{product.discount}}</div>
+                                {% endif %}
                             </div>
                         </div>
                         <!-- END item -->
                     </div>
                     <!-- END col-2 -->
-                    <!-- BEGIN col-2 -->
-                    <div class="col-md-2 col-sm-4">
-                        <!-- BEGIN item -->
-                        <div class="item item-thumbnail">
-                            <a href="{% url "product_detail" product.pk %}" class="item-image">
-                                <img src="{% static "main/assets/img/ipad-pro.png" %}" alt=""  />
-                                <div class="discount">32% OFF</div>
-                            </a>
-                            <div class="item-info">
-                                <h4 class="item-title">
-                                    <a href="{% url "product_list" %}">9.7-inch iPad Pro<br />32GB</a>
-                                </h4>
-                                <p class="item-desc">Super. Computer. Now in two sizes.</p>
-                                <div class="item-price">$599.00</div>
-                                <div class="item-discount-price">$799.00</div>
-                            </div>
-                        </div>
-                        <!-- END item -->
-                    </div>
-                    <!-- END col-2 -->
-                    <!-- BEGIN col-2 -->
-                    <div class="col-md-2 col-sm-4">
-                        <!-- BEGIN item -->
-                        <div class="item item-thumbnail">
-                            <a href="{% url "product_detail" product.pk %}" class="item-image">
-                                <img src="{% static "main/assets/img/imac.png" %}" alt="" />
-                                <div class="discount">20% OFF</div>
-                            </a>
-                            <div class="item-info">
-                                <h4 class="item-title">
-                                    <a href="{% url "product_list" %}">21.5-inch iMac<br />with Retina Display</a>
-                                </h4>
-                                <p class="item-desc">Retina. Now in colossal and ginormous.</p>
-                                <div class="item-price">$1,099.00</div>
-                                <div class="item-discount-price">$1,299.00</div>
-                            </div>
-                        </div>
-                        <!-- END item -->
-                    </div>
-                    <!-- END col-2 -->
-                    <!-- BEGIN col-2 -->
-                    <div class="col-md-2 col-sm-4">
-                        <!-- BEGIN item -->
-                        <div class="item item-thumbnail">
-                            <a href="{% url "product_detail" product.pk %}" class="item-image">
-                                <img src="{% static "main/assets/img/apple-watch.png" %}" alt="" />
-                                <div class="discount">13% OFF</div>
-                            </a>
-                            <div class="item-info">
-                                <h4 class="item-title">
-                                    <a href="{% url "product_list" %}">Apple Watch<br />Stainless steel cases</a>
-                                </h4>
-                                <p class="item-desc">You. At a glance.</p>
-                                <div class="item-price">$599.00</div>
-                                <div class="item-discount-price">$799.00</div>
-                            </div>
-                        </div>
-                        <!-- END item -->
-                    </div>
-                    <!-- END col-2 -->
-                    <!-- BEGIN col-2 -->
-                    <div class="col-md-2 col-sm-4">
-                        <!-- BEGIN item -->
-                        <div class="item item-thumbnail">
-                            <a href="{% url "product_detail" product.pk %}" class="item-image">
-                                <img src="{% static "main/assets/img/macbook-pro.png" %}" alt="" />
-                                <div class="discount">30% OFF</div>
-                            </a>
-                            <div class="item-info">
-                                <h4 class="item-title">
-                                    <a href="{% url "product_list" %}">MacBook Pro<br />with Retina Display</a>
-                                </h4>
-                                <p class="item-desc">Stunning Retina Display</p>
-                                <div class="item-price">$1299.00</div>
-                                <div class="item-discount-price">$1499.00</div>
-                            </div>
-                        </div>
-                        <!-- END item -->
-                    </div>
-                    <!-- END col-2 -->
-                    <!-- BEGIN col-2 -->
-                    <div class="col-md-2 col-sm-4">
-                        <!-- BEGIN item -->
-                        <div class="item item-thumbnail">
-                            <a href="{% url "product_detail" product.pk %}" class="item-image">
-                                <img src="{% static "main/assets/img/apple-tv.png" %}" alt="" />
-                                <div class="discount">40% OFF</div>
-                            </a>
-                            <div class="item-info">
-                                <h4 class="item-title">
-                                    <a href="{% url "product_list" %}">Apple Tv<br />32GB</a>
-                                </h4>
-                                <p class="item-desc">The future of television is here.</p>
-                                <div class="item-price">$149.00</div>
-                                <div class="item-discount-price">$249.00</div>
-                            </div>
-                        </div>
-                        <!-- END item -->
-                    </div>
-                    <!-- END col-2 -->
+                     {% endfor %}
                 </div>
                 <!-- END row -->
             </div>
@@ -339,123 +315,208 @@
                     <!-- END category-sidebar -->
                     <!-- BEGIN category-detail -->
                     <div class="category-detail">
+                        
                         <!-- BEGIN category-item -->
-                        <a href="#" class="category-item full">
+                         {% if mobile_products %}
+                          {% with mobile_products.0 as featured_product %}
+                        <a href="{% url 'product_detail' featured_product.pk %}" class="category-item full">
                             <div class="item">
                                 <div class="item-cover">
-                                    <img src="{% static "main/assets/img/samsung-s7-edge.jpg" %}" alt="" />
+                                    {% if featured_product.images.first %}
+                                    <img src="{{featured_product.images.first.image.url}}" alt="{{featured_product.name}}"/>
+                                    {% else %}
+                                    <img src="{% static 'main/assets/img/samsung-s7-edge.jpg' %}" alt="{{featured_product.name}}"/>
+                                    {% endif %}
                                 </div>
+
                                 <div class="item-info bottom">
-                                    <h4 class="item-title">Samsung Galaxy s7 Edge + Geat 360 + Gear VR</h4>
-                                    <p class="item-desc">Redefine what a phone can do</p>
-                                    <div class="item-price">$799.00</div>
+                                    <h4 class="item-title">{{featured_product.name}}</h4>
+                                    <p class="item-desc">{{featured_product.description|default:'description is not available'}}</p>
+                                    <div class="item-price">{{featured_product.price}}</div>
                                 </div>
                             </div>
                         </a>
+                        {% endwith %}
+                        {% endif %}
+
                         <!-- END category-item -->
                         <!-- BEGIN category-item -->
+                         {% if mobile_products|length > 1 %}
                         <div class="category-item list">
                             <!-- BEGIN item-row -->
                             <div class="item-row">
+                                {% for product in mobile_products|slice:'1:4' %}
                                 <!-- BEGIN item -->
                                 <div class="item item-thumbnail">
-                                    <a href="{% url "product_detail" product.pk %}" class="item-image">
-                                        <img src="{% static "main/assets/img/iphone.png" %}" alt="" />
-                                        <div class="discount">15% OFF</div>
+
+                                    <a href="{% url 'product_detail' product.pk %}" class="item-image">
+                                        {% if product.images.first %}
+                                         <img src="{{product.images.first.image.url}}" alt="{{product.name}}"/>
+                                         {% else %}
+                                        <img src="{% static 'main/assets/img/iphone.png' %}" alt="{{product.name}}" />
+                                        {% endif %}
+                                        {% if product.discount %} <div class="discount">{{product.discount}}% OFF</div>{% endif %}
                                     </a>
                                     <div class="item-info">
                                         <h4 class="item-title">
-                                            <a href="{% url "product_detail" product.pk %}">iPhone 6s Plus<br />16GB</a>
+                                            <a href="{% url 'product_detail' product.pk %}">{{product.name}}</a>
                                         </h4>
-                                        <p class="item-desc">3D Touch. 12MP photos. 4K video.</p>
-                                        <div class="item-price">$649.00</div>
-                                        <div class="item-discount-price">$739.00</div>
+                                        <p class="item-desc">{{product.description|default:"description is not available"}}</p>
+                                        <div class="item-price">{{product.price}}</div>
+                                        {% if product.old_price %}
+                                        <div class="item-discount-price">{{product.old_price}}</div>
+                                        {% endif %}
                                     </div>
                                 </div>
+                                {% endfor %}
+                                </div>
+
                                 <!-- END item -->
                                 <!-- BEGIN item -->
+
+                                 <div class="item-row">
+                                    {% for product in mobile_products|slice:'4:7' %}
                                 <div class="item item-thumbnail">
-                                    <a href="{% url "product_detail" product.pk %}" class="item-image">
-                                        <img src="{% static "main/assets/img/samsung-note5.png" %}" alt="" />
-                                        <div class="discount">32% OFF</div>
+                                    <a href="{% url 'product_detail' product.pk %}" class="item-image">
+                                        {% if product.images.first %}
+                                         <img src="{{product.images.first.image.url}}" alt="{{product.name}}"/>
+                                         {% else %}
+                                        <img src="{% static 'main/assets/img/samsung-note5.png' %}" alt="{{product.name}}" />
+                                        {% endif %}
+                                        {% if product.discount %}
+                                        <div class="discount">{{product.discount}}% OFF</div> {% endif %}
                                     </a>
                                     <div class="item-info">
                                         <h4 class="item-title">
-                                            <a href="{% url "product_list" %}">Samsung Galaxy Note 5<br />Black</a>
+                                            <a href="{% url 'product_detail' product.pk %}">{{product.name}}</a>
                                         </h4>
-                                        <p class="item-desc">Super. Computer. Now in two sizes.</p>
-                                        <div class="item-price">$599.00</div>
-                                        <div class="item-discount-price">$799.00</div>
+                                        <p class="item-desc">{{product.description|default:'no description is available'}}</p>
+                                        <div class="item-price">{{product.price}}</div>
+                                        {% if product.old_price %}
+                                        <div class="item-discount-price">{{product.old_price}}</div>
+                                        {% endif %}
                                     </div>
+                                </div>
+                                {% endfor %}
                                 </div>
                                 <!-- END item -->
                                 <!-- BEGIN item -->
+                                 <div class="item-row">
+                                    {% for product in mobile_products|slice:'7:10' %}
                                 <div class="item item-thumbnail">
-                                    <a href="product_detail.html" class="item-image">
-                                        <img src="{% static "main/assets/img/iphone-se.png" %}" alt="" />
-                                        <div class="discount">20% OFF</div>
+                                    <a href="{% url 'product_detail' product.pk %}" class="item-image">
+                                        {% if product.images.first %}
+                                         <img src="{{product.images.first.image.url}}" alt="{{product.name}}"/>
+                                         {% else %}
+                                        <img src="{% static 'main/assets/img/iphone-se.png' %}" alt="{{product.name}}"/>
+                                        {% endif %}
+                                        {% if product.discount %}
+                                        <div class="discount">{{product.discount}}% OFF</div>
+                                        {% endif %}
                                     </a>
                                     <div class="item-info">
                                         <h4 class="item-title">
-                                            <a href="{% url "product_list" %}">iPhone SE<br />32/64Gb</a>
+                                            <a href="{% url 'product_detail' product.pk %}">{{product.name}}</a>
                                         </h4>
-                                        <p class="item-desc">A big step for small.</p>
-                                        <div class="item-price">$499.00</div>
-                                        <div class="item-discount-price">$599.00</div>
+                                        <p class="item-desc">{{product.description|default:'no description is available here'}}</p>
+                                        <div class="item-price">{{product.price}}</div>
+                                        {% if product.old_price %}
+                                        <div class="item-discount-price">{{product.old_price}}</div>
+                                        {% endif %}
                                     </div>
                                 </div>
-                                <!-- END item -->
-                            </div>
+                                {% endfor %}
+                                </div>
+                            
                             <!-- END item-row -->
                             <!-- BEGIN item-row -->
                             <div class="item-row">
                                 <!-- BEGIN item -->
+                                 {% for product in mobile_products|slice:'10:13' %}
                                 <div class="item item-thumbnail">
-                                    <a href="{% url "product_detail" product.pk %}" class="item-image">
-                                        <img src="{% static "main/assets/img/zenfone2.png" %}" alt="" />
-                                        <div class="discount">15% OFF</div>
+                                    <a href="{% url 'product_detail' product.pk %}" class="item-image">
+                                        {% if product.images.first %}
+                                         <img src="{{product.images.first.image.url}}" alt="{{product.name}}"/>
+                                         {% else %}
+                                        <img src="{% static 'main/assets/img/zenfone2.png' %}" alt="{{product.name}}"/>
+                                        {% endif %}
+                                        {% if product.discount %}
+                                        <div class="discount">{{product.discount}}</div>
+                                        {% endif %}
                                     </a>
                                     <div class="item-info">
                                         <h4 class="item-title">
-                                            <a href="{% url "product_detail" product.pk %}">Assus ZenFone 2<br />‏(ZE550ML)</a>
+                                            <a href="{% url 'product_detail' product.pk %}">{{product.name}}</a>
                                         </h4>
-                                        <p class="item-desc">See What Others Can’t See</p>
-                                        <div class="item-price">$399.00</div>
-                                        <div class="item-discount-price">$453.00</div>
+                                        <p class="item-desc">{{product.description|default:'description is not available'}}</p>
+                                        <div class="item-price">{{product.price}}</div>
+                                        {% if product.old_price %}
+                                        <div class="item-discount-price">{{product.old_price}}</div>
+                                        {% endif %}
                                     </div>
                                 </div>
+                                {% endfor %}
+                                </div>
+
                                 <!-- END item -->
                                 <!-- BEGIN item -->
+                                 <div class="item-row">
+                                    {% for product in mobile_products|slice:'13:16' %}
                                 <div class="item item-thumbnail">
-                                    <a href="product_detail.html" class="item-image">
-                                        <img src="{% static "main/assets/img/xperia-z.png" %}" alt="" />
-                                        <div class="discount">32% OFF</div>
+                                    <a href="{% url 'product_detail' product.pk %}" class="item-image">
+                                        {% if product.images.first %}
+                                         <img src="{{product.images.first.image.url}}" alt="{{product.name}}"/>
+                                         {% else %}
+                                        <img src="{% static 'main/assets/img/xperia-z.png' %}" alt="{{product.name}}"/>
+                                        {% endif %}
+
+                                        {% if product.discount %}
+                                        <div class="discount">{{product.discount}}</div>
+                                        {% endif %}
                                     </a>
                                     <div class="item-info">
                                         <h4 class="item-title">
-                                            <a href="{% url "product_list" %}">Sony Xperia Z<br />Black Color</a>
+                                            <a href="{% url 'product_detail' product.pk %}">{{product.name}}</a>
                                         </h4>
-                                        <p class="item-desc">For unexpectedly beautiful moments</p>
-                                        <div class="item-price">$599.00</div>
-                                        <div class="item-discount-price">$799.00</div>
+                                        <p class="item-desc">{{product.description|default:'description is not available'}}</p>
+                                        <div class="item-price">{{product.price}}</div>
+                                        {% if product.old_price %}
+                                        <div class="item-discount-price">{{product.old_price}}</div>
+                                        {% endif %}
                                     </div>
                                 </div>
+                                {% endfor %}
+                                </div>
+
                                 <!-- END item -->
                                 <!-- BEGIN item -->
+                                 <div class="item-row">
+                                    {% for product in mobile_products|slice:'16:19' %}
                                 <div class="item item-thumbnail">
-                                    <a href="{% url "product_detail" product.pk %}" class="item-image">
-                                        <img src="{% static "main/assets/img/lumia-532.png" %}" alt="" />
-                                        <div class="discount">20% OFF</div>
+                                    <a href="{% url 'product_detail' product.pk %}" class="item-image">
+                                        {% if product.images.first %}
+                                         <img src="{{product.images.first.image.url}}" alt="{{product.name}}"/>
+                                        {% else %}
+                                        <img src="{% static 'main/assets/img/lumia-532.png' %}" alt="{{product.name}}"/>
+                                        {% endif %}
+
+                                        {% if product.discount %}
+                                        <div class="discount">{{product.discount}}% OFF</div>
+                                        {% endif %}
                                     </a>
                                     <div class="item-info">
                                         <h4 class="item-title">
-                                            <a href="{% url "product_list" %}">Microsoft Lumia 531<br />Smartphone Orange</a>
+                                            <a href="{% url 'product_detail' product.pk %}">{{product.name}}</a>
                                         </h4>
-                                        <p class="item-desc">1 Year Local Manufacturer Warranty</p>
-                                        <div class="item-price">$99.00</div>
-                                        <div class="item-discount-price">$199.00</div>
+                                        <p class="item-desc">{{product.description|default:"no description is available"}}</p>
+                                        <div class="item-price">{{product.price}}</div>
+                                        {% if product.old_price %}
+                                        <div class="item-discount-price">{{product.old_price}}</div>
+                                        {% endif %}
                                     </div>
                                 </div>
+                                {% endfor %}
+                                
                                 <!-- END item -->
                             </div>
                             <!-- END item-row -->
@@ -469,6 +530,7 @@
             <!-- END container -->
         </div>
         <!-- END #mobile-list -->
+         {% endif %}
     
         <!-- BEGIN #tablet-list -->
         <div id="tablet-list" class="section-container bg-silver p-t-0">
@@ -499,122 +561,207 @@
                     <!-- BEGIN category-detail -->
                     <div class="category-detail">
                         <!-- BEGIN category-item -->
-                        <a href="#" class="category-item full">
+                         {% if tablet_products %}
+                          {% with tablet_products.0 as featured_product %}
+                        <a href="{% url 'product_detail' featured_product.pk %}" class="category-item full">
                             <div class="item">
                                 <div class="item-cover">
-                                    <img src="{% static "main/assets/img/huawei-mediapad.jpg" %}" alt="" />
+                                    {% if featured_product.images.first %}
+                                      <img src="{{featured_product.images.first.image.url}}" alt="{{featured_product.name}}" />
+                                      {% else %}
+                                    <img src="{% static 'main/assets/img/huawei-mediapad.jpg' %}" alt="{{featured_product.name}}" />
+                                    {% endif %}
                                 </div>
                                 <div class="item-info bottom">
-                                    <h4 class="item-title">Huawei MediaPad T1 7.0</h4>
-                                    <p class="item-desc">Vibrant colors. Beautifully displayed</p>
-                                    <div class="item-price">$299.00</div>
+                                    <h4 class="item-title">{{featured_product.name}}</h4>
+                                    <p class="item-desc">{{featured_product.description|default:'no description is available'}}</p>
+                                    <div class="item-price">{{featured_product.price}}</div>
                                 </div>
                             </div>
-                        </a>
+                            </a>
+                            {% endwith %}
+                            {% endif %}
+                        
                         <!-- END category-item -->
                         <!-- BEGIN category-item -->
+                         {% if tablet_products|length > 1 %}
                         <div class="category-item list">
                             <!-- BEGIN item-row -->
                             <div class="item-row">
                                 <!-- BEGIN item -->
+                                 {% for product in tablet_products|slice:'0:4' %}
                                 <div class="item item-thumbnail">
-                                    <a href="{% url "product_detail" product.pk %}" class="item-image">
-                                        <img src="{% static "main/assets/img/ipad-pro.png" %}" alt="" />
-                                        <div class="discount">15% OFF</div>
+                                    <a href="{% url 'product_detail' product.pk %}" class="item-image">
+                                        {% if product.images.first %}
+                                         <img src="{{product.images.first.image.url}}" alt="{{product.name}}" />
+                                         {% else %}
+                                        <img src="{% static 'main/assets/img/ipad-pro.png' %}" alt="{{product.name}}" />
+                                        {% endif %}
+                                        {% if product.discount %}
+                                        <div class="discount">{{product.discount}}% OFF</div>
+                                        {% endif %}
                                     </a>
                                     <div class="item-info">
                                         <h4 class="item-title">
-                                            <a href="{% url "product_detail" product.pk %}">9.7-inch iPad Pro<br />32GB</a>
+                                            <a href="{% url 'product_detail' product.pk %}">{{product.name}}</a>
                                         </h4>
-                                        <p class="item-desc">3D Touch. 12MP photos. 4K video.</p>
-                                        <div class="item-price">$649.00</div>
-                                        <div class="item-discount-price">$739.00</div>
+                                        <p class="item-desc">{{product.description|default:'description is not available'}}</p>
+                                        <div class="item-price">{{product.price}}</div>
+                                        {% if product.old_price %}
+                                        <div class="item-discount-price">{{product.old_price}}</div>
+                                        {% endif %}
                                     </div>
                                 </div>
+                                {% endfor %}
+                                </div>
+                                
+                               
+
                                 <!-- END item -->
                                 <!-- BEGIN item -->
+                                 <div class="item-row">
+                                 {% for product in tablet_products|slice:'4:7' %}
                                 <div class="item item-thumbnail">
-                                    <a href="{% url "product_detail" product.pk %}" class="item-image">
-                                        <img src="{% static "main/assets/img/galaxy-tab2.png" %}" alt="" />
-                                        <div class="discount">32% OFF</div>
+                                    <a href="{% url 'product_detail' product.pk %}" class="item-image">
+                                        {% if product.images.first %}
+                                        <img src="{{product.images.first.image.url}}" alt="{{product.name}}" />
+                                        {% else %}
+                                        <img src="{% static 'main/assets/img/galaxy-tab2.png' %}" alt="{{product.name}}" />
+                                        {% endif %}
+                                        {% if product.discount %}
+                                        <div class="discount">{{product.discount}}</div>
+                                        {% endif %}
                                     </a>
                                     <div class="item-info">
                                         <h4 class="item-title">
-                                            <a href="{% url "product_list" %}">Samsung Galaxy Tab S2<br />Black</a>
+                                            <a href="{% url 'product_detail' product.pk  %}">{{product.name}}</a>
                                         </h4>
-                                        <p class="item-desc">A Brilliant Screen That Adjusts to You</p>
-                                        <div class="item-price">$399.99</div>
-                                        <div class="item-discount-price">$499.00</div>
+                                        <p class="item-desc">{{product.description|default:'description is not available'}}</p>
+                                        <div class="item-price">{{product.price}}</div>
+                                        {% if product.old_price %}
+                                        <div class="item-discount-price">{{product.old_price}}</div>
+                                        {% endif %}
                                     </div>
                                 </div>
+                                {% endfor %}
+                                </div>
+
                                 <!-- END item -->
                                 <!-- BEGIN item -->
+                                 <div class="item-row">
+                                    {% for product in tablet_products|slice:'7:10' %}
                                 <div class="item item-thumbnail">
-                                    <a href="{% url "product_detail" product.pk %}" class="item-image">
-                                        <img src="{% static "main/assets/img/galaxy-taba.png" %}" alt="" />
-                                        <div class="discount">20% OFF</div>
+                                    <a href="{% url 'product_detail' product.pk %}" class="item-image">
+                                        {% if product.images.first %}
+                                        <img src="{{product.images.first.image.url}}" alt="{{product.name}}" />
+                                        {% else %}
+                                        <img src="{% static 'main/assets/img/galaxy-taba.png' %}" alt="{{product.name}}" />
+                                        {% endif %}
+                                        {% if product.discount %}
+                                        <div class="discount">{{product.discount}}</div>
+                                        {% endif %}
                                     </a>
                                     <div class="item-info">
                                         <h4 class="item-title">
-                                            <a href="{% url "product_list" %}">Samsung Galaxy Tab A<br />9.7" 16Gb(Wi-Fi)</a>
+                                            <a href="{% url 'product_detail' product.pk %}">{{product.name}}</a>
                                         </h4>
-                                        <p class="item-desc">Keep All Your Samsung Devices In Sync</p>
-                                        <div class="item-price">$349.99</div>
-                                        <div class="item-discount-price">$399.99</div>
+                                        <p class="item-desc">{{product.description|default:"no description is available"}}</p>
+                                        <div class="item-price">{{product.price}}</div>
+                                        {% if product.old_price %}
+                                        <div class="item-discount-price">{{product.old_price}}</div>
+                                        {% endif %}
                                     </div>
                                 </div>
-                                <!-- END item -->
-                            </div>
+                                {% endfor %}
+                                </div>
+                                
+                            
                             <!-- END item-row -->
                             <!-- BEGIN item-row -->
                             <div class="item-row">
                                 <!-- BEGIN item -->
+                                 {% for product in tablet_products|slice:'10:13' %}
                                 <div class="item item-thumbnail">
-                                    <a href="{% url "product_detail" product.pk %}" class="item-image">
-                                        <img src="{% static "main/assets/img/hp-spectrex2.png" %}" alt="" />
-                                        <div class="discount">15% OFF</div>
+                                    <a href="{% url 'product_detail' product.pk %}" class="item-image">
+                                        {% if product.images.first %}
+                                        <img src="{{product.images.first.image.url}}" alt="{{product.name}}"/>
+                                        {% else %}
+                                        <img src="{% static 'main/assets/img/hp-spectrex2.png' %}" alt="{{product.name}}"/>
+                                        {% endif %}
+                                        {% if product.discount %}
+                                        <div class="discount">{{product.discount}}</div>
+                                        {% endif %}
                                     </a>
                                     <div class="item-info">
                                         <h4 class="item-title">
-                                            <a href="{% url "product_detail" product.pk %}">HP Spectre x2<br />‏12-a011nr</a>
+                                            <a href="{% url 'product_detail' product.pk %}">{{product.name}}</a>
                                         </h4>
-                                        <p class="item-desc">Our thinnest detachable separates from all others.</p>
-                                        <div class="item-price">$799.99</div>
-                                        <div class="item-discount-price">$850.00</div>
+                                        <p class="item-desc">{{product.description|default:"description is not available"}}</p>
+                                        <div class="item-price">{{product.price}}</div>
+                                        {% if product.old_price %}
+                                        <div class="item-discount-price">{{product.old_price}}</div>
+                                        {% endif %}
                                     </div>
                                 </div>
+                                {% endfor %}
+                                </div>
+
                                 <!-- END item -->
                                 <!-- BEGIN item -->
+                                 <div class="item-row">
+                                    {% for product in tablet_products|slice:'13:16' %}
                                 <div class="item item-thumbnail">
-                                    <a href="{% url "product_detail" product.pk %}" class="item-image">
-                                        <img src="{% static "main/assets/img/xperia-z2.png" %}" alt="" />
-                                        <div class="discount">32% OFF</div>
+                                    <a href="{% url 'product_detail' product.pk %}" class="item-image">
+                                        {% if product.images.first %}
+                                        <img src="{{product.images.first.image.url}}" alt="{{product.name}}" />
+                                        {% else %}
+                                        <img src="{% static 'main/assets/img/xperia-z2.png' %}" alt="{{product.name}}" />
+                                        {% endif %}
+                                        {% if product.discount %}
+                                        <div class="discount">{{product.discount}}</div>
+                                        {% endif %}
                                     </a>
                                     <div class="item-info">
                                         <h4 class="item-title">
-                                            <a href="{% url "product_list" %}">Sony Xperia Z2 Tablet<br />Black Color</a>
+                                            <a href="{% url 'product_detail' product.pk %}">{{product.name}}</a>
                                         </h4>
-                                        <p class="item-desc">For unexpectedly beautiful moments</p>
-                                        <div class="item-price">$199.00</div>
-                                        <div class="item-discount-price">$259.00</div>
+                                        <p class="item-desc">{{product.description|default:"no description is available"}}</p>
+                                        <div class="item-price">{{product.price}}</div>
+                                        {% if product.old_price %}
+                                        <div class="item-discount-price">{{product.old_price}}</div>
+                                        {% endif %}
                                     </div>
                                 </div>
+                                {% endfor %}
+                                 </div>
+
                                 <!-- END item -->
                                 <!-- BEGIN item -->
+                                 <div class="item-row">
+                                    {% for product in tablet_products|slice:'16:19' %}
                                 <div class="item item-thumbnail">
-                                    <a href="{% url "product_detail" product.pk %}" class="item-image">
-                                        <img src="{% static "main/assets/img/ipad-air.png" %}" alt="" />
-                                        <div class="discount">20% OFF</div>
+                                    <a href="{% url 'product_detail' product.pk %}" class="item-image">
+                                        {% if product.images.first %}
+                                        <img src="{{product.images.first.image.url}}" alt="{{product.name}}" />
+                                        {% else %}
+                                        <img src="{% static 'main/assets/img/ipad-air.png' %}" alt="{{product.name}}"/>
+                                        {% endif %}
+                                        {% if product.discount %}
+                                        <div class="discount">{{product.discount}}</div>
+                                        {% endif %}
                                     </a>
                                     <div class="item-info">
                                         <h4 class="item-title">
-                                            <a href="{% url "product_list" %}">iPad Air 2<br />32/64Gb</a>
+                                            <a href="{% url 'product_detail' product.pk %}">{{product.name}}</a>
                                         </h4>
-                                        <p class="item-desc">Light. Heavyweight.</p>
-                                        <div class="item-price">$399.00</div>
-                                        <div class="item-discount-price">$459.00</div>
+                                        <p class="item-desc">{{product.description|default:"no description is available"}}</p>
+                                        <div class="item-price">{{product.price}}</div>
+                                        {% if product.old_price %}
+                                        <div class="item-discount-price">{{product.old_price}}</div>
+                                        {% endif %}
                                     </div>
                                 </div>
+                                {% endfor %}
                                 <!-- END item -->
                             </div>
                             <!-- END item-row -->
@@ -628,4 +775,4 @@
             <!-- END container -->
         </div>
 
-        {% endblock %}
+{% endblock %}

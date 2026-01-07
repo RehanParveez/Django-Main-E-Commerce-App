@@ -19,8 +19,11 @@ class HomeView(View):
         promotion_products = Products.objects.filter(
             is_active=True, is_promotion=True).select_related('category', 'subcategory').prefetch_related('images')[:10]
         
-        featured_products = Products.objects.filter(
+        featured_product = Products.objects.filter(
             is_active=True, is_featured=True).select_related('category', 'subcategory').prefetch_related('images')[:10]
+        
+        trending_products = Products.objects.filter(
+            is_active=True, is_trending=True).select_related('category', 'subcategory').prefetch_related('images')[:6]
         
         mobile_category = Category.objects.filter(name__iexact="Mobile Phones", is_active=True).first()
         tablet_category = Category.objects.filter(name__iexact="Tablets", is_active=True).first()
@@ -28,12 +31,13 @@ class HomeView(View):
         mobile_products = mobile_category.products.filter(is_active=True, quantity__gt=0).prefetch_related('images') if mobile_category else []
         tablet_products = tablet_category.products.filter(is_active=True, quantity__gt=0).prefetch_related('images') if tablet_category else []
         
+        
+        
         return render(request, 'main/index.html', {'category': category, 'subcategory':subcategory,
            'popular_products':popular_products, 'slider_products':slider_products, 'promotion_products':promotion_products,
-            'featured_products':featured_products, 'mobile_products':mobile_products, 'tablet_products':tablet_products})
+            'featured_product':featured_product, 'trending_products':trending_products, 'mobile_products':mobile_products,
+            'tablet_products':tablet_products})
         
-    
-    
     
 class AboutUsView(TemplateView):
     template_name = 'main/about_us.html'
