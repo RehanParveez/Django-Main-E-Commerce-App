@@ -65,9 +65,7 @@
 <!-- END #slider -->
 
 
-        
-    
-        <!-- BEGIN #promotions -->
+      <!-- BEGIN #promotions -->
         <div id="promotions" class="section-container bg-white">
             <!-- BEGIN container -->
             <div class="container">
@@ -75,7 +73,7 @@
                 <h4 class="section-title clearfix">
                     <a href="#" class="pull-right">SHOW ALL</a>
                     Exclusive promotions
-                    <small>from 25 September 2016 - 1 January 2017</small>
+                    <small>from 25 January 2026 - 10 February 2026</small>
                 </h4>
                 <!-- END section-title -->
                 <!-- BEGIN row -->
@@ -216,8 +214,9 @@
             </div>
             <!-- END container -->
         </div>
-        <!-- END #promotions -->
-    
+        <!-- END #promotions --> 
+
+
         <!-- BEGIN #trending-items -->
         <div id="trending-items" class="section-container bg-silver">
             <!-- BEGIN container -->
@@ -281,7 +280,9 @@
         </div>
         <!-- END #trending-items -->
     
-        <!-- BEGIN #mobile-list -->
+
+
+         <!-- BEGIN #mobile-list -->
         <div id="mobile-list" class="section-container bg-silver p-t-0">
             <!-- BEGIN container -->
             <div class="container">
@@ -301,12 +302,12 @@
                             <li><a href="#">Microsoft</a></li>
                             <li><a href="#">Samsung</a></li>
                             <li><a href="#">Apple</a></li>
-                            <li><a href="#">Micromax</a></li>
+                            {% comment %} <li><a href="#">Micromax</a></li>
                             <li><a href="#">Karbonn</a></li>
-                            <li><a href="#">Intex</a></li>
+                            <li><a href="#">Intex</a></li> {% endcomment %}
                             <li><a href="#">Sony</a></li>
-                            <li><a href="#">HTC</a></li>
-                            <li><a href="#">Asus</a></li>
+                            <li><a href="#">hTC</a></li>
+                            {% comment %} <li><a href="#">Asus</a></li> {% endcomment %}
                             <li><a href="#">Nokia</a></li>
                             <li><a href="#">Blackberry</a></li>
                             <li><a href="#">All Brands</a></li>
@@ -364,7 +365,7 @@
                                         <p class="item-desc">{{product.description|default:"description is not available"}}</p>
                                         <div class="item-price">{{product.price}}</div>
                                         {% if product.old_price %}
-                                        <div class="item-discount-price">{{product.old_price}}</div>
+                                        <div class="item-discount-price"> {{product.old_price}} </div>
                                         {% endif %}
                                     </div>
                                 </div>
@@ -399,6 +400,7 @@
                                 </div>
                                 {% endfor %}
                                 </div>
+
                                 <!-- END item -->
                                 <!-- BEGIN item -->
                                  <div class="item-row">
@@ -530,8 +532,9 @@
             <!-- END container -->
         </div>
         <!-- END #mobile-list -->
-         {% endif %}
+         {% endif %} 
     
+
         <!-- BEGIN #tablet-list -->
         <div id="tablet-list" class="section-container bg-silver p-t-0">
             <!-- BEGIN container -->
@@ -550,8 +553,8 @@
                         <ul class="category-list">
                             <li class="list-header">Top Categories</li>
                             <li><a href="#">Apple</a></li>
-                            <li><a href="#">HP</a></li>
-                            <li><a href="#">Huawei</a></li>
+                            <li><a href="#">hTC</a></li>
+                            <li><a href="#">Microsoft</a></li>
                             <li><a href="#">Samsung</a></li>
                             <li><a href="#">Sony</a></li>
                             <li><a href="#">All Brands</a></li>
@@ -581,8 +584,9 @@
                             </a>
                             {% endwith %}
                             {% endif %}
+
                         
-                        <!-- END category-item -->
+                         <!-- END category-item -->
                         <!-- BEGIN category-item -->
                          {% if tablet_products|length > 1 %}
                         <div class="category-item list">
@@ -614,6 +618,7 @@
                                 </div>
                                 {% endfor %}
                                 </div>
+                                
                                 
                                
 
@@ -761,18 +766,25 @@
                                         {% endif %}
                                     </div>
                                 </div>
+                            
                                 {% endfor %}
+                                {% endif %}
                                 <!-- END item -->
                             </div>
+                            
                             <!-- END item-row -->
                         </div>
+                        
                         <!-- END category-item -->
                     </div>
+                    
                     <!-- END category-detail -->
                 </div>
+                
                 <!-- END category-container -->
             </div>
+            
             <!-- END container -->
         </div>
-
+        
 {% endblock %}

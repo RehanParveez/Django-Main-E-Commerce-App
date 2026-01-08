@@ -10,9 +10,13 @@
                 <!-- BEGIN breadcrumb -->
                 <ul class="breadcrumb m-b-10 f-s-12">
                     <li><a href="{% url "home" %}">Home</a></li>
-                    <li><a href="#">Mobile Phone</a></li>
-                    <li><a href="#">Apple</a></li>
-                    <li class="active">iPhone 6S Plus</li>
+                    {% if product.category %}
+                    <li><a href="#">{{product.category.name}}</a></li>
+                    {% endif %}
+                    {% if product.subcategory %}
+                    <li><a href="#">{{product.subcategory.name}}</a></li>
+                    {% endif %}
+                    <li class="active">{{product.name}}</li>
                 </ul>
                 <!-- END breadcrumb -->
                 
@@ -25,22 +29,34 @@
                             <!-- BEGIN product-thumbnail -->
                             <div class="product-thumbnail">
                                 <ul class="product-thumbnail-list">
-                                    <li class="active"><a href="#" data-click="show-main-image" data-url="assets/img/iphone-6s-plus-2.jpg"><img src="{% static "main/assets/img/iphone-6s-plus-2.jpg" %}" alt="" /></a></li>
-                                    <li><a href="#" data-click="show-main-image" data-url="assets/img/iphone-6s-plus-3.jpg"><img src="{% static "main/assets/img/iphone-6s-plus-3.jpg" %}" alt="" /></a></li>
+                                    {% for img in images  %}
+                                    <li class="active"><a href="#" data-click="show-main-image" data-url="{{img.image.url}}"><img src="{{img.image.url}}" alt="{{product.name}}" /></a></li>
+                                    {% empty %}
+                                    <li class="active"><a href="#" data-click="show-main-image" data-url="assets/img/iphone-6s-plus-2.jpg"><img src="assets/img/iphone-6s-plus-2.jpg" alt="{{product.name}}" /></a></li>
+                                    {% endfor %}
+                                    {% comment %} <li><a href="#" data-click="show-main-image" data-url="assets/img/iphone-6s-plus-3.jpg"><img src="{% static "main/assets/img/iphone-6s-plus-3.jpg" %}" alt="" /></a></li>
                                     <li><a href="#" data-click="show-main-image" data-url="assets/img/iphone-6s-plus-4.jpg"><img src="{% static "main/assets/img/iphone-6s-plus-4.jpg" %}" alt="" /></a></li>
                                     <li><a href="#" data-click="show-main-image" data-url="assets/img/iphone-6s-plus-5.jpg"><img src="{% static "main/assets/img/iphone-6s-plus-5.jpg" %}" alt="" /></a></li>
                                     <li><a href="#" data-click="show-main-image" data-url="assets/img/iphone-6s-plus-6.jpg"><img src="{% static "main/assets/img/iphone-6s-plus-6.jpg" %}" alt="" /></a></li>
-                                    <li><a href="#" data-click="show-main-image" data-url="assets/img/iphone-6s-plus-7.jpg"><img src="{% static "main/assets/img/iphone-6s-plus-7.jpg" %}" alt="" /></a></li>
+                                    <li><a href="#" data-click="show-main-image" data-url="assets/img/iphone-6s-plus-7.jpg"><img src="{% static "main/assets/img/iphone-6s-plus-7.jpg" %}" alt="" /></a></li> {% endcomment %}
                                 </ul>
                             </div>
+
                             <!-- END product-thumbnail -->
                             <!-- BEGIN product-main-image -->
                             <div class="product-main-image" data-id="main-image">
-                                <img src="{% static "main/assets/img/iphone-6s-plus.png" %}" alt="" />
+                                {% if images %}
+                                <img src="{{images.0.image.url}}" alt="{{product.name}}" />
+                                {% else %}
+                                <img src="{% static "main/assets/img/iphone-6s-plus.png" %}" alt="{{product.name}}" />
+                                {% endif %}
                             </div>
                             <!-- END product-main-image -->
                         </div>
-                        <!-- END product-image -->
+                       {% endblock %}
+
+
+                        {% comment %} <!-- END product-image -->
                         <!-- BEGIN product-info -->
                         <div class="product-info">
                             <!-- BEGIN product-info-header -->
@@ -626,5 +642,7 @@
             </div>
             <!-- END container -->
         </div>
-        <!-- END #product -->
-         {% endblock %}
+        <!-- END #product --> {% endcomment %}
+
+
+         

@@ -2,6 +2,7 @@ from django.db import models
 from DjangoMainECommerce.models import BaseModel
 from django.utils.text import slugify
 from django.core.exceptions import ValidationError
+from decimal import Decimal
 
 # Create your models here.
 class Products(BaseModel):
@@ -43,16 +44,20 @@ class Products(BaseModel):
         
     @property
     def discount(self):
-        if self.sale:
-            return self.price - (self.price * self.sale / 100)
+        if self.sale > 0:
+            sale_amount = (self.price * Decimal(self.sale)) / Decimal('100')
+            return (self.price - sale_amount).quantize(Decimal('0.00'))
         return self.price
     
     @property
     def old_price(self):
-        if self.sale:
-            return round(self.price / (1 - self.sale / 100), 2) 
+        if self.sale > 0:
+            return self.price
         return None
-    
+            
+            # return self.price / (Decimal('1') - Decimal(self.sale) / Decimal('100'))
+        return None
+        
     @property
     def average_rating(self):
         reviews = self.reviews.all()
