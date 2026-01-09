@@ -1,5 +1,5 @@
 from django.contrib import admin
-from products.models import Products, ProductImage, Category, SubCategory, ProductFeature, ProductReview
+from products.models import Products, ProductImage, Category, SubCategory, ProductFeature, ProductSpecifications, ProductReview
 
 # Register your models here.
 @admin.register(Products)
@@ -26,8 +26,13 @@ class SubCategoryAdmin(admin.ModelAdmin):
 class ProductFeatureAdmin(admin.ModelAdmin):
     list_display = ['product', 'text']
     
+@admin.register(ProductSpecifications)
+class ProductSpecificationsAdmin(admin.ModelAdmin):
+    list_display = ['product', 'name', 'value']
     
 @admin.register(ProductReview)
 class ProductReviewAdmin(admin.ModelAdmin):
     list_display = ['product', 'name', 'title', 'review', 'rating']
+    
+    
 

@@ -32,7 +32,8 @@ class Products(BaseModel):
             raise ValueError("stock is less")
         self.quantity -= amount
         self.save()
-        
+    
+    @property   
     def is_main_image(self):
         main = self.images.filter(is_main=True).first()
         if main:
@@ -53,9 +54,6 @@ class Products(BaseModel):
     def old_price(self):
         if self.sale > 0:
             return self.price
-        return None
-            
-            # return self.price / (Decimal('1') - Decimal(self.sale) / Decimal('100'))
         return None
         
     @property
@@ -86,11 +84,20 @@ class ProductImage(BaseModel):
 class ProductFeature(models.Model):
     product = models.ForeignKey('Products', on_delete=models.CASCADE, related_name='features')
     text = models.CharField(max_length=175)
+    title = models.CharField(max_length=100, null=True, blank=True)
+    image = models.ImageField(upload_to='products/features/', null=True, blank=True)
 
     def __str__(self):
-        return self.text
+        return self.title
     
+class ProductSpecifications(models.Model):
+    product = models.ForeignKey('Products', on_delete=models.CASCADE, related_name='specifications')
+    name = models.CharField(max_length=20)
+    value = models.TextField()
     
+    def __str__(self):
+        return self.name
+        
 class ProductReview(BaseModel):
     product = models.ForeignKey('Products', on_delete=models.CASCADE, related_name='reviews')
     name = models.CharField(max_length=45)

@@ -23,6 +23,9 @@ class ProductDetailView(DetailView):
         context['images'] = product.images.all()
         context['features'] = product.features.all()
         context['reviews'] = product.reviews.all()
+        context['specifications'] = product.specifications.all()
+        context['similar_products'] = Products.objects.filter(category=product.category, is_active=True).exclude(
+            pk=product.pk)[:6]
         return context
 
 
