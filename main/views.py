@@ -7,11 +7,8 @@ from django.urls import reverse_lazy
 
 class HomeView(View):
     def get(self, request, **kwargs):
-        category = Category.objects.filter(is_active = True)
-        subcategory = SubCategory.objects.filter(is_active = True)
-        
-        popular_products = Products.objects.filter(
-            is_active=True, quantity__gt=0).select_related('category', 'subcategory').prefetch_related('images')[:20]
+        categories = Category.objects.filter(is_active = True)
+        subcategories = SubCategory.objects.filter(is_active = True)
         
         slider_products = Products.objects.filter(
             is_active=True, is_featured=True).select_related('category', 'subcategory').prefetch_related('images')[:3]
@@ -26,15 +23,18 @@ class HomeView(View):
             is_active=True, is_trending=True).select_related('category', 'subcategory').prefetch_related('images')[:6]
         
         mobile_category = Category.objects.filter(name__iexact="Mobile Phones", is_active=True).first()
+        popular_mobile_products = Products.objects.filter(
+            category=mobile_category, is_active=True, quantity__gt=0).select_related('category', 'subcategory').prefetch_related(
+            'images')[:20] if mobile_category else []
+            
         tablet_category = Category.objects.filter(name__iexact="Tablets", is_active=True).first()
         
         mobile_products = mobile_category.products.filter(is_active=True, quantity__gt=0).prefetch_related('images') if mobile_category else []
         tablet_products = tablet_category.products.filter(is_active=True, quantity__gt=0).prefetch_related('images') if tablet_category else []
         
         
-        
-        return render(request, 'main/index.html', {'category': category, 'subcategory':subcategory,
-           'popular_products':popular_products, 'slider_products':slider_products, 'promotion_products':promotion_products,
+        return render(request, 'main/index.html', {'categories': categories, 'subcategories':subcategories,
+           'popular_mobile_products':popular_mobile_products, 'slider_products':slider_products, 'promotion_products':promotion_products,
             'featured_product':featured_product, 'trending_products':trending_products, 'mobile_products':mobile_products,
             'tablet_products':tablet_products})
         

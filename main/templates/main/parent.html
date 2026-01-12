@@ -104,7 +104,7 @@
                                             <div class="dropdown-menu-sidebar">
                                                 <h4 class="title">Shop By Categories</h4>
                                                 <ul class="dropdown-menu-list">
-                                                    {% for c in category %} 
+                                                    {% for c in categories %} 
                                                     <li><a href="{% url "product_list" %}">{{ c.name }} <i class="fa fa-angle-right pull-right"></i></a></li>
                                                     {% comment %} <li><a href="{% url "product_list" %}">Tablet <i class="fa fa-angle-right pull-right"></i></a></li>
                                                     <li><a href="{% url "product_list" %}">Laptop <i class="fa fa-angle-right pull-right"></i></a></li>
@@ -123,7 +123,7 @@
                                                  <div class="row">
                                                     <div class="col-md-3">
                                                         <ul class="dropdown-menu-list">
-                                                    {% for product in popular_products|slice:"0:5" %}
+                                                    {% for product in popular_mobile_products|slice:"0:5" %}
                                                        {% if product and product.pk %}
                                                         <li><a href="{% url "product_detail" product.pk %}">
                                                         <i class="fa fa-fw fa-angle-right text-muted"></i> {{product.name}} </a></li>
@@ -134,7 +134,7 @@
 
                                                  <div class="col-md-3">
                                                  <ul class="dropdown-menu-list">
-                                                    {% for product in popular_products|slice:"5:10" %}
+                                                    {% for product in popular_mobile_products|slice:"5:10" %}
                                                     {% if product and product.pk %}
                                                      <li><a href="{% url "product_detail" product.pk %}">
                                                      <i class="fa fa-fw fa-angle-right text-muted"></i> {{product.name}} </a></li>
@@ -145,7 +145,7 @@
 
                                                  <div class="col-md-3">
                                                  <ul class="dropdown-menu-list">
-                                                    {% for product in popular_products|slice:"10:15" %}
+                                                    {% for product in popular_mobile_products|slice:"10:15" %}
                                                     {% if product and product.pk %} 
                                                     <li><a href="{% url "product_detail" product.pk %}">
                                                      <i class="fa fa-fw fa-angle-right text-muted"></i> {{product.name}} </a></li>
@@ -156,7 +156,7 @@
 
                                                  <div class="col-md-3">
                                                  <ul class="dropdown-menu-list">
-                                                    {% for product in popular_products|slice:"15:20" %}
+                                                    {% for product in popular_mobile_products|slice:"15:20" %}
                                                     {% if product and product.pk %}
                                                     <li><a href="{% url "product_detail" product.pk %}">
                                                     <i class="fa fa-fw fa-angle-right text-muted"></i> {{product.name}} </a></li>
@@ -168,9 +168,9 @@
 
                                             <h4 class="title">Shop By Brand</h4>
                                             <ul class="dropdown-brand-list m-b-0">
-                                                {% for s in subcategory %}
+                                                {% for s in subcategories %}
                                                     {% if s.image %}
-                                                     <li><a href="{% url "product_list" %}?subcategory={{ s.slug }}"> 
+                                                     <li><a href="{% url "product_list" %}?subcategories={{ s.slug }}"> 
                                                       <img src="{{ s.image.url }}" alt="{{s.name}}"></a></li>
                                                      {% endif %}
                                                     {% endfor %}

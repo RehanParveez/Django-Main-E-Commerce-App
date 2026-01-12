@@ -11,11 +11,19 @@
             <!-- END page-header-cover -->
             <!-- BEGIN container -->
             <div class="container">
-                <h1 class="page-header"><b>Apple</b> Product</h1>
+                <h1 class="page-header">
+                    {% if category %}
+                     <b>{{category.name}}</b> Product
+                    {% elif subcategory %}
+                     <b>{{subcategory.name}}</b> Product
+                    {% else %}
+                      All Products
+                    {% endif %}
+                  </h1>    
             </div>
             <!-- END container -->
         </div>
-        <!-- BEGIN #page-header -->
+        <!-- END #page-header -->
         
         <!-- BEGIN search-results -->
         <div id="search-results" class="section-container bg-silver">
@@ -30,7 +38,13 @@
                             <!-- BEGIN row -->
                             <div class="row">
                                 <div class="col-md-6">
-                                    <h4>We found 65 Items for "Apple Product"</h4>
+                                    <h4>We found {{products|length}} Items 
+                                        {% if category %}
+                                        {{category.name}}
+                                        {% elif subcategory %}
+                                        {{subcategory.name}}
+                                        {% endif %}
+                                    </h4>
                                 </div>
                                 <!-- END col-6 -->
                                 <!-- BEGIN col-6 -->
@@ -48,220 +62,105 @@
                             <!-- END row -->
                         </div>
                         <!-- END search-toolbar -->
+
                         <!-- BEGIN search-item-container -->
                         <div class="search-item-container">
                             <!-- BEGIN item-row -->
                             <div class="item-row">
-                                {% for product in products %}
-                                <div class="item item-thumbnail">
-                                    
+                                <!-- BEGIN item -->
+                                 {% for product in products %}
+                                 <div class="col-md-3 col-sm-4">
+                                   <div class="item item-thumbnail">
+                                    <a href="{% url "product_detail" product.pk %}" class="item-image">
+                                        {% if product.sale %}
+                                          <div class="discount">{{product.sale}} % OFF</div>
+                                        {% endif %}
 
-                                </div>
+                                        {% if product.images.first %}
+                                        <img src="{{product.images.first.image.url}}" alt="{{product.name}}" />
+                                        {% else %}
+                                        <img src="assets/img/iphone.png" alt="{{product.name}}" />
+                                        {% endif %}   
+                                    </a>
 
-                                {% endfor %}
-                                <!-- BEGIN item -->
-                                 <div class="item item-thumbnail">
-                                    <a href="{% url "product_detail" %}" class="item-image">
-                                        <img src="{% static "main/assets/img/iphone.png" %}" alt="" />
-                                        <div class="discount">15% OFF</div>
-                                    </a>
                                     <div class="item-info">
                                         <h4 class="item-title">
-                                            <a href="{% url "product_detail" %}">iPhone 6s Plus<br />16GB</a>
+                                            <a href="{% url "product_detail" product.pk %}">{{product.name}}</a>
                                         </h4>
-                                        <p class="item-desc">3D Touch. 12MP photos. 4K video.</p>
-                                        <div class="item-price">$649.00</div>
-                                        <div class="item-discount-price">$739.00</div>
+                                        {% if product.description %}
+                                        <p class="item-desc">{{product.description|truncatewords:10}}</p>
+                                        {% endif %}
+                                        <div class="item-price">{{product.discount}}</div>
+                                        {% if product.old_price %}
+                                        <div class="item-discount-price">{{product.old_price}}</div>
+                                        {% endif %}
                                     </div>
                                 </div>
-                                <!-- END item -->
-                                <!-- BEGIN item -->
-                                <div class="item item-thumbnail">
-                                    <a href="{% url "product_detail" %}" class="item-image">
-                                        <img src="{% static "main/assets/img/apple-tv.png" %}" alt="" />
-                                        <div class="discount">32% OFF</div>
-                                    </a>
-                                    <div class="item-info">
-                                        <h4 class="item-title">
-                                            <a href="{% url "product_list" %}">Apple TV<br />2016</a>
-                                        </h4>
-                                        <p class="item-desc">The future of television is here.</p>
-                                        <div class="item-price">$599.00</div>
-                                        <div class="item-discount-price">$799.00</div>
-                                    </div>
                                 </div>
-                                <!-- END item -->
-                                <!-- BEGIN item -->
-                                <div class="item item-thumbnail">
-                                    <a href="{% url "product_detail" %}" class="item-image">
-                                        <img src="{% static "main/assets/img/iphone-se.png" %}" alt="" />
-                                        <div class="discount">20% OFF</div>
-                                    </a>
-                                    <div class="item-info">
-                                        <h4 class="item-title">
-                                            <a href="{% url "product_list" %}">iPhone SE<br />32/64Gb</a>
-                                        </h4>
-                                        <p class="item-desc">A big step for small.</p>
-                                        <div class="item-price">$499.00</div>
-                                        <div class="item-discount-price">$599.00</div>
-                                    </div>
-                                </div>
-                                <!-- END item -->
+                                {% endfor %}   
                             </div>
-                            <!-- END item-row -->
-                            <!-- BEGIN item-row -->
-                            <div class="item-row">
-                                <!-- BEGIN item -->
-                                <div class="item item-thumbnail">
-                                    <a href="{% url "product_detail" %}" class="item-image">
-                                        <img src="{% static "main/assets/img/apple-watch.png" %}" alt="" />
-                                        <div class="discount">15% OFF</div>
-                                    </a>
-                                    <div class="item-info">
-                                        <h4 class="item-title">
-                                            <a href="{% url "product_detail" %}">Apple Watch<br />‏Sport Edition</a>
-                                        </h4>
-                                        <p class="item-desc">You. At a glance.</p>
-                                        <div class="item-price">$399.00</div>
-                                        <div class="item-discount-price">$453.00</div>
-                                    </div>
-                                </div>
-                                <!-- END item -->
-                                <!-- BEGIN item -->
-                                <div class="item item-thumbnail">
-                                    <a href="{% url "product_detail" %}" class="item-image">
-                                        <img src="{% static "main/assets/img/imac.png" %}" alt="" />
-                                        <div class="discount">32% OFF</div>
-                                    </a>
-                                    <div class="item-info">
-                                        <h4 class="item-title">
-                                            <a href="{% url "product_detail" %}">21.5-inch iMac<br />with Retina Display</a>
-                                        </h4>
-                                        <p class="item-desc">Retina. Now in colossal and ginormous.</p>
-                                        <div class="item-price">$599.00</div>
-                                        <div class="item-discount-price">$799.00</div>
-                                    </div>
-                                </div>
-                                <!-- END item -->
-                                <!-- BEGIN item -->
-                                <div class="item item-thumbnail">
-                                    <a href="{% url "product_detail" %}" class="item-image">
-                                        <img src="{% static "main/assets/img/macbook-pro.png" %}" alt="" />
-                                        <div class="discount">20% OFF</div>
-                                    </a>
-                                    <div class="item-info">
-                                        <h4 class="item-title">
-                                            <a href="{% url "product_list" %}">MacBook Pro<br />with Retina Display</a>
-                                        </h4>
-                                        <p class="item-desc">Stunning Retina Display</p>
-                                        <div class="item-price">$99.00</div>
-                                        <div class="item-discount-price">$199.00</div>
-                                    </div>
-                                </div>
-                                <!-- END item -->
-                            </div>
-                            <!-- END item-row -->
-                            <!-- BEGIN item-row -->
-                            <div class="item-row">
-                                <!-- BEGIN item -->
-                                <div class="item item-thumbnail">
-                                    <a href="{% url "product_detail" %}" class="item-image">
-                                        <img src="{% static "main/assets/img/ipad-pro.png" %}" alt="" />
-                                        <div class="discount">15% OFF</div>
-                                    </a>
-                                    <div class="item-info">
-                                        <h4 class="item-title">
-                                            <a href="{% url "product_detail" %}">9.7-inch iPad Pro<br />32GB</a>
-                                        </h4>
-                                        <p class="item-desc">3D Touch. 12MP photos. 4K video.</p>
-                                        <div class="item-price">$649.00</div>
-                                        <div class="item-discount-price">$739.00</div>
-                                    </div>
-                                </div>
-                                <!-- END item -->
-                                <!-- BEGIN item -->
-                                <div class="item item-thumbnail">
-                                    <a href="{% url "product_detail" %}" class="item-image">
-                                        <img src="{% static "main/assets/img/mac-pro.png" %}" alt="" />
-                                        <div class="discount">32% OFF</div>
-                                    </a>
-                                    <div class="item-info">
-                                        <h4 class="item-title">
-                                            <a href="{% url "product_list" %}">Mac Pro<br />Quad-Core and Dual GPU</a>
-                                        </h4>
-                                        <p class="item-desc">Built for creativity on an epic scale.</p>
-                                        <div class="item-price">$2999.00</div>
-                                        <div class="item-discount-price">$2599.00</div>
-                                    </div>
-                                </div>
-                                <!-- END item -->
-                                <!-- BEGIN item -->
-                                <div class="item item-thumbnail">
-                                    <a href="{% url "product_detail" %}" class="item-image">
-                                        <img src="{% static "main/assets/img/ipad-air.png" %}" alt="" />
-                                        <div class="discount">20% OFF</div>
-                                    </a>
-                                    <div class="item-info">
-                                        <h4 class="item-title">
-                                            <a href="{% url "product_list" %}">iPad Air 2<br />32/64Gb</a>
-                                        </h4>
-                                        <p class="item-desc">Light. Heavyweight.</p>
-                                        <div class="item-price">$399.00</div>
-                                        <div class="item-discount-price">$459.00</div>
-                                    </div>
-                                </div>
-                                <!-- END item -->
-                            </div>
-                            <!-- END item-row --> 
                         </div>
                         <!-- END search-item-container -->
+                    
                         <!-- BEGIN pagination -->
                         <div class="text-center">
                             <ul class="pagination m-t-0">
+                                {% if page_obj.has_previous %}
+                                <li> <a href="?q={{q}}&category={{category_filter}}&price_from={{price_from}}&price_to={{price_to}}&page={{page_obj.previous_page_number}}">Previous</a></li>
+                                {% else %}
                                 <li class="disabled"><a href="javascript:;">Previous</a></li>
-                                <li class="active"><a href="javascript:;">1</a></li>
-                                <li><a href="javascript:;">2</a></li>
-                                <li><a href="javascript:;">3</a></li>
-                                <li><a href="javascript:;">4</a></li>
-                                <li><a href="javascript:;">5</a></li>
-                                <li><a href="javascript:;">Next</a></li>
+                                {% endif %}
+
+                                {% for page in paginator.page_range %}
+                                {% if page == page_obj.number %}
+                                <li class="active"><a href="javascript:;">{{page}}</a></li>
+                                {% else %}
+                                <li><a href="?q={{q}}&category={{category_filter}}&price_from={{price_from}}&price_to={{price_to}}&page={{ page }}">{{ page }}</a><li>
+                                {% endif %}
+                                {% endfor %}
+
+                                {% if page_obj.has_next %}
+                                  <li><a href="?q={{q}}&category={{category_filter}}&price_from={{price_from}}&price_to={{price_to}}&page={{page_obj.next_page_number}}">Nest</a></li>
+                                {% else %}
+                                <li class="disabled"><a href="javascript:;">Next</a></li>
+                                {% endif %}
                             </ul>
                         </div>
                         <!-- END pagination -->
-                    </div>
-                    <!-- END search-content -->
+
                     <!-- BEGIN search-sidebar -->
                     <div class="search-sidebar">
                         <h4 class="title">Filter By</h4>
-                        <form action="{% url "product_list" %}" method="POST" name="filter_form">
+                        <form action="{% url "product_list" %}" method="GET" name="filter_form">
                             <div class="form-group">
                                 <label class="control-label">Keywords</label>
-                                <input type="text" class="form-control input-sm" name="keyword" value="Mobile Phones" placeholder="Enter Keywords" />
+                                <input type="text" class="form-control input-sm" name="q" value="{{request.GET.q}}" placeholder="Enter Keywords" />
                             </div>
                             <div class="form-group">
                                 <label class="control-label">Price</label>
                                 <div class="row row-space-0">
                                     <div class="col-md-5">
-                                        <input type="number" class="form-control input-sm" name="price_from" value="10" placeholder="Price From" />
+                                        <input type="number" class="form-control input-sm" name="price_from" placeholder="Price From" />
                                     </div>
                                     <div class="col-md-2 text-center p-t-5 f-s-12 text-muted">to</div>
                                     <div class="col-md-5">
-                                        <input type="number" class="form-control input-sm" name="price_to" value="10000" placeholder="Price To" />
+                                        <input type="number" class="form-control input-sm" name="price_to" placeholder="Price To" />
                                     </div>
                                 </div>
                             </div>
+
                             <div class="m-b-30">
                                 <button type="submit" class="btn btn-sm btn-inverse"><i class="fa fa-search"></i> Filter</button>
                             </div>
                         </form>
                         <h4 class="title m-b-0">Categories</h4>
                         <ul class="search-category-list">
-                            <li><a href="#">iPhone <span class="pull-right">(10)</span></a></li>
-                            <li><a href="#">Mac <span class="pull-right">(15)</span></a></li>
-                            <li><a href="#">iPad <span class="pull-right">(32)</span></a></li>
-                            <li><a href="#">Watch <span class="pull-right">(4)</span></a></li>
-                            <li><a href="#">TV <span class="pull-right">(6)</span></a></li>
-                            <li><a href="#">Accessories <span class="pull-right">(38)</span></a></li>
+                            {% for c in categories %}
+                            <li> <a href="?q={{q}}&category={{c.id}}&price_from={{price_from}}&price_to={{price_to}}">{{c.name}}
+                             <span class="pull-right">{{c.active_products_count }}</span></a></li>
+                             {% empty %}
+                              <li>No categories found</li>
+                            {% endfor %}
                         </ul>
                     </div>
                     <!-- END search-sidebar -->
@@ -271,4 +170,4 @@
             <!-- END container -->
         </div>
         <!-- END search-results -->
-         {% endblock %}
+    {% endblock %}

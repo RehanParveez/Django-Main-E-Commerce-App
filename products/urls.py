@@ -6,7 +6,7 @@ urlpatterns = [
     path('productdetail/<int:pk>/', ProductDetailView.as_view(), name='product_detail'), 
     path('productsearch/', ProductSearchView.as_view(), name='product_search'),
     path('productreview/<int:pk>/', ProductReviewView.as_view(), name='product_review'),
-    path('categorylist/', CategoryListView.as_view(), name='category_list'),
+    path('categorylist/<slug:slug>', CategoryListView.as_view(), name='category_list'),
     path('subcategorylist/', SubcategoryListView.as_view(), name='subcategory_list'),
 ]
 
