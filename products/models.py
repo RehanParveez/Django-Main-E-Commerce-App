@@ -17,8 +17,10 @@ class Products(BaseModel):
     is_promotion = models.BooleanField(default=False)
     is_featured = models.BooleanField(default=False)
     is_trending = models.BooleanField(default=False)
+    delivery_info = models.CharField(max_length=170, blank=True, null=True)
     category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True, blank=True, related_name='products')
     subcategory = models.ForeignKey('SubCategory', on_delete=models.SET_NULL, blank=True, null=True, related_name='products')
+    
     
     def __str__(self):
         return self.name
