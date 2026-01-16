@@ -220,10 +220,10 @@
                                         <li><a href="{% url "product_search" %}">Search Results</a></li>
                                         <li><a href="{% url "product_list" %}">Product Page</a></li>
                                         {% comment %} <li><a href="{% url "product_detail"  %}">Product Details Page</a></li> {% endcomment %}
-                                        <li><a href="checkout_cart.html">Checkout Cart</a></li>
-                                        <li><a href="checkout_info.html">Checkout Shipping</a></li>
-                                        <li><a href="checkout_payment.html">Checkout Payment</a></li>
-                                        <li><a href="checkout_complete.html">Checkout Complete</a></li>
+                                        <li><a href="{% url "cart_detail" %}">Checkout Cart</a></li>
+                                        <li><a href="{% url "checkout_info" %}">Checkout Shipping</a></li>
+                                        <li><a href="{% url "checkout_payment" %}">Checkout Payment</a></li>
+                                        <li><a href="{% url "checkout_complete" %}">Checkout Complete</a></li>
                                         <li><a href="my_account.html">My Account</a></li>
                                         <li><a href="{% url "contact_us" %}">Contact Us</a></li>
                                         <li><a href="{% url "about_us" %}">About Us</a></li>
@@ -250,62 +250,52 @@
                         </div>
                     </div>
                     <!-- END header-nav -->
-                     
+
                     <!-- BEGIN header-nav -->
                     <div class="header-nav">
                         <ul class="nav pull-right">
                             <li class="dropdown dropdown-hover">
                                 <a href="#" class="header-cart" data-toggle="dropdown">
                                     <i class="fa fa-shopping-bag"></i>
-                                    <span class="total">2</span>
+                                    <span class="total">{{cart.total_items}}</span>
                                     <span class="arrow top"></span>
                                 </a>
                     
                                 <div class="dropdown-menu dropdown-menu-cart p-0">
                                     <div class="cart-header">
-                                        <h4 class="cart-title">Shopping Bag (1) </h4>
+                                        <h4 class="cart-title">Shopping Bag {{cart.total_items}} </h4>
                                     </div>
                                     <div class="cart-body">
                                         <ul class="cart-item">
+                                            {% if cart_items %}
+                                              {% for item in cart_items %}
                                             <li>
-                                                <div class="cart-item-image"><img src="{% static "main/assets/img/ipad.jpg" %}" alt="" /></div>
+                                                <div class="cart-item-image"><img src="{{item.product.image.url}}" alt="{{item.product.name}}" /></div>
                                                 <div class="cart-item-info">
-                                                    <h4>iPad Pro Wi-Fi 128GB - Silver</h4>
-                                                    <p class="price">$699.00</p>
+                                                    <h4>{{item.product.name}}</h4>
+                                                    <p class="price">{{item.item_total}}</p>
                                                 </div>
                                                 <div class="cart-item-close">
-                                                    <a href="#" data-toggle="tooltip" data-title="Remove">&times;</a>
+                                                    <form method="POST" action="{% url "cart_delete" item.id %}">
+                                                        {% csrf_token %}
+                                                        <button type="submit" data-toggle="tooltip" data-title="Remove" style="border:none;background:none;">&times;</button>
+                                                    </form>
                                                 </div>
                                             </li>
-                                            <li>
-                                                <div class="cart-item-image"><img src="{% static "main/assets/img/imac.jpg" %}" alt="" /></div>
-                                                <div class="cart-item-info">
-                                                    <h4>21.5-inch iMac</h4>
-                                                    <p class="price">$1299.00</p>
-                                                </div>
-                                                <div class="cart-item-close">
-                                                    <a href="#" data-toggle="tooltip" data-title="Remove">&times;</a>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="cart-item-image"><img src="{% static "main/assets/img/iphone.png" %}" alt="" /></div>
-                                                <div class="cart-item-info">
-                                                    <h4>iPhone 6s 16GB - Silver</h4>
-                                                    <p class="price">$649.00</p>
-                                                </div>
-                                                <div class="cart-item-close">
-                                                    <a href="#" data-toggle="tooltip" data-title="Remove">&times;</a>
-                                                </div>
-                                            </li>
+                                            {% endfor %}
+                                          {% else %}
+                                           <li>No items in cart</li>
+                                           {% endif %}
                                         </ul>
-                                    </div>
-                                    <div class="cart-footer">
+                                     </div>
+                                            
+                                     <div class="cart-footer">
                                         <div class="row row-space-10">
                                             <div class="col-xs-6">
-                                                <a href="checkout_cart.html" class="btn btn-default btn-block">View Cart</a>
+                                                <a href="{% url "cart_detail" %}" class="btn btn-default btn-block">View Cart</a>
                                             </div>
                                             <div class="col-xs-6">
-                                                <a href="checkout_cart.html" class="btn btn-inverse btn-block">Checkout</a>
+                                                <a href="{% url "checkout_info" %}" class="btn btn-inverse btn-block">Checkout</a>
                                             </div>
                                         </div>
                                     </div>

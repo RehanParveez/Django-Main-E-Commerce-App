@@ -75,5 +75,21 @@ class CheckoutPaymentView(View):
         return redirect('checkout_complete')
     
     
-class CheckoutCompleteView(TemplateView):
+class CheckoutCompleteView(View):
     template_name = 'orders/checkout_complete.html'
+    
+    def get(self, request):
+        order_id = request.session.get('order_id')
+        
+        if not order_id:
+            return redirect('cart_detail')
+        order = get_object_or_404(Order, id=order_id)
+        
+        context = {
+            'order': order,
+            'shipping': order.shipping_address,
+        }
+        # deleting the session after success
+        del request.session['order_id']
+        return render(request, self.template_name, context)
+        
