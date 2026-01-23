@@ -1,0 +1,23 @@
+{% extends "main/parent.html" %}
+{% block content %}
+
+<h2>login</h2>
+<form method="post">
+    {% csrf_token %}
+    {{form.non_field_errors}}
+    <div>
+        {{form.username.label_tag}}
+        {{form.username}}
+    </div>
+
+    <div>
+        {{form.password.label_tag}}
+        {{form.password}}
+    </div>
+    <button type="submit">login</button>
+</form>
+
+<p> <a href="{% url 'password_reset' %}">forgot password</a> </p><br>
+<p>dont have an account <a href="{% url 'register' %}">register</a></p>
+
+{% endblock %}

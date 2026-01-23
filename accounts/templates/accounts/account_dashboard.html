@@ -1,0 +1,13 @@
+{% extends "main/parent.html" %}
+{% block content %}
+
+<h2>my account</h2>
+<p>{{request.user.username}}</p>
+
+<ul>
+    <li> <a href="{% url 'profile' %}">edit profile</a></li>
+    <li> <a href="{% url 'password_change' %}">change password</a></li>
+    <li> <a href="{% url 'logout' %}">logout</a></li>
+</ul>
+
+{% endblock %}

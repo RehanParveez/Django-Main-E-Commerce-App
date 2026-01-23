@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import CreateView, TemplateView, View
 from main.models import ContactUs
-from products.models import Category, SubCategory, Products
+from products.models import Category, Products
 from django.urls import reverse_lazy
 # Create your views here.
 
