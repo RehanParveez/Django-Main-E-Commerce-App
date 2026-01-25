@@ -1,0 +1,17 @@
+{% extends 'main/parent.html' %}
+
+{% block content %}
+<h2>Order Details {{order.order_number}}</h2>
+<p>Status: {{order.status }}</p>
+<p>Total: {{order.total_amount}}</p>
+<p>Placed on: {{order.created_at|date:"d M Y H:i"}}</p>
+
+<h4>Items</h4>
+<ul>
+    {% for item in order.items.all %} 
+        <li>{{item.product.name}} {{item.quantity}} {{item.total_price}}</li>
+    {% empty %}
+        <li>this order is empty</li>
+    {% endfor %}
+</ul>
+{% endblock %}

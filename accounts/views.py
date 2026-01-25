@@ -5,7 +5,8 @@ from django.contrib.auth import login
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from accounts.forms import UserForm, ProfileForm
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
+from orders.models import Order
 
 # Create your views here.
 class RegisterView(View):
@@ -30,7 +31,12 @@ class ProfileView(LoginRequiredMixin, View):
     
     def get(self, request):
         userform = UserForm(instance=request.user)
-        profileform = ProfileForm(request.POST, instance=request.user.profile)
+        profileform = ProfileForm(instance=request.user.profile)
+        return render(request, self.template_name, {'userform': userform, 'profileform': profileform})
+      
+    def post(self, request):
+        userform = UserForm(instance=request.user)
+        profileform = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
         
         if userform.is_valid() and profileform.is_valid():
             userform.save()
@@ -42,3 +48,17 @@ class ProfileView(LoginRequiredMixin, View):
         
 class AccountDashboardView(LoginRequiredMixin, TemplateView):
     template_name = 'accounts/account.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user'] = self.request.user
+        context['profile'] = self.request.user.profile
+        return context
+    
+class OrderHistoryView(LoginRequiredMixin, ListView):
+    template_name = 'accounts/order_history.html'
+    context_object_name = 'orders'
+
+    def get_queryset(self):
+        return Order.objects.filter(user=self.request.user).order_by('-created_at')
+    

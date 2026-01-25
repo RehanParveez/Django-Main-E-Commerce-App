@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import TemplateView, View
+from django.views.generic import View, DetailView
 from orders.forms import ShippingAddressForm
 from orders.models import Order, Payment
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 
@@ -92,4 +93,12 @@ class CheckoutCompleteView(View):
         # deleting the session after success
         del request.session['order_id']
         return render(request, self.template_name, context)
+    
+class OrderDetailView(LoginRequiredMixin, DetailView):
+    model = Order
+    template_name = 'orders/order_detail.html'
+    context_object_name = 'order'
+
+    def get_queryset(self):
+        return Order.objects.filter(user=self.request.user)
         

@@ -1,0 +1,42 @@
+{% extends 'main/parent.html' %}  
+
+{% block sidebar %}
+<h4><i class="fa fa-universal-access fa-fw text-muted"></i> Account Settings</h4>
+<ul class="nav nav-list">
+    <li><a href="{% url 'profile' %}">Edit Profile</a></li>
+    <li><a href="{% url 'password_change' %}">Change Password</a></li>
+    <li><a href="{% url 'logout' %}">Logout</a></li>
+</ul>
+{% endblock %}
+
+{% block content %}
+<h2>Order History</h2>
+
+{% if orders %}
+    <table>
+        <thead>
+            <tr>
+                <th>Order Number</th>
+                <th>Date</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td>{{ order.order_number }}</td>
+                <td>{{ order.created_at|date:"d M Y H:i" }}</td>
+                <td>${{ order.total_amount }}</td>
+                <td>{{ order.status }}</td>
+                <td><a href="{% url 'order_detail' order.id %}">View</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>no orders yet</p>
+{% endif %}
+
+{% endblock %}

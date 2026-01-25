@@ -1,5 +1,5 @@
 from django.urls import path
-from accounts.views import RegisterView, ProfileView, AccountDashboardView
+from accounts.views import RegisterView, ProfileView, AccountDashboardView, OrderHistoryView
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
@@ -18,4 +18,5 @@ urlpatterns = [
     path("passwordchangedone/", auth_views.PasswordChangeDoneView.as_view(template_name="accounts/password_change_done.html"), name="password_change_done"),
     
     path('accountdashboard/', AccountDashboardView.as_view(), name='account_dashboard'), 
+     path('ordershistory/', OrderHistoryView.as_view(), name='order_history'),
 ]
