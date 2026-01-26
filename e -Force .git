@@ -1,0 +1,11 @@
+[33mcommit 73a2f2372a0d707e8584889fdce4cef5425646a0[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: Rehan Parveez <rehanparveez@gmail.com>
+Date:   Mon Jan 26 20:03:56 2026 +0500
+
+    Remove .env from tracking
+
+[33mcommit 7321f72b7c2e177e80073abd9141769b036f69d7[m
+Author: Rehan Parveez <rehanparveez@gmail.com>
+Date:   Mon Jan 26 19:53:26 2026 +0500
+
+    sir today i improved the checkout flow in the orders app. firstly I updated the checkout info view, checkout payment view, and checkoutcomplete views. like in checkout info view, i fixed the order creation part so now it reuses an existing order in the given session instead of making the duplicates and also added a simple unique order number to prevent database errors like a unique constraint error was occurring so fixed that. next in the checkout payment view, made changes like users can access the payment even if session is refreshed. further in checkout complete view, made the changes like to show the completed order and also handling the session removing properly, so now the user can see the order even after checkout like without being redirected to the cart_detail server. further then also worked on the orders app related to payment functionality. today i created the payments checkout view which is about redirecting users to stripe method checkout for paying their orders and also it ensures only the person wo ordered can pay. further, then creating a keys.py file in orders app to store the stripe secret key and also linked it in the views like after doing this now checkout session can access the key. also prepared the .env file with stripe public and secret keys and webhook secret key is not added will add it later like after generating it from the stripe method dashboard.
