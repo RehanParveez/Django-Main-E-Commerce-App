@@ -8,8 +8,8 @@
             <div class="container">
                 <!-- BEGIN checkout -->
                 <div class="checkout">
-                    <form action="{% url "checkout_payment" %}" method="POST" name="form_payment" class="form-horizontal">
-                        {% csrf_token %}
+                    <form action="{% url 'payment_checkout' order.id %}" method="POST" name="form_payment" class="form-horizontal">
+                     {% csrf_token %}
                         <!-- BEGIN checkout-header -->
                         <div class="checkout-header">
                             <!-- BEGIN row -->
@@ -71,7 +71,7 @@
                         </div>
                         <!-- END checkout-header -->
 
-                        <!-- BEGIN checkout-body -->
+                        {% comment %} <!-- BEGIN checkout-body -->
                         <div class="checkout-body">
 							<h4 class="checkout-title">Choose a payment method</h4>
                             <div class="form-group">
@@ -86,7 +86,7 @@
                                 <div class="col-md-4">
                                     <input type="text" class="form-control required" name="cardnumber" value="{{request.POST.cardnumber|default:''}}" />
                                 </div>
-                            </div>
+                            </div> {% endcomment %}
 
                             <div class="form-group">
                                 <label class="col-sm-4 control-label">Payment Types <span class="text-danger">*</span></label>
@@ -113,34 +113,14 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="col-md-4 control-label">Expiration Date <span class="text-danger">*</span></label>
-                                <div class="col-md-8">
-                                    <div class="width-100">
-                                        <div class="row row-space-0">
-                                            <div class="col-xs-5">
-                                                <input type="text" name="mm" placeholder="MM" class="form-control required p-l-5 p-r-5 text-center" value="{{request.POST.mm|default:''}}" />
-                                            </div>
-                                            <div class="col-xs-2 text-center">
-                                                <div class="text-muted p-t-5 m-t-2">/</div>
-                                            </div>
-                                            <div class="col-xs-5">
-                                                <input type="text" name="yy" placeholder="YY" class="form-control required p-l-5 p-r-5 text-center" value="{{request.POST.yy|default:''}}" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">CSC <span class="text-danger">*</span></label>
-                                <div class="col-md-8">
-                                    <div class="width-100 pull-left m-r-10">
-                                        <input type="text" name="number" class="form-control required p-l-5 p-r-5 text-center" value="{{request.POST.csc|default:'' }}" />
-                                    </div>
-                                    <a href="#" class="text-muted f-s-12 pull-left m-t-5 p-t-2"><i class="fa fa-question-circle"></i> What's this?</a>
-                                </div>
-                            </div>
+                        <label class="col-md-4 control-label">Card Details <span class="text-danger">*</span></label>
+                        <div class="col-md-8">
+                            <div id="card-element" class="form-control"></div>
+                            <div id="card-errors" role="alert" class="text-danger m-t-5"></div>
                         </div>
-                        <!-- END checkout-body -->
+                    </div>
+                </div>
+            <!-- END checkout-body -->
 
                         <!-- BEGIN checkout-footer -->
                         <div class="checkout-footer">
@@ -229,14 +209,38 @@
         </div>
         <!-- END #policy -->
 
-        <script>
-    // When a payment type is clicked, update hidden input
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    const stripe = Stripe('{{ stripe_public_key }}');
+    const elements = stripe.elements();
+    const card = elements.create('card');
+    card.mount('#card-element');
+
+    const form = document.querySelector('form[name="form_payment"]');
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const { error, paymentIntent } = await stripe.confirmCardPayment('{{ client_secret }}', {
+            payment_method: {
+                card: card,
+                billing_details: {
+                    name: document.querySelector('input[name="cardholder"]')?.value || '{{ request.user.username }}'
+                }
+            }
+        });
+
+        if (error) {
+            document.getElementById('card-errors').textContent = error.message;
+        } else if (paymentIntent.status === 'succeeded') {
+            window.location.href = "{% url 'checkout_complete' %}";
+        }
+    });
+
+    // Payment type selection UI
     document.querySelectorAll('[data-click="set-payment"]').forEach(el => {
         el.addEventListener('click', function(e){
-            e.preventDefault();  // this prevents the <a> from navigating
-            // setting the hidden input value
+            e.preventDefault();
             document.querySelector('[name="payment_method"]').value = this.getAttribute('data-value');
-            // optionally mark active class
             document.querySelectorAll('.payment-type li').forEach(li => li.classList.remove('active'));
             this.parentElement.classList.add('active');
         });

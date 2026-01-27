@@ -63,8 +63,3 @@ class CartItemDeleteView(View):
         item = get_object_or_404(CartItem, id=item_id, cart=cart)
         item.delete()
         return redirect("cart_detail")
-
-
-class CheckoutInfoView(TemplateView):
-    template_name = 'cart/checkout_cart.html'  # this view is just for rendering the checkout_info anchor tag given inside the checkout_cart.html will fix it later while working on the orders app and handling checkout_info part
-    

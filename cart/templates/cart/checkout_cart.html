@@ -146,9 +146,8 @@
 
                             <a href="{% url "product_list" %}"  class="btn btn-white btn-lg">Continue Shopping</a>
                             {% if cart.cart_items.exists %}
-                            <a href="#" class="btn btn-inverse btn-lg p-l-30 p-r-30"> Checkout({{cart.final_total|default:"0.00"}})
-                         </a>
-                         {% else %}
+                             <a href="{% url 'checkout_info' %}" class="btn btn-inverse btn-lg p-l-30 p-r-30"> Checkout ({{ cart.final_total|default:"0.00" }})</a>
+                            {% else %}
                             <button class="btn btn-inverse btn-lg p-l-30 p-r-30" disabled>Checkout</button>
                             {% endif %}
                         </div>

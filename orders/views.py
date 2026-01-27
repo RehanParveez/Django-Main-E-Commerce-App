@@ -1,59 +1,108 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View, DetailView
 from orders.forms import ShippingAddressForm
-from orders.models import Order, Payment
+from cart.views import get_cart
+from orders.models import Order, ShippingAddress, Payment
 from django.contrib.auth.mixins import LoginRequiredMixin
 import time
 import stripe
 from orders.keys import stripe
-from django.urls import reverse
 from django.conf import settings
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+from django.http import HttpResponse
 
 # Create your views here.
 
-class CheckoutInfoView(LoginRequiredMixin, View): 
+class CheckoutInfoView(LoginRequiredMixin, View):
     template_name = 'orders/checkout_info.html'
-    
+
     def get(self, request):
         form = ShippingAddressForm()
         return render(request, self.template_name, {'form': form})
-    
+
     def post(self, request):
         form = ShippingAddressForm(request.POST)
-        
         if form.is_valid():
-            existing_order_id = request.session.get('order_id')
-            if existing_order_id:
-                order = Order.objects.get(id=existing_order_id)
-            else:
-                # Creating a new order with simple unique order_number
-               order_number = f"ORD{int(time.time() * 1000)}"
-               order = Order.objects.create(user=request.user if request.user.is_authenticated else None,
-                  subtotal=0, shipping_cost=0, total=0, order_number=order_number)
-               # storing order id in session
-               request.session['order_id'] = order.id
-            shipping = form.save(commit=False)
-            shipping.order = order
+            order_id = request.session.get('order_id')
+            order = None
+
+            if order_id:
+                try:
+                    order = Order.objects.get(id=order_id, user=request.user)
+                except Order.DoesNotExist:
+                    order = None
+
+            # logic If no session order is present then we fetch the latest unpaid order
+            if not order:
+                order = Order.objects.filter(user=request.user, payment_status='unpaid').order_by('-created_at').first()
+
+            # and If still no order then we create new order
+            if not order:
+                order_number = f"ORD{int(time.time() * 1000)}"
+                order = Order.objects.create(
+                    user=request.user,
+                    subtotal=0,
+                    shipping_cost=0,
+                    total=0,
+                    order_number=order_number
+                )
+
+            # Saving order in session
+            request.session['order_id'] = order.id
+
+            # Creating shipping address only if its not existing
+            shipping, created = ShippingAddress.objects.get_or_create(order=order)
+            for field, value in form.cleaned_data.items():
+                setattr(shipping, field, value)
             shipping.save()
+            
+            if not order.order_items.exists():
+                return redirect('cart_detail')
+
             return redirect('checkout_payment')
-       
-        return render(request, self.template_name, {'form':form})
-    
-    
+        return render(request, self.template_name, {'form': form})
+
+
 class CheckoutPaymentView(LoginRequiredMixin, View):
     login_url = 'login'
     template_name = 'orders/checkout_payment.html'
 
     def get(self, request):
-        # Trying to get order from session first
         order_id = request.session.get('order_id')
-        if order_id:
-            order = get_object_or_404(Order, id=order_id)
-        else:
-            # allowing the user to access the last order if session is expired
-            order = Order.objects.filter(user=request.user).order_by('-created_at').first()
-            if not order:
-                return redirect('cart_detail')
+        if not order_id:
+            return redirect('cart_detail')
+
+        try:
+            order = Order.objects.get(id=order_id, user=request.user)
+        except Order.DoesNotExist:
+            return redirect('cart_detail')
+
+        # Ensuring that order has items
+        order_items = order.order_items.all()
+        if not order_items.exists():
+            return redirect('cart_detail')
+
+        # Calculating values
+        subtotal = sum([item.total_price for item in order_items])
+        shipping_cost = 0
+        total = subtotal + shipping_cost
+
+        order.subtotal = subtotal
+        order.shipping_cost = shipping_cost
+        order.total = total
+        order.save()
+
+        # minimum amount logic
+        stripe_client_secret = None
+        if total >= 1:
+            intent = stripe.PaymentIntent.create(
+                amount=int(total * 100),  # in cents
+                currency='pkr',
+                metadata={'order_id': order.id, 'user_id': request.user.id},
+                automatic_payment_methods={'enabled': True},
+            )
+            stripe_client_secret = intent.client_secret
 
         faqs = [
             {'question': 'Is my Credit Card / Debit Card details protected?',
@@ -70,33 +119,13 @@ class CheckoutPaymentView(LoginRequiredMixin, View):
 
         context = {
             'order': order,
-            'shipping': order.shipping_address,
+            'shipping': getattr(order, 'shipping_address', None),
             'payment_methods': Payment.PAYMENT_METHODS,
-            'faqs': faqs
+            'faqs': faqs,
+            'stripe_public_key': settings.STRIPE_PUBLIC_KEY,
+            'client_secret': stripe_client_secret,
         }
-
         return render(request, self.template_name, context)
-
-    def post(self, request):
-        order_id = request.session.get('order_id')
-        if not order_id:
-            return redirect('cart_detail')
-        
-        order = get_object_or_404(Order, id=order_id)
-        method = request.POST.get('payment_method') or 'Card'
-
-        # Creating or updating payment
-        payment, created = Payment.objects.update_or_create(
-            order=order,
-            defaults={'method': method, 'amount': order.total, 'status': 'success'}
-        )
-
-        # Updating order payment status
-        order.payment_status = 'paid'
-        order.save()
-
-        return redirect('checkout_complete')
-    
     
 class CheckoutCompleteView(LoginRequiredMixin, View):
     template_name = 'orders/checkout_complete.html'
@@ -122,27 +151,44 @@ class OrderDetailView(LoginRequiredMixin, DetailView):
     context_object_name = 'order'
 
     def get_queryset(self):
-        return Order.objects.filter(user=self.request.user)
-        
+        return Order.objects.filter(user=self.request.user)  
 
-class PaymentCheckoutView(LoginRequiredMixin, View):
-    """Redirecting user to Stripe checkout for a given order."""
-    def get(self, request, order_id):
-        order = get_object_or_404(Order, pk=order_id, user=request.user)
+@method_decorator(csrf_exempt, name="dispatch")
+class StripeWebhookView(View):
+    def post(self, request, *args, **kwargs):
+        payload = request.body
+        sig_header = request.META.get("HTTP_STRIPE_SIGNATURE")
 
-        if order.payment_status == 'paid':
-            return redirect('order_detail', pk=order.pk)
+        try:
+            event = stripe.Webhook.construct_event(
+                payload=payload, sig_header=sig_header, secret=settings.STRIPE_WEBHOOK_SECRET
+            )
+        except stripe.error.SignatureVerificationError:
+            return HttpResponse(status=400)
+        except ValueError:
+            return HttpResponse(status=400)
 
-        # Creating Stripe checkout session
-        session = stripe.checkout.Session.create( payment_method_types=['card'],
-            line_items=[{'price_data': {
-                    'currency': 'pkr', 'unit_amount': int(order.total * 100),  # the Stripe expects amount in cents
-                    'product_data': {'name': f'Order {order.pk}'},
-                    }, 'quantity': 1}],
-            mode='payment', metadata={'order_id': order.pk},
-            success_url=request.build_absolute_uri(
-                reverse('payments_done', args=[order.pk])),
-            cancel_url=request.build_absolute_uri(
-                reverse('payments_cancel', args=[order.pk])),
-        )
-        return redirect(session.url)
+        # PaymentIntent succeeded
+        if event["type"] == "payment_intent.succeeded":
+            intent = event["data"]["object"]
+            order_id = intent["metadata"].get("order_id")
+
+            try:
+                order = Order.objects.get(id=order_id)
+            except Order.DoesNotExist:
+                return HttpResponse(status=404)
+
+            # Idempotency check
+            if order.payment_status != "paid":
+                order.payment_status = "paid"
+                order.status = "processing"
+                order.transaction_reference = intent.get("id")
+                order.save()
+
+                Payment.objects.get_or_create(
+                    order=order,
+                    defaults={"method": "stripe", "amount": order.total, "status": "success"},
+                )
+        return HttpResponse(status=200)
+
+
