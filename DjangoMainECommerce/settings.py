@@ -75,6 +75,7 @@ TEMPLATES = [
                 'products.context_processors.all_categories',
                 'products.context_processors.all_subcategories',
                 'products.context_processors.cart_context',
+                'products.context_processors.popular_mobile_products',
             ],
         },
     },

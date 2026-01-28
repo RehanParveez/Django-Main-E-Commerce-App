@@ -8,7 +8,7 @@
             <div class="container">
                 <!-- BEGIN checkout -->
                 <div class="checkout">
-                    <form action="{% url 'payment_checkout' order.id %}" method="POST" name="form_payment" class="form-horizontal">
+                    <form action="{% url 'checkout_payment' %}" method="POST" name="form_payment" class="form-horizontal">
                      {% csrf_token %}
                         <!-- BEGIN checkout-header -->
                         <div class="checkout-header">

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from products.models import Products
+from decimal import Decimal
 
 # Create your models here.
 class Order(models.Model):
@@ -32,6 +33,31 @@ class Order(models.Model):
     
     def __str__(self):
         return f"{self.order_number or self.id}"
+    
+    def populate_from_cart(self, cart):
+        """
+        copying the cart items into the order items
+        """
+        if self.order_items.exists():
+            return 
+        for cart_item in cart.cart_items.all():
+            OrderItem.objects.create(
+                order=self,
+                product=cart_item.product,
+                quantity=cart_item.quantity,
+                unit_price=cart_item.price,
+                total_price=cart_item.price * cart_item.quantity,
+            )
+        self.recalculate_totals()
+
+    def recalculate_totals(self):
+        subtotal = sum(
+            (item.total_price for item in self.order_items.all()),
+            Decimal('0.00')
+        )
+        self.subtotal = subtotal
+        self.total = subtotal + self.shipping_cost
+        self.save(update_fields=["subtotal", "total"])
     
     
 class OrderItem(models.Model):
