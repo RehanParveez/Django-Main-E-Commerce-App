@@ -1,11 +1,11 @@
 from django.urls import path
-from accounts.views import RegisterView, ProfileView, AccountDashboardView, OrderHistoryView
+from accounts.views import LoginView, LogoutView, RegisterView, ProfileView, AccountDashboardView, OrderHistoryView
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('register/', RegisterView.as_view(), name='register'),
-    path('login/', auth_views.LoginView.as_view(template_name='accounts/login.html'), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('login/', LoginView.as_view(), name='login'),
+    path('logout/', LogoutView.as_view(), name='logout'),
     path('profile/', ProfileView.as_view(), name='profile'),
     
     path('passwordreset/', auth_views.PasswordResetView.as_view(template_name='accounts/password_reset.html', 

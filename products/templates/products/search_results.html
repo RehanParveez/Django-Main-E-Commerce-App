@@ -39,10 +39,10 @@
                                 <div class="col-md-6 text-right">
                                     <ul class="sort-list">
                                         <li class="text"><i class="fa fa-filter"></i> Sort by:</li>
-                                        <li class="active"><a href="#">Popular</a></li>
-                                        <li><a href="#">New Arrival</a></li>
-                                        <li><a href="#">Discount</a></li>
-                                        <li><a href="#">Price</a></li>
+                                        <a href="?q={{request.GET.q|default:'' }}&category={{request.GET.category|default:'' }}&price_from={{request.GET.price_from|default:'' }}&price_to={{request.GET.price_to|default:'' }}&sort=price">Popular</a></li>
+                                        <a href="?q={{request.GET.q|default:'' }}&category={{request.GET.category|default:'' }}&price_from={{request.GET.price_from|default:'' }}&price_to={{request.GET.price_to|default:'' }}&sort=price">New Arrival</a></li>
+                                        <a href="?q={{request.GET.q|default:'' }}&category={{request.GET.category|default:'' }}&price_from={{request.GET.price_from|default:'' }}&price_to={{request.GET.price_to|default:'' }}&sort=price">Discount</a></li>
+                                        <a href="?q={{request.GET.q|default:'' }}&category={{request.GET.category|default:'' }}&price_from={{request.GET.price_from|default:'' }}&price_to={{request.GET.price_to|default:'' }}&sort=price">Price</a></li>
                                     </ul>
                                 </div>
                                 <!-- END col-6 -->
@@ -75,6 +75,7 @@
                                         {% if product.description %}
                                         <p class="item-desc">{{product.description|truncatewords:12}}</p>
                                         <div class="item-price">{{product.price}}</div>
+                                        {% endif %}
                                         {% if product.old_price %}
                                         <div class="item-discount-price">{{product.old_price}}</div>
                                         {% endif %}
@@ -82,32 +83,38 @@
                                 </div>
                                 {% endfor %}
                                 </div>
+                            </div>
 
                         <!-- BEGIN pagination -->
-                        <div class="text-center">
-                            <ul class="pagination m-t-0">
-                                {% if page_obj.has_previous %}
-                                 <li><a href="?q={{request.GET.q|default:''}}&category={{request.GET.category|default:''}}&price_from={{request.GET.price_from|default:''}}&price_to={{request.GET.price_to|default:''}}&page={{page_obj.previous_page_number}}">Previous</a></li>
-                                {% else %}
-                                 <li class="disabled"><a href="javascript:;">Previous</a></li>
-                                {% endif %}
+                          <div class="text-center">
+                           <ul class="pagination m-t-0">
+                             {% if page_obj.has_previous %}
+                              <li>
+                           <a href="?q={{ request.GET.q|default:'' }}&category={{request.GET.category|default:'' }}&price_from={{request.GET.price_from|default:'' }}&price_to={{ request.GET.price_to|default:'' }} &page={{page_obj.previous_page_number }}"> Previous</a></li>
+                           {% else %}
+                           <li class="disabled"><a href="javascript:;">Previous</a></li>
+                           {% endif %}
 
-                                {% for page in paginator.page_range %}
-                                 {% if page == page_obj.number %}
-                                 <li class="active"><a href="javascript:;">{{ page }}</a></li>
-                                {% else %}
-                                <li><a href="?q={{ query }}&page={{ page }}">{{ page }}</a></li>
-                                {% endif %}
-                                {% endfor %}
+                           {# Page numbers #}
+                           {% for page in paginator.page_range %}
+                            {% if page == page_obj.number %}
+                            <li class="active"><a href="javascript:;">{{page}}</a></li>
+                            {% else %}
+                            <li>
+                             <a href="?q={{request.GET.q|default:'' }}&category={{request.GET.category|default:'' }}&price_from={{request.GET.price_from|default:'' }}&price_to={{request.GET.price_to|default:'' }}&page={{page}}">{{page}}</a></li>
+                             {% endif %}
+                             {% endfor %}
 
-                                {% if page_obj.has_next %}
-                                 <li><a href="?q={{request.GET.q|default:''}}&category={{ request.GET.category|default:''}}&price_from={{request.GET.price_from|default:''}}&price_to={{request.GET.price_to|default:''}}&page={{page}}">{{page}}</a></li>
-                                {% else %}
-                                 <li class="disabled"><a href="javascript:;">Next</a></li>
+                              {% if page_obj.has_next %}
+                               <li>
+                               <a href="?q={{request.GET.q|default:'' }}&category={{request.GET.category|default:'' }}&price_from={{request.GET.price_from|default:'' }} &price_to={{request.GET.price_to|default:'' }}&page={{page_obj.next_page_number}}">Next</a></li>
+                               {% else %}
+                               <li class="disabled"><a href="javascript:;">Next</a></li>
                                 {% endif %}
-                            </ul>
-                       </div>
-                   <!-- END pagination -->
+                              </ul>
+                            </div>
+                         <!-- END pagination -->
+
                 
                      <!-- BEGIN search-sidebar -->
                     <div class="search-sidebar">

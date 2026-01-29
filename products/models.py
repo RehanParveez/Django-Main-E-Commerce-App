@@ -1,8 +1,11 @@
 from django.db import models
 from DjangoMainECommerce.models import BaseModel
 from django.utils.text import slugify
+from django.db.models import Avg
 from django.core.exceptions import ValidationError
+from django.core.validators import MinValueValidator, MaxValueValidator
 from decimal import Decimal
+
 
 # Create your models here.
 class Products(BaseModel):
@@ -20,7 +23,6 @@ class Products(BaseModel):
     delivery_info = models.CharField(max_length=170, blank=True, null=True)
     category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True, blank=True, related_name='products')
     subcategory = models.ForeignKey('SubCategory', on_delete=models.SET_NULL, blank=True, null=True, related_name='products')
-    
     
     def __str__(self):
         return self.name
@@ -60,29 +62,22 @@ class Products(BaseModel):
         
     @property
     def average_rating(self):
-        reviews = self.reviews.all()
-        if not reviews:
-            return 0
-        total = 0
-        for r in reviews:
-            total += r.rating
-        return round(total / len(reviews), 1)
+        avg = self.reviews.aggregate(avg=Avg('rating'))['avg']
+        return round(avg, 1) if avg else 0
 
     @property
     def total_rating(self):
-        return len(self.reviews.all())
+        return self.reviews.count()
         
     @property
     def in_stock(self):
         return self.quantity > 0
-    
     
 class ProductImage(BaseModel):
     product = models.ForeignKey('Products', on_delete=models.CASCADE, related_name='images')
     image = models.ImageField(upload_to='products/')
     is_main = models.BooleanField(default=False)
     
-        
 class ProductFeature(models.Model):
     product = models.ForeignKey('Products', on_delete=models.CASCADE, related_name='features')
     text = models.CharField(max_length=175)
@@ -105,7 +100,7 @@ class ProductReview(BaseModel):
     name = models.CharField(max_length=45)
     title = models.CharField(max_length=45)
     review = models.TextField()
-    rating = models.PositiveIntegerField(default=1)
+    rating = models.DecimalField(max_digits=2, decimal_places=1, validators=[MinValueValidator(1), MaxValueValidator(5)])
     
     def __str__(self):
         return f'{self.product.name} {self.title} {self.rating}'
@@ -114,7 +109,6 @@ class ProductReview(BaseModel):
         if self.rating < 1 or self.rating > 5:
             raise ValidationError('rating b/w 1 to 5 stars allowed') 
         
-       
 class Category(models.Model):
     name = models.CharField(max_length=40)
     description = models.TextField(blank=True, null=True)
@@ -127,7 +121,6 @@ class Category(models.Model):
     
     def __str__(self):
         return self.name
-    
     
 class SubCategory(models.Model):
     category = models.ForeignKey('Category', on_delete=models.CASCADE, related_name='subcategories')

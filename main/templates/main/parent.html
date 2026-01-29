@@ -117,6 +117,7 @@
 
                                             </div>
                                             <!-- END dropdown-menu-sidebar -->
+
                                             <!-- BEGIN dropdown-menu-content -->
                                             <div class="dropdown-menu-content">
                                                  <h4 class="title">Shop By Popular Phone</h4>
@@ -224,7 +225,7 @@
                                         <li><a href="{% url "checkout_info" %}">Checkout Shipping</a></li>
                                         <li><a href="{% url "checkout_payment" %}">Checkout Payment</a></li>
                                         <li><a href="{% url "checkout_complete" %}">Checkout Complete</a></li>
-                                        <li><a href="my_account.html">My Account</a></li>
+                                        <li><a href="{% url "account_dashboard" %}">My Account</a></li>
                                         <li><a href="{% url "contact_us" %}">Contact Us</a></li>
                                         <li><a href="{% url "about_us" %}">About Us</a></li>
                                         <li><a href="{% url "faq" %}">FAQ</a></li>
@@ -303,7 +304,7 @@
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="my_account.html">
+                                <a href="{% url "account_dashboard" %}">
                                     <img src="{% static "main/assets/img/user-1.jpg" %}" class="user-img" alt="" /> 
                                     <span class="hidden-md hidden-sm hidden-xs">Login / Register</span>
                                 </a>

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth import login, logout
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from accounts.forms import UserForm, ProfileForm
@@ -9,6 +9,39 @@ from django.views.generic import TemplateView, ListView
 from orders.models import Order
 
 # Create your views here.
+
+class LoginView(View):
+    template_name = 'accounts/login.html'
+
+    def get(self, request):
+        form = AuthenticationForm()
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        form = AuthenticationForm(data=request.POST)
+        
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            messages.success(request, f'Welcome {user.username}')
+            return redirect('profile')
+        messages.error(request, 'email or password is wrong')
+        return render(request, self.template_name, {'form': form})
+
+
+class LogoutView(LoginRequiredMixin, View):
+    def get(self, request):
+        if request.user.is_authenticated:
+            logout(request)
+            messages.info(request, 'logged out')
+        return redirect('login')
+
+    def post(self, request):
+        if request.user.is_authenticated:
+            logout(request)
+            messages.info(request, 'logged out.')
+        return redirect('login')
+
 class RegisterView(View):
     template_name = 'accounts/register.html'
     

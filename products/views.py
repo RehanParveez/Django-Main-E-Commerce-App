@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView, View
 from products.models import Products, Category, SubCategory, ProductReview
 from django.db.models import Count, Q
+from django.contrib import messages
+from decimal import Decimal
 # Create your views here.
 
 class ProductListView(ListView):
@@ -39,7 +41,6 @@ class ProductListView(ListView):
         context['price_to'] = self.request.GET.get('price_to', '')
         return context
 
-
 class ProductDetailView(DetailView):  
     model = Products
     template_name = 'products/product_detail.html'
@@ -56,7 +57,6 @@ class ProductDetailView(DetailView):
             pk=product.pk)[:6]
         return context
 
-
 class ProductSearchView(ListView):  
     model = Products
     template_name = 'products/search_results.html'
@@ -68,7 +68,8 @@ class ProductSearchView(ListView):
         price_from = self.request.GET.get('price_from')
         price_to = self.request.GET.get('price_to')
         category_id = self.request.GET.get('category')
-        
+        sort = self.request.GET.get("sort")
+
         products = Products.objects.filter(is_active=True, quantity__gt=0).select_related(
             'category', 'subcategory').prefetch_related('images').distinct()
         if query:
@@ -77,6 +78,7 @@ class ProductSearchView(ListView):
                 Q(description__icontains=query) |
                 Q(category__name__icontains=query) |
                 Q(subcategory__name__icontains=query))
+            
         if price_from:
             products = products.filter(price__gte=price_from)
         if price_to:
@@ -85,6 +87,15 @@ class ProductSearchView(ListView):
         # filtering category
         if category_id:
             products = products.filter(category__id=category_id)
+            
+        if sort == "price":
+           products = products.order_by("price")
+        elif sort == "new":
+            products = products.order_by("-created_at")
+        elif sort == "discount":
+            products = products.exclude(old_price__isnull=True).order_by('-old_price')
+        elif sort == "popular":
+            products = products.order_by("-id") 
         return products
 
     def get_context_data(self, **kwargs):
@@ -100,18 +111,26 @@ class ProductSearchView(ListView):
         # total results count
         context['result_count'] = self.get_queryset().count()
         return context
-        
-    
-class ProductReviewView(View): 
-
+          
+class ProductReviewView(View):
     def post(self, request, *args, **kwargs):
         product = get_object_or_404(Products, pk=kwargs.get('pk'))
+        try:
+            rating = Decimal(request.POST.get('rating'))
+        except:
+            messages.error(request, "invalid rating.")
+            return redirect('product_detail', pk=product.pk)
+        # range of rating
+        if rating < 1 or rating > 5:
+            messages.error(request, "rating must be b/w 1 and 5.")
+            return redirect('product_detail', pk=product.pk)
+
+        ProductReview.objects.create(product=product, name=request.POST.get('name'), title=request.POST.get('title'),
+            review=request.POST.get('review'), rating=rating)
         
-        ProductReview.objects.create(product=product, name = request.POST.get('name'), title = request.POST.get('title'),
-        review = request.POST.get('review'), rating = int(request.POST.get('rating', 1)))
+        messages.success(request, "review is submitted")
         return redirect('product_detail', pk=product.pk)
         
-
 class CategoryListView(ListView):
      model = Category
      template_name = 'products/product.html'
@@ -126,7 +145,6 @@ class CategoryListView(ListView):
         context['category'] = self.category
         context['categories'] = Category.objects.filter(is_active=True)
         return context
-     
      
 class SubcategoryListView(ListView): 
     model = SubCategory

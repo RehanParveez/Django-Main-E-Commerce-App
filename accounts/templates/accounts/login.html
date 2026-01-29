@@ -1,5 +1,33 @@
 {% extends "main/parent.html" %}
+
+{% block title %}Login{% endblock %}
+
 {% block content %}
+<h2>Login</h2>
+<form method="POST" action="">
+    {% csrf_token %}
+    {{form.non_field_errors}}
+    <div>
+        {{form.username.label_tag}}<br>
+        {{form.username}}
+        {% for error in form.username.errors %}
+            <p>{{error}}</p>
+        {% endfor %}
+    </div>
+    <div>
+        {{form.password.label_tag}}<br>
+        {{form.password}}
+        {%for error in form.password.errors%}
+            <p>{{error}}</p>
+        {% endfor %}
+    </div>
+    <button type="submit">Login</button>
+</form>
+<p>Dont have an account<a href="{% url 'register' %}">Register</a>
+</p>
+{% endblock %}
+
+{% comment %} {% block content %}
 
 <h2>login</h2>
 <form method="post">
@@ -20,4 +48,4 @@
 <p> <a href="{% url 'password_reset' %}">forgot password</a> </p><br>
 <p>dont have an account <a href="{% url 'register' %}">register</a></p>
 
-{% endblock %}
+{% endblock %} {% endcomment %}

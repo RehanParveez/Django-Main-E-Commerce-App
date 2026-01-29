@@ -1,0 +1,18 @@
+{% extends 'main/parent.html' %}
+
+{% block title %}Logout{% endblock %}
+
+{% block content %}
+<h2>Logout</h2>
+
+{% if user.is_authenticated %}
+<form action="{% url 'logout' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Logout</button>
+</form>
+{% else %}
+<p>if logged out</p>
+<a href="{% url 'login' %}">Login</a>
+{% endif %}
+
+{% endblock %}
