@@ -8,7 +8,7 @@
             <div class="container">
                 <!-- BEGIN checkout -->
                 <div class="checkout">
-                    <form action="{% url "checkout_info" %}" method="POST" name="form_checkout">
+                    <a href="{% url "checkout_info" %}">
                         <!-- BEGIN checkout-header -->
                         <div class="checkout-header">
                             <!-- BEGIN row -->
@@ -125,10 +125,9 @@
 
                         <!-- BEGIN checkout-footer -->
                         <div class="checkout-footer text-center">
-                            <button type="submit" class="btn btn-white btn-lg p-l-30 p-r-30 m-l-10">Manage Orders</button>
+                            <a href="{% url "order_history" %}" class="btn btn-primary">Manage Orders</a>
                         </div>
                         <!-- END checkout-footer -->
-                    </form>
                 </div>
                 <!-- END checkout -->
             </div>

@@ -61,11 +61,6 @@ class Products(BaseModel):
         return None
         
     @property
-    def average_rating(self):
-        avg = self.reviews.aggregate(avg=Avg('rating'))['avg']
-        return round(avg, 1) if avg else 0
-
-    @property
     def total_rating(self):
         return self.reviews.count()
         

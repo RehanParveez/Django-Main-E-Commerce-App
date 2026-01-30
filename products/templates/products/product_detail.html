@@ -287,25 +287,29 @@
                                 </div>
                             </div>
 
-                                <!-- Star rating JS -->
-                                 <script>
-                                  const stars = document.querySelectorAll('.rating-selection i');
-                                   const select = document.querySelector('select[name="rating"]');
+                                <script>
+                                const stars = document.querySelectorAll('.rating-selection i');
+                                const select = document.querySelector('select[name="rating"]');
+                                   stars.forEach(star => {
+                                   star.addEventListener('click', () => {
+                                       const value = parseInt(star.dataset.value);
+                                       select.value = value;
+                                       // reseting all stars
+                                         stars.forEach(s => {
+                                            s.classList.remove('fa-star');
+                                            s.classList.add('fa-star-o');
+                                            });
+                                       // activating selected stars
+                                              stars.forEach(s => {
+                                                if (parseInt(s.dataset.value) <= value) {
+                                                s.classList.remove('fa-star-o');
+                                                s.classList.add('fa-star');
+                                              }
+                                          });
+                                        });
+                                      });
+                                     </script>
 
-                                    stars.forEach(star => {
-                                    star.addEventListener('click', () => {
-                                    const value = star.getAttribute('data-value'); // 1-5
-                                     select.value = value;
-                                     // Optional: update star colors for feedback
-                                     stars.forEach(s => s.classList.remove('fa-star'));
-                                     stars.forEach(s => {
-                                     if (s.getAttribute('data-value') <= value) {
-                                     s.classList.add('fa-star');}
-                                       });
-                                     });
-                                   });
-                              </script>
-                         <!-- END JS -->
                                           
                  <!-- BEGIN similar-product -->
                 <h4 class="m-b-15 m-t-30">You Might Also Like</h4>
